@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+/* SEC:CSS-BASE · Reinicio: quita el margen por defecto del navegador. */
+body{margin:0}
+
+/* SEC:CSS-FONDO · Animaciones del fondo de presentación. ptDrift: rombos que suben · ptBurstA/ptBurstB: onda al pulsar (dos nombres alternados para reiniciar la animación) · ptBob: flotado de los textos grandes */
+@keyframes ptDrift{0%{transform:translateY(0) rotate(45deg);opacity:0}12%{opacity:.85}100%{transform:translateY(-115vh) rotate(405deg);opacity:0}}
+@keyframes ptBurstA{0%{transform:scale(.35);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@keyframes ptBurstB{0%{transform:scale(.35);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@keyframes ptBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+/* SEC:CSS-ANIMACIONES · Todas las animaciones empiezan con "pt". Cada una se usa así: */
+/* ptSpin: logo del splash y bienvenida · ptRise: entrada de textos y tarjetas hacia arriba · ptBar: barra de progreso del splash y botón de bienvenida */
+/* ptPulse/ptFloatY/ptShow: pulsos y flotado suave · ptSpinner: indicador de carga · ptBuild/ptCrane: grúa y bloques de la búsqueda de agencias */
+/* ptCardIn: entrada de tarjeta · ptPop: aparición de checks e insignias · ptConf: confeti · ptShine: brillo de tarjeta · ptDot: puntos de "escribiendo" del chat */
+/* ptFade/ptSheet/ptMenu: aparición del fondo oscuro, hoja inferior y menú lateral · ptRing/ptRipple: ondas · ptScan/ptScanV: línea de escaneo facial y de documento */
+/* ptMesh/ptMeshPulse: puntos de malla facial · ptDocIn/ptField/ptLock/ptBracket: documento en verificación de identidad · ptRingFill/ptDash/ptFlash/ptBlink: óvalo, línea de coincidencia, destello y parpadeo */
+/* ptTurn/ptTurnRev: rombos giratorios · ptFloat: partículas de bienvenida · ptLetter: nombre letra por letra · ptGlow: resplandor · ptShimmer: esqueleto de carga */
+/* ptScreen: transición al cambiar de pantalla · ptBtnGlow: brillo del botón principal */
+@keyframes ptSpin{from{transform:rotate(0) scale(.2);opacity:0}60%{opacity:1}to{transform:rotate(360deg) scale(1);opacity:1}}
+@keyframes ptRise{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
+@keyframes ptBar{from{width:0}to{width:100%}}
+@keyframes ptPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+@keyframes ptSpinner{to{transform:rotate(360deg)}}
+@keyframes ptBuild{0%{transform:translateY(-46px) rotate(-8deg);opacity:0}12%{opacity:1}22%,86%{transform:none;opacity:1}100%{transform:none;opacity:0}}
+@keyframes ptShow{to{opacity:1}}
+@keyframes ptCrane{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes ptCardIn{0%{transform:translateY(70px) scale(.88) rotate(-2deg);opacity:0}55%{transform:translateY(-12px) scale(1.025) rotate(.6deg);opacity:1}78%{transform:translateY(4px) scale(.995)}100%{transform:none;opacity:1}}
+@keyframes ptPop{0%{transform:scale(0)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes ptConf{0%{transform:translate(0,0) rotate(0) scale(.3);opacity:1}70%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1);opacity:0}}
+@keyframes ptShine{from{left:-60%}to{left:140%}}
+@keyframes ptDot{0%,80%,100%{opacity:.3;transform:none}40%{opacity:1;transform:translateY(-4px)}}
+@keyframes ptMenu{from{transform:translateX(-100%)}to{transform:none}}
+@keyframes ptFade{from{opacity:0}to{opacity:1}}
+@keyframes ptSheet{from{transform:translateY(100%)}to{transform:none}}
+@keyframes ptRing{0%{box-shadow:0 0 0 0 rgba(30,79,216,.45)}100%{box-shadow:0 0 0 22px rgba(30,79,216,0)}}
+@keyframes ptScan{0%,100%{top:8%}50%{top:90%}}
+@keyframes ptMesh{0%{opacity:0;transform:scale(0)}45%{opacity:1;transform:scale(1.6)}100%{opacity:.95;transform:scale(1)}}
+@keyframes ptMeshPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.7)}}
+@keyframes ptDocIn{0%{transform:translateY(40px) scale(.7) rotate(-9deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes ptRipple{0%{transform:scale(.4);opacity:.7}100%{transform:scale(2.2);opacity:0}}
+@keyframes ptBracket{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes ptLock{0%{inset:-22px;opacity:0}60%{opacity:1}100%{inset:-7px;opacity:1}}
+@keyframes ptField{0%{background:#DDE4F8}100%{background:#2FBF71}}
+@keyframes ptRingFill{from{stroke-dashoffset:570}to{stroke-dashoffset:0}}
+@keyframes ptDash{to{stroke-dashoffset:-20}}
+@keyframes ptFlash{0%{opacity:.9}100%{opacity:0}}
+@keyframes ptBlink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes ptScanV{0%,100%{top:6%}50%{top:92%}}
+@keyframes ptTurn{to{transform:rotate(360deg)}}
+@keyframes ptTurnRev{to{transform:rotate(-360deg)}}
+@keyframes ptFloat{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.95}100%{transform:translateY(-330px) rotate(260deg);opacity:0}}
+@keyframes ptLetter{from{transform:translateY(26px) rotate(7deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes ptGlow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.12)}}
+@keyframes ptShimmer{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
+/* SEC:CSS-ENLACES · Color de enlaces (normal y al pasar el cursor) tomado de la paleta. */
+a{color:#1E4FD8}a:hover{color:#1639a0}
+@keyframes ptScreen{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+@keyframes ptBtnGlow{0%,100%{box-shadow:0 0 0 0 rgba(242,169,59,0)}50%{box-shadow:0 6px 22px 0 rgba(242,169,59,.55)}}
+@keyframes ptFloatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+/* SEC:CSS-TRANSICION-PANTALLA · Cada pantalla marcada con data-pt-screen entra deslizándose. */
+[data-pt-screen]{animation:ptScreen .5s cubic-bezier(.2,.9,.3,1) backwards}
+/* SEC:CSS-ESCALONADO · Los hijos directos del área desplazable de cada pantalla aparecen en cascada, con retraso creciente (nth-child). */
+[data-pt-screen] [style*="overflow-x:hidden"]>*{animation:ptRise .6s cubic-bezier(.2,.9,.3,1) backwards}
+[data-pt-screen] [style*="overflow-x:hidden"]>*:nth-child(1){animation-delay:.12s}
+[data-pt-screen] [style*="overflow-x:hidden"]>*:nth-child(2){animation-delay:.2s}
+[data-pt-screen] [style*="overflow-x:hidden"]>*:nth-child(3){animation-delay:.28s}
+[data-pt-screen] [style*="overflow-x:hidden"]>*:nth-child(4){animation-delay:.36s}
+[data-pt-screen] [style*="overflow-x:hidden"]>*:nth-child(5){animation-delay:.44s}
+[data-pt-screen] [style*="overflow-x:hidden"]>*:nth-child(6){animation-delay:.52s}
+[data-pt-screen] [style*="overflow-x:hidden"]>*:nth-child(n+7){animation-delay:.6s}
+/* SEC:CSS-INTERACCION · Transiciones suaves, sin resalte táctil en móvil, brillo al pasar el cursor, reducción al pulsar y anillo azul al enfocar campos. */
+button,input,select,textarea{transition:transform .15s,box-shadow .2s,filter .2s,border-color .2s,background-color .2s}
+button{-webkit-tap-highlight-color:transparent}
+button:hover{filter:brightness(1.07)}
+button:active{transform:scale(.96)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#1E4FD8!important;box-shadow:0 0 0 4px rgba(30,79,216,.18)}
+/* SEC:CSS-TARJETAS · Las tarjetas (radio 18px) se elevan ligeramente al pasar el cursor. */
+[data-pt-screen] [style*="border-radius:18px"]{transition:transform .25s cubic-bezier(.2,.9,.3,1),box-shadow .25s}
+[data-pt-screen] [style*="border-radius:18px"]:hover{transform:translateY(-3px);box-shadow:0 12px 26px -12px rgba(15,25,90,.4)}
+</style>
+</helmet>
+<!-- SEC:RAIZ · Contenedor de toda la página. themeVars define las variables CSS de color (--pri, --bg, --ink...) según claro/oscuro. Centra el teléfono en pantalla. -->
+<div onClick="{{ h.bump }}" style="{{ themeVars }};font-family:Figtree,system-ui,sans-serif;position:relative;height:100vh;padding:20px;overflow:hidden;box-sizing:border-box;color:var(--ink);display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:center">
+
+<!-- SEC:FONDO-ANIMADO · Fondo de presentación alrededor del teléfono, con la marca Puebla 360°. Reacciona a cada pulsación: lanza una onda, sube la intensidad del resplandor y la barra inferior avanza o retrocede según la pantalla en la que estés (nivel de 0 a 1). No recibe clics. -->
+<div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,#1a3fc4 0%,#0d2380 45%,#06104a 100%)">
+<!-- Resplandor dorado central: su intensidad crece con el nivel -->
+<div style="{{ bg.glow }}"></div>
+<!-- Textos grandes con contorno a los lados del teléfono -->
+<div style="position:absolute;left:3%;top:8%;font:700 190px/1 Fraunces,serif;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.22);animation:ptBob 6s ease-in-out infinite;white-space:nowrap">PUEBLA</div>
+<div style="position:absolute;right:3%;bottom:6%;font:800 230px/1 Fraunces,serif;color:transparent;-webkit-text-stroke:2px rgba(242,169,59,.5);animation:ptBob 7s 1s ease-in-out infinite;white-space:nowrap">360°</div>
+<!-- Rombos que suben (partículas) -->
+<sc-for list="{{ bg.parts }}" as="p" hint-placeholder-count="30"><span style="{{ p }}"></span></sc-for>
+<!-- Ondas que salen del teléfono en cada pulsación -->
+<div style="{{ bg.burst1 }}"></div>
+<div style="{{ bg.burst2 }}"></div>
+<!-- Barra inferior de avance: crece con cada pulsación -->
+<div style="{{ bg.bar }}"></div>
+</div>
+
+<!-- PHONE -->
+<div style="{{ phoneStyle }}">
+<!-- SEC:PANTALLA-TELEFONO · Recorte redondeado del teléfono. Es una columna: barra de estado arriba y la pantalla activa debajo. Las pantallas se muestran con sc-if según s.<nombre>. -->
+<div style="position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;background:var(--bg);display:flex;flex-direction:column">
+<!-- SEC:BARRA-ESTADO · Barra de estado decorativa: hora, isla dinámica y señal. -->
+<div style="height:38px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font:700 14px Figtree;color:var(--ink);font-variant-numeric:tabular-nums"><span>9:41</span><span style="width:96px;height:26px;border-radius:14px;background:#0d1226;margin-top:2px"></span><span style="font-size:12px;white-space:nowrap">5G ▮▮▮</span></div>
+
+<!-- T1 splash -->
+<sc-if value="{{ s.splash }}" hint-placeholder-val="{{ true }}">
+<!-- SEC:T1-SPLASH · Pantalla inicial: fondo azul con logo animado, nombre y barra de carga. Pasa sola a Idioma a los 3.5 s. -->
+<div style="flex:1;background:#1235a8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;color:#fff;position:relative;margin-top:-38px;padding-top:38px">
+<!-- Patrón de rombos semitransparente de fondo. -->
+<div style="{{ tileLight }};position:absolute;inset:0;opacity:.6"></div>
+<!-- Logo: cuadrados rotados que forman un rombo. Gira y crece al entrar (ptSpin). -->
+<div style="position:relative;width:132px;height:132px;animation:ptSpin 1.6s cubic-bezier(.2,.8,.2,1) both">
+<div style="position:absolute;inset:18px;background:#fff;transform:rotate(0)"></div>
+<div style="position:absolute;inset:18px;background:#fff;transform:rotate(45deg)"></div>
+<div style="position:absolute;inset:34px;background:#1235a8;transform:rotate(22.5deg)"></div>
+<div style="position:absolute;inset:34px;background:#1235a8;transform:rotate(67.5deg);border:3px solid #F2A93B;box-sizing:border-box"></div>
+<div style="position:absolute;inset:52px;background:#F2A93B;border-radius:50%"></div>
+</div>
+<!-- Nombre de la app, aparece con retraso. -->
+<div style="text-align:center;animation:ptRise .9s .9s both;position:relative">
+<div style="font:700 32px/1.05 Fraunces,serif">Puebla Turística</div>
+<div style="font:800 40px/1.1 Fraunces,serif;color:#F2A93B">360°</div>
+</div>
+<!-- Barra de progreso de 3.5 s. -->
+<div style="position:absolute;bottom:90px;width:140px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden"><div style="height:100%;background:#F2A93B;animation:ptBar 3.5s linear both"></div></div>
+<!-- Botón "Saltar": va directo a Idioma. -->
+<button onClick="{{ h.toLang }}" style="position:absolute;bottom:28px;min-height:44px;padding:0 18px;border:0;background:transparent;color:#fff;font:600 14px Figtree;cursor:pointer;text-decoration:underline">{{ t.skip }}</button>
+</div>
+</sc-if>
+
+<!-- T2 language -->
+<sc-if value="{{ s.lang }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="lang" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<!-- SEC:T2-IDIOMA · Elegir idioma (es, en, fr, de, pt, it). Toda la app cambia al elegir. -->
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:24px 22px 12px">
+<div style="font:700 28px/1.1 Fraunces,serif">{{ t.langTitle }}</div>
+<div style="font:500 15px/1.45 Figtree;color:var(--mut);margin:8px 0 20px">{{ t.langSub }}</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<!-- Un botón por idioma; el activo se marca con ✓. -->
+<sc-for list="{{ langs }}" as="l" hint-placeholder-count="5">
+<button onClick="{{ l.pick }}" style="{{ l.style }}"><span style="font:700 17px Figtree">{{ l.name }}</span><span style="font:500 13px Figtree;opacity:.75">{{ l.note }}</span></button>
+</sc-for>
+</div>
+</div>
+<!-- Botón Continuar hacia Acceso. -->
+<div style="padding:12px 22px 22px"><button onClick="{{ h.toAccess }}" style="{{ btnPri }}">{{ t.cont }}</button></div>
+</div>
+</sc-if>
+
+<!-- T3 access -->
+<sc-if value="{{ s.access }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="access" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<!-- SEC:T3-ACCESO · Crear cuenta o iniciar sesión como turista. Botón ‹ regresa a la pantalla anterior (historial). -->
+<div style="display:flex;align-items:center;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:8px 22px;display:flex;flex-direction:column">
+<!-- Ilustración de cabecera con el patrón de marca. -->
+<div style="{{ tile }};height:150px;border-radius:24px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;flex:none"><div style="width:84px;height:84px;position:relative;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center"><div style="width:44px;height:44px;background:#1235a8;transform:rotate(45deg);border:5px solid #F2A93B;box-sizing:border-box"></div></div></div>
+<div style="font:700 30px/1.1 Fraunces,serif">{{ t.accessTitle }}</div>
+<div style="font:500 15px/1.45 Figtree;color:var(--mut);margin:8px 0 26px">{{ t.accessSub }}</div>
+<!-- Crear cuenta: lleva a Verificación de identidad. -->
+<button onClick="{{ h.toCreate }}" style="{{ btnPri }}">{{ t.create }}</button>
+<!-- Iniciar sesión: entra directo a Bienvenida (perfil turista por defecto). -->
+<button onClick="{{ h.toLoginT }}" style="{{ btnSec }};margin-top:12px">{{ t.login }}</button>
+<!-- Separador "o". -->
+<div style="display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--mut);font:500 13px Figtree"><span style="flex:1;height:1px;background:var(--line)"></span>{{ t.or }}<span style="flex:1;height:1px;background:var(--line)"></span></div>
+<!-- Continuar con Google: mismo destino que iniciar sesión. -->
+<button onClick="{{ h.toLoginT }}" style="{{ btnSec }};gap:10px"><span style="font:800 18px Figtree;color:#4285F4">G</span>{{ t.google }}</button>
+<div style="flex:1"></div>
+<!-- Enlace "Soy empresa": cambia al flujo de empresa (E1). -->
+<button onClick="{{ h.toCompany }}" style="min-height:48px;border:0;background:transparent;color:var(--pri);font:700 15px Figtree;cursor:pointer;margin:12px 0">{{ t.isCompany }} →</button>
+</div>
+</div>
+</sc-if>
+
+<!-- T4 identity -->
+<sc-if value="{{ s.idv }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="idv" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button><div style="font:700 17px Figtree">{{ t.idvTitle }}</div></div>
+<!-- SEC:T4-VERIFICACION · Verificación de identidad con documento y rostro (animación por pasos idStep 0 a 4). -->
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:8px 22px">
+<div style="font:500 15px/1.45 Figtree;color:var(--mut)">{{ t.idvSub }}</div>
+<!-- Visor de cámara. Cada capa depende del paso: fv.idle, fv.doc, fv.face, fv.match, fv.done. -->
+<div style="{{ fv.frame }}">
+<!-- Fondo del visor: resplandor y cuadrícula. -->
+<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(79,123,255,.28),transparent 65%),repeating-linear-gradient(0deg,rgba(255,255,255,.045) 0 1px,transparent 1px 22px),repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 1px,transparent 1px 22px)"></div>
+<!-- Indicador rojo parpadeante "ID ANALIZER" y fase (1/3, 2/3, 3/3). -->
+<div style="position:absolute;left:14px;top:12px;display:flex;align-items:center;gap:6px;font:700 11px ui-monospace,Menlo,monospace;color:#fff;letter-spacing:.06em"><span style="width:8px;height:8px;border-radius:50%;background:#ff4d4d;animation:ptBlink 1s infinite"></span>ID ANALIZER</div>
+<div style="position:absolute;right:14px;top:12px;font:700 11px ui-monospace,Menlo,monospace;color:rgba(255,255,255,.7)">{{ fv.phase }}</div>
+<!-- Paso 0: silueta de rostro punteada, en espera. -->
+<sc-if value="{{ fv.idle }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;left:50%;top:50%;width:150px;height:190px;margin:-95px 0 0 -75px;border:2.5px dashed rgba(255,255,255,.4);border-radius:50%"></div><div style="position:absolute;left:50%;top:42%;width:58px;height:58px;margin-left:-29px;border-radius:50%;background:rgba(255,255,255,.16)"></div><div style="position:absolute;left:50%;top:58%;width:104px;height:56px;margin-left:-52px;border-radius:52px 52px 0 0;background:rgba(255,255,255,.16)"></div></sc-if>
+<!-- Paso 1: documento que entra, línea de escaneo y campos que se marcan en verde. -->
+<sc-if value="{{ fv.doc }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:50%;top:48%;width:176px;height:112px;margin:-56px 0 0 -88px;animation:ptDocIn .6s cubic-bezier(.2,.9,.3,1) both">
+<div style="position:absolute;inset:0;border-radius:12px;background:#F6F8FD;overflow:hidden">
+<div style="position:absolute;left:12px;top:14px;width:44px;height:56px;border-radius:6px;background:#C9D3F2"></div>
+<div style="position:absolute;left:68px;top:18px;width:90px;height:8px;border-radius:4px;background:#DDE4F8;animation:ptField .3s 1.0s both"></div>
+<div style="position:absolute;left:68px;top:36px;width:70px;height:8px;border-radius:4px;background:#DDE4F8;animation:ptField .3s 1.3s both"></div>
+<div style="position:absolute;left:68px;top:54px;width:80px;height:8px;border-radius:4px;background:#DDE4F8;animation:ptField .3s 1.6s both"></div>
+<div style="position:absolute;left:12px;bottom:12px;right:12px;height:8px;border-radius:4px;background:#E6EDFF"></div>
+<div style="position:absolute;left:0;right:0;height:3px;background:#F2A93B;box-shadow:0 0 14px 4px rgba(242,169,59,.8);animation:ptScanV 1.3s ease-in-out infinite"></div></div>
+<div style="position:absolute;border:3px solid #F2A93B;border-radius:16px;animation:ptLock .7s .2s cubic-bezier(.2,.9,.3,1) both"></div>
+</div>
+<span style="position:absolute;right:12px;top:78px;background:#2FBF71;color:#fff;border-radius:999px;padding:4px 10px;font:800 11px Figtree;animation:ptPop .4s 1.1s both;opacity:0">ID ✓</span>
+<span style="position:absolute;left:12px;top:206px;background:#2FBF71;color:#fff;border-radius:999px;padding:4px 10px;font:800 11px Figtree;animation:ptPop .4s 1.5s both;opacity:0">MRZ ✓</span>
+</sc-if>
+<!-- Miniatura del documento ya capturado (pasos 2 y 3). -->
+<sc-if value="{{ fv.thumbs }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:14px;top:38px;width:58px;height:38px;border-radius:7px;background:#F6F8FD;animation:ptPop .4s both"><div style="position:absolute;left:5px;top:6px;width:16px;height:22px;border-radius:3px;background:#C9D3F2"></div><div style="position:absolute;left:26px;top:8px;width:26px;height:4px;border-radius:2px;background:#2FBF71"></div><div style="position:absolute;left:26px;top:16px;width:20px;height:4px;border-radius:2px;background:#2FBF71"></div><span style="position:absolute;right:-6px;bottom:-6px;width:18px;height:18px;border-radius:50%;background:#2FBF71;color:#fff;font:800 11px/18px Figtree;text-align:center">✓</span></div>
+</sc-if>
+<!-- Pasos 2 y 3: óvalo de rostro, anillo de progreso, puntos de malla y línea de escaneo. -->
+<sc-if value="{{ fv.face }}" hint-placeholder-val="{{ false }}">
+<div style="{{ fv.oval }}"></div>
+<svg width="170" height="210" viewBox="0 0 170 210" style="position:absolute;left:50%;top:50%;margin:-105px 0 0 -85px;overflow:visible"><ellipse cx="85" cy="105" rx="82" ry="102" fill="none" stroke="{{ fv.ringColor }}" stroke-width="5" stroke-linecap="round" stroke-dasharray="570" style="{{ fv.ringAnim }}" transform="rotate(-90 85 105)"></ellipse></svg>
+<sc-for list="{{ fv.dots }}" as="d" hint-placeholder-count="20"><span style="{{ d.style }}"></span></sc-for>
+<sc-if value="{{ fv.scanning }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:50%;width:150px;margin-left:-75px;height:3px;border-radius:2px;background:#F2A93B;box-shadow:0 0 14px 4px rgba(242,169,59,.8);animation:ptScan 1.4s ease-in-out infinite"></div></sc-if>
+</sc-if>
+<!-- Paso 3: línea punteada que compara rostro contra foto del documento. -->
+<sc-if value="{{ fv.match }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:14px;right:14px;top:84px;height:2px"><svg width="100%" height="6" style="overflow:visible"><line x1="0" y1="3" x2="100%" y2="3" stroke="#2FBF71" stroke-width="2" stroke-dasharray="6 6" style="animation:ptDash .6s linear infinite"></line></svg></div>
+<div style="position:absolute;right:14px;top:38px;width:38px;height:38px;border-radius:50%;background:#C9D3F2;border:3px solid #2FBF71;animation:ptPop .4s both"><div style="position:absolute;left:11px;top:7px;width:14px;height:14px;border-radius:50%;background:#7C8FC9"></div><div style="position:absolute;left:6px;top:22px;width:22px;height:12px;border-radius:12px 12px 0 0;background:#7C8FC9"></div></div>
+</sc-if>
+<!-- Paso 4: destello, ondas, chispas, check y nombre verificado. -->
+<sc-if value="{{ fv.done }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:#fff;animation:ptFlash .7s both"></div>
+<div style="position:absolute;left:50%;top:44%;width:90px;height:90px;margin:-45px 0 0 -45px;border-radius:50%;border:3px solid #2FBF71;animation:ptRipple 1.4s ease-out infinite"></div>
+<div style="position:absolute;left:50%;top:44%;width:90px;height:90px;margin:-45px 0 0 -45px;border-radius:50%;border:3px solid #2FBF71;animation:ptRipple 1.4s .5s ease-out infinite"></div>
+<div style="position:absolute;left:50%;top:44%;width:0;height:0"><sc-for list="{{ fv.sparks }}" as="p" hint-placeholder-count="14"><span style="{{ p }}"></span></sc-for></div>
+<div style="position:absolute;left:50%;top:44%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:#2FBF71;color:#fff;font:800 46px/84px Figtree;text-align:center;animation:ptPop .55s .1s both">✓</div>
+<div style="position:absolute;left:0;right:0;top:68%;display:flex;justify-content:center"><div style="background:#fff;color:#0d1636;border-radius:999px;padding:6px 14px;font:800 14px Figtree;white-space:nowrap;animation:ptRise .5s .5s both">Emma Carter</div></div>
+</sc-if>
+<!-- Cuatro esquinas del visor y etiqueta inferior con la instrucción actual. -->
+<span style="{{ fv.c1 }}"></span><span style="{{ fv.c2 }}"></span><span style="{{ fv.c3 }}"></span><span style="{{ fv.c4 }}"></span>
+<div style="position:absolute;left:12px;right:12px;bottom:12px;background:rgba(13,22,54,.85);color:#fff;border-radius:12px;padding:9px 12px;font:700 13px/1.3 Figtree;text-align:center">{{ idvLabel }}</div>
+</div>
+<!-- Barritas de avance de los 4 pasos. -->
+<div style="display:flex;justify-content:center;gap:8px;margin-bottom:14px"><sc-for list="{{ fv.steps }}" as="p" hint-placeholder-count="4"><span style="{{ p }}"></span></sc-for></div>
+<!-- Casilla de consentimiento biométrico con enlace al aviso de privacidad. -->
+<button onClick="{{ h.toggleConsent }}" role="checkbox" aria-checked="{{ consentAria }}" style="display:flex;gap:12px;align-items:flex-start;text-align:left;border:1.5px solid var(--line);background:var(--surf);border-radius:14px;padding:14px;width:100%;cursor:pointer;color:var(--ink);font:500 14px/1.45 Figtree">
+<span style="{{ consentBox }}">{{ consentMark }}</span><span>{{ t.idvConsent }} <span role="link" tabindex="0" onClick="{{ h.openPriv }}" style="color:var(--pri);font-weight:700;text-decoration:underline;cursor:pointer;white-space:nowrap">{{ t.idvPriv }}</span></span></button>
+</div>
+<!-- Botón principal: Capturar, Verificando o Continuar según idv.label. -->
+<div style="padding:12px 22px 22px">
+<button onClick="{{ idv.act }}" style="{{ idv.btn }}">{{ idv.label }}</button>
+</div>
+</div>
+</sc-if>
+
+<!-- T5 welcome -->
+<sc-if value="{{ s.welcome }}" hint-placeholder-val="{{ false }}">
+<!-- SEC:T5-BIENVENIDA · Saludo con el nombre del usuario. Pasa sola a Cotizador a los 6 s. -->
+<div style="flex:1;display:flex;flex-direction:column;min-height:0">
+<!-- Cabecera animada: resplandor, partículas flotantes, ondas y rombos que giran. -->
+<div style="{{ tile }};position:relative;flex:none;height:380px;border-radius:0 0 44px 44px;overflow:hidden">
+<div style="position:absolute;left:50%;bottom:-120px;width:420px;height:300px;margin-left:-210px;border-radius:50%;background:radial-gradient(closest-side,rgba(242,169,59,.75),transparent);animation:ptGlow 3.2s ease-in-out infinite"></div>
+<!-- Partículas que suben (ptFloat). -->
+<sc-for list="{{ floaters }}" as="p" hint-placeholder-count="14"><span style="{{ p }}"></span></sc-for>
+<!-- Emblema central con iniciales. -->
+<div style="position:absolute;left:50%;top:50%;width:190px;height:190px;margin:-112px 0 0 -95px">
+<div style="position:absolute;inset:0;border-radius:50%;border:3px solid #F2A93B;animation:ptRipple 2.4s ease-out infinite"></div>
+<div style="position:absolute;inset:0;border-radius:50%;border:3px solid #F2A93B;animation:ptRipple 2.4s 1.2s ease-out infinite"></div>
+<div style="position:absolute;inset:0;animation:ptSpin 1.4s cubic-bezier(.2,.8,.2,1) both"><div style="position:absolute;inset:0;animation:ptTurn 24s linear infinite"><div style="position:absolute;inset:14px;background:rgba(255,255,255,.22)"></div><div style="position:absolute;inset:14px;background:rgba(255,255,255,.22);transform:rotate(45deg)"></div></div><div style="position:absolute;inset:0;animation:ptTurnRev 18s linear infinite"><div style="position:absolute;inset:34px;background:#F2A93B"></div><div style="position:absolute;inset:34px;background:#F2A93B;transform:rotate(45deg)"></div></div></div>
+<div style="position:absolute;left:50%;top:50%;width:104px;height:104px;margin:-52px 0 0 -52px;border-radius:50%;background:#fff;color:#1235a8;font:700 38px/104px Fraunces,serif;text-align:center;box-shadow:0 8px 24px rgba(5,15,70,.45);animation:ptPop .7s .5s both">EC</div>
+</div>
+<!-- Insignia "Puebla Turística 360°". -->
+<div style="position:absolute;left:0;right:0;bottom:26px;display:flex;justify-content:center"><span style="background:rgba(255,255,255,.18);color:#fff;border-radius:999px;padding:7px 16px;font:700 13px Figtree;animation:ptRise .6s 1.1s both">✓ Puebla Turística 360°</span></div>
+</div>
+<!-- Saludo; el nombre aparece letra por letra (nameChars). -->
+<div style="flex:1;padding:26px 24px 0;display:flex;flex-direction:column;gap:6px">
+<div style="font:600 18px Figtree;color:var(--mut);animation:ptRise .6s .3s both">{{ t.welcome }}</div>
+<div style="font:700 42px/1.05 Fraunces,serif;color:var(--ink)"><sc-for list="{{ nameChars }}" as="c" hint-placeholder-count="11"><span style="{{ c.style }}">{{ c.ch }}</span></sc-for></div>
+<div style="font:500 16px/1.5 Figtree;color:var(--mut);margin-top:8px;animation:ptRise .6s 1.2s both">{{ t.welcomeSub }}</div>
+</div>
+<!-- Botón Empezar con barra de cuenta regresiva. -->
+<div style="padding:10px 20px 22px;animation:ptRise .6s 1.5s both"><button onClick="{{ h.toHome }}" style="{{ btnPri }};position:relative;overflow:hidden">{{ t.enter }} →<span style="position:absolute;left:0;bottom:0;height:4px;background:rgba(27,18,0,.35);animation:ptBar 6s linear both"></span></button></div>
+</div>
+</sc-if>
+
+<!-- T6 home -->
+<sc-if value="{{ s.home }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="home" style="flex:1;display:flex;flex-direction:column;min-height:0;position:relative">
+<!-- SEC:T6-COTIZADOR · Pantalla principal del turista: presupuesto, actividades, fechas, ciudad, personas y notas. -->
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 16px 8px">
+<div style="font:700 20px Fraunces,serif">Puebla 360°</div>
+<div style="display:flex;align-items:center;gap:6px">
+<!-- Billetera conectada: muestra saldo (oculto con ••••) y botón ver/ocultar. -->
+<sc-if value="{{ mm.connected }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:4px;border:1.5px solid var(--line);background:var(--surf);border-radius:22px;padding:0 4px 0 12px;min-height:44px;font:700 14px Figtree;font-variant-numeric:tabular-nums">
+<span>{{ mm.balance }}</span>
+<button onClick="{{ h.toggleHide }}" aria-label="{{ mm.eyeLabel }}" style="width:40px;height:40px;border:0;background:transparent;cursor:pointer;color:var(--ink);font:700 12px Figtree">{{ mm.eye }}</button></div>
+</sc-if>
+<!-- Billetera no conectada: botón Conectar MetaMask. -->
+<sc-if value="{{ mm.notConnected }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ h.connect }}" style="min-height:44px;border-radius:22px;border:1.5px solid var(--pri);background:transparent;color:var(--pri);font:700 13px Figtree;padding:0 14px;cursor:pointer">{{ mm.label }}</button>
+</sc-if>
+</div>
+</div>
+<!-- Zona desplazable del formulario. -->
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:4px 16px 16px;display:flex;flex-direction:column;gap:14px">
+<!-- Tarjeta de presupuesto con selector USD/MXN. -->
+<div style="{{ tile }};color:#fff;border-radius:20px;padding:18px;flex:none">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="font:600 13px Figtree;opacity:.85">{{ t.budget }}</div>
+<button onClick="{{ h.toggleCur }}" style="min-height:44px;border:0;border-radius:22px;background:rgba(255,255,255,.18);color:#fff;font:700 13px Figtree;padding:0 14px;cursor:pointer;font-variant-numeric:tabular-nums">{{ curChip }}</button>
+</div>
+<!-- Modo edición del presupuesto: campo numérico y botón Listo. -->
+<sc-if value="{{ budget.editing }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:8px;margin-top:6px;align-items:center"><input type="number" value="{{ budget.input }}" onChange="{{ h.setBudget }}" style="flex:1;min-height:48px;border:0;border-radius:12px;padding:0 12px;font:700 22px Figtree;color:#0d1226;font-variant-numeric:tabular-nums;min-width:0"><button onClick="{{ h.saveBudget }}" style="min-height:48px;border:0;border-radius:12px;padding:0 16px;background:#fff;color:var(--pri);font:700 14px Figtree;cursor:pointer">{{ t.done }}</button></div>
+</sc-if>
+<!-- Modo lectura: monto, botón Editar y nota (calculado o editado). -->
+<sc-if value="{{ budget.view }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:4px">
+<div style="font:800 34px/1.1 Figtree;font-variant-numeric:tabular-nums">{{ budget.text }}</div>
+<button onClick="{{ h.editBudget }}" style="min-height:44px;border:0;background:transparent;color:#fff;font:700 14px Figtree;text-decoration:underline;cursor:pointer">{{ t.edit }}</button></div>
+<div style="font:500 13px/1.4 Figtree;opacity:.85;margin-top:2px">{{ budget.note }}</div>
+</sc-if>
+</div>
+
+<div style="{{ cardBox }}">
+<!-- Selector desplegable de actividades (varias opciones con casilla). -->
+<div style="{{ lbl }}">{{ t.acts }}</div>
+<button onClick="{{ h.toggleActs }}" aria-expanded="{{ actsAria }}" style="width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:500 15px Figtree;padding:0 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left"><span>{{ actsText }}</span><span>{{ actsCaret }}</span></button>
+<!-- Lista de actividades visible solo al abrir el desplegable. -->
+<sc-if value="{{ actsOpen }}" hint-placeholder-val="{{ false }}">
+<div style="border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)">
+<sc-for list="{{ actList }}" as="a" hint-placeholder-count="5">
+<button onClick="{{ a.toggle }}" role="checkbox" aria-checked="{{ a.aria }}" style="width:100%;min-height:48px;display:flex;align-items:center;gap:12px;padding:0 14px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);font:500 15px Figtree;cursor:pointer;text-align:left"><span style="{{ a.box }}">{{ a.mark }}</span>{{ a.label }}</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<div style="{{ cardBox }}">
+<!-- Campos: fecha de inicio, fin, hora y ciudad. -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ t.start }}</span><input type="date" value="{{ f.start }}" onChange="{{ h.setStart }}" style="{{ inp }}"></label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ t.end }}</span><input type="date" value="{{ f.end }}" onChange="{{ h.setEnd }}" style="{{ inp }}"></label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ t.time }}</span><input type="time" value="{{ f.time }}" onChange="{{ h.setTime }}" style="{{ inp }}"></label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ t.city }}</span><select value="{{ f.city }}" onChange="{{ h.setCity }}" style="{{ inp }}"><sc-for list="{{ cities }}" as="c" hint-placeholder-count="4"><option value="{{ c }}">{{ c }}</option></sc-for></select></label>
+</div>
+<!-- Número de personas con botones − y +. -->
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="{{ lbl }}">{{ t.people }} *</span><div style="display:flex;align-items:center;gap:6px"><button onClick="{{ h.peopleMinus }}" aria-label="−" style="{{ stepBtn }}">−</button><input type="number" min="1" value="{{ f.people }}" onChange="{{ h.setPeople }}" aria-label="{{ t.people }}" style="{{ inp }};width:64px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums"><button onClick="{{ h.peoplePlus }}" aria-label="+" style="{{ stepBtn }}">+</button></div></div>
+<!-- Información adicional (texto libre). -->
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ t.extra }}</span><textarea value="{{ f.extra }}" onChange="{{ h.setExtra }}" placeholder="{{ t.extraPh }}" rows="2" style="{{ inp }};padding:12px 14px;resize:none;height:auto"></textarea></label>
+</div>
+</div>
+<!-- Botón Cotizar: valida los datos. -->
+<div style="padding:10px 16px 20px;border-top:1px solid var(--line);background:var(--bg)">
+<button onClick="{{ h.quote }}" style="{{ quoteBtn }}">{{ quoteLabel }}</button>
+</div>
+
+<!-- Hoja inferior de resultado de validación (aparece sobre un fondo oscuro). -->
+<sc-if value="{{ q.show }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:rgba(10,16,40,.55);display:flex;align-items:flex-end">
+<div style="width:100%;background:var(--surf);border-radius:26px 26px 0 0;padding:22px 20px 24px;display:flex;flex-direction:column;gap:14px;animation:ptRise .3s both">
+<!-- Datos completos: botón Ver opciones. -->
+<sc-if value="{{ q.ok }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;background:var(--ok);color:#fff;font:800 22px/44px Figtree;text-align:center;flex:none">✓</div><div><div style="font:700 19px Figtree">{{ t.okTitle }}</div><div style="font:500 14px/1.4 Figtree;color:var(--mut)">{{ t.okSub }}</div></div></div>
+<button onClick="{{ h.toResults }}" style="{{ btnPri }}">{{ t.seeOpts }}</button>
+</sc-if>
+<!-- Falta información: lista de campos faltantes y botón para corregir. -->
+<sc-if value="{{ q.missing }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;background:var(--err);color:#fff;font:800 22px/44px Figtree;text-align:center;flex:none">!</div><div style="font:700 19px Figtree">{{ t.missTitle }}</div></div>
+<div style="display:flex;flex-direction:column;gap:8px"><sc-for list="{{ q.items }}" as="m" hint-placeholder-count="2"><div style="border:1.5px solid var(--err);border-radius:12px;padding:12px 14px;font:600 14px Figtree">✕ {{ m }}</div></sc-for></div>
+<button onClick="{{ h.closeQ }}" style="{{ btnPri }}">{{ t.fix }}</button>
+</sc-if>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- T7 results -->
+<sc-if value="{{ s.results }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="results" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button><div style="font:700 17px Figtree">{{ t.resTitle }}</div></div>
+<!-- SEC:T7-RESULTADOS · Opciones de agencias. Estados: cargando, error, vacío y lista. -->
+<div style="padding:0 20px 8px;font:500 13px/1.45 Figtree;color:var(--mut)">{{ t.resSub }}</div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:4px 16px 12px;display:flex;flex-direction:column;gap:14px">
+<!-- Cargando: animación de grúa con bloques, pasos de búsqueda y tarjetas esqueleto. -->
+<sc-if value="{{ r.loading }}" hint-placeholder-val="{{ false }}">
+<div style="{{ cardBox }};align-items:center"><div style="font:700 17px Figtree">{{ t.searching }}</div><div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:6px 0 4px;width:100%"><div style="position:relative;width:200px;height:132px;flex:none"><div style="position:absolute;left:150px;top:0;width:3px;height:36px;background:var(--mut);transform-origin:top;animation:ptCrane 2.4s ease-in-out infinite"></div><div style="position:absolute;left:158px;top:4px;width:36px;height:3px;background:var(--mut)"></div><sc-for list="{{ blocks }}" as="b" hint-placeholder-count="10"><div style="{{ b.style }}"></div></sc-for><div style="position:absolute;left:0;right:0;bottom:0;height:4px;border-radius:2px;background:var(--line)"></div></div><div style="display:flex;flex-direction:column;gap:8px;width:100%"><sc-for list="{{ searchSteps }}" as="st" hint-placeholder-count="4"><div style="{{ st.style }}"><span style="position:relative;width:20px;display:inline-block"><span>○</span><span style="{{ st.mark }}">✓</span></span>{{ st.label }}</div></sc-for></div></div></div>
+<!-- Tarjetas esqueleto con brillo (shimmer). -->
+<sc-for list="{{ skel }}" as="k" hint-placeholder-count="3"><div style="height:250px;border-radius:20px;background:var(--surf);border:1.5px solid var(--line);animation:ptShimmer 1.2s infinite"><div style="height:120px;background:var(--soft);border-radius:18px 18px 0 0"></div><div style="padding:16px;display:flex;flex-direction:column;gap:10px"><div style="height:16px;width:60%;background:var(--line);border-radius:6px"></div><div style="height:12px;width:90%;background:var(--line);border-radius:6px"></div></div></div></sc-for>
+</sc-if>
+<!-- Estado de error con botón Reintentar. -->
+<sc-if value="{{ r.error }}" hint-placeholder-val="{{ false }}">
+<div style="margin:auto;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;padding:20px"><div style="width:52px;height:52px;border-radius:50%;background:var(--err);color:#fff;font:800 26px/52px Figtree">!</div><div style="font:700 18px Figtree">{{ t.errTitle }}</div><div style="font:500 14px/1.4 Figtree;color:var(--mut)">{{ t.errSub }}</div><button onClick="{{ h.retry }}" style="{{ btnSec }};width:auto;padding:0 24px">{{ t.retry }}</button></div>
+</sc-if>
+<!-- Estado vacío con botón Editar. -->
+<sc-if value="{{ r.empty }}" hint-placeholder-val="{{ false }}">
+<div style="margin:auto;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;padding:20px"><div style="width:52px;height:52px;border-radius:50%;background:var(--soft);color:var(--pri);font:800 24px/52px Figtree">∅</div><div style="font:700 18px Figtree">{{ t.emptyTitle }}</div><div style="font:500 14px/1.4 Figtree;color:var(--mut)">{{ t.emptySub }}</div><button onClick="{{ h.back }}" style="{{ btnSec }};width:auto;padding:0 24px">{{ t.edit }}</button></div>
+</sc-if>
+<!-- Lista de agencias encontradas, con confeti y contador. -->
+<sc-if value="{{ r.list }}" hint-placeholder-val="{{ true }}">
+<div style="position:relative;display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;flex:none"><div style="position:absolute;left:50%;top:50%;width:0;height:0"><sc-for list="{{ confetti }}" as="p" hint-placeholder-count="16"><span style="{{ p.style }}"></span></sc-for></div><span style="width:30px;height:30px;border-radius:50%;background:var(--ok);color:#fff;font:800 17px/30px Figtree;text-align:center;animation:ptPop .5s .1s both">✓</span><span style="font:800 18px Figtree;animation:ptRise .5s .2s both">{{ foundText }}</span></div>
+<!-- Una tarjeta por agencia (datos de AG). -->
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="3">
+<div style="{{ c.box }}">
+<div style="{{ tileSoft }};border-radius:16px 16px 0 0;position:relative;display:flex;align-items:flex-end;padding:10px 12px;height:116px">
+<!-- Foto de la agencia según su id (Cholula, Volcanes, Mole de Caderas). -->
+<sc-if value="{{ c.isC }}" hint-placeholder-val="{{ false }}"><img src="images/cholula.png" alt="{{ c.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px 16px 0 0;display:block"></sc-if><sc-if value="{{ c.isV }}" hint-placeholder-val="{{ false }}"><img src="images/volcanes.png" alt="{{ c.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px 16px 0 0;display:block"></sc-if><sc-if value="{{ c.isM }}" hint-placeholder-val="{{ false }}"><img src="images/mole-de-caderas.png" alt="{{ c.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px 16px 0 0;display:block"></sc-if>
+<!-- Casilla para seleccionar la agencia. -->
+<button onClick="{{ c.toggle }}" role="checkbox" aria-checked="{{ c.aria }}" aria-label="{{ c.selLabel }}" style="position:absolute;top:6px;right:6px;width:44px;height:44px;border:0;background:transparent;cursor:pointer"><span style="{{ c.check }}">{{ c.mark }}</span></button>
+<div style="{{ c.shine }}"></div>
+<span style="position:absolute;top:12px;left:12px;pointer-events:none;font:700 11px Figtree;background:var(--surf);color:var(--ink);border-radius:8px;padding:4px 8px">{{ c.badge }}</span>
+</div>
+<!-- Nombre, descripción, precio en la moneda elegida y botones Contacto y Gmail. -->
+<div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px">
+<div style="font:700 18px/1.2 Figtree">{{ c.name }}</div>
+<div style="font:500 14px/1.45 Figtree;color:var(--mut)">{{ c.summary }}</div>
+<div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-variant-numeric:tabular-nums"><span style="font:800 24px Figtree;white-space:nowrap">{{ c.main }}</span><span style="font:500 14px Figtree;color:var(--mut);white-space:nowrap">≈ {{ c.sub }}</span></div>
+<div style="display:flex;gap:8px"><button onClick="{{ h.toastContact }}" style="{{ btnSm }}">{{ t.contact }}</button><button onClick="{{ h.toastGmail }}" style="{{ btnSm }}">Gmail</button></div>
+</div>
+</div>
+</sc-for>
+</sc-if>
+</div>
+<!-- Botón Solicitar a N agencias: exige elegir al menos una. -->
+<div style="padding:10px 16px 20px;border-top:1px solid var(--line)"><button onClick="{{ h.toPay }}" style="{{ reqBtn }}">{{ reqLabel }}</button></div>
+</div>
+</sc-if>
+
+<!-- T8 pay -->
+<sc-if value="{{ s.pay }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="pay" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button><div style="font:700 17px Figtree">{{ t.payTitle }}</div></div>
+<!-- SEC:T8-PAGO · Pago. Indicador de pasos: Cotizar, Opciones, Pago. -->
+<div style="display:flex;align-items:center;gap:8px;padding:0 20px 10px"><sc-for list="{{ stepper }}" as="p" hint-placeholder-count="3"><div style="{{ p.style }}"><span style="{{ p.dot }}">{{ p.mark }}</span>{{ p.label }}</div></sc-for></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:4px 20px 16px;display:flex;flex-direction:column;gap:20px">
+<!-- Agencia y monto total. -->
+<div style="text-align:center;display:flex;flex-direction:column;gap:2px;padding-top:4px">
+<div style="font:600 14px Figtree;color:var(--mut)">{{ t.payTo }} {{ pay.agency }}</div>
+<div style="font:800 40px/1.1 Figtree;font-variant-numeric:tabular-nums">{{ pay.main }}</div>
+<div style="font:500 14px Figtree;color:var(--mut);font-variant-numeric:tabular-nums">≈ {{ pay.sub }}</div>
+</div>
+<!-- Selector de agencia, solo si se eligieron varias. -->
+<sc-if value="{{ pay.multi }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center"><sc-for list="{{ payAgencies }}" as="a" hint-placeholder-count="2"><button onClick="{{ a.pick }}" style="{{ a.style }}">{{ a.name }}</button></sc-for></div></sc-if>
+<div style="display:flex;flex-direction:column;gap:10px">
+<!-- Opción: activos digitales. -->
+<button onClick="{{ h.payCrypto }}" role="radio" aria-checked="{{ pay.cAria }}" style="{{ payOptC }}"><span style="{{ pay.cDot }}"></span><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font:700 16px Figtree">{{ t.payCrypto }}</span><span style="font:500 13px Figtree;color:var(--mut)">{{ t.payCryptoSub }}</span></span></button>
+<!-- Opción: efectivo directo con la agencia. -->
+<button onClick="{{ h.payCash }}" role="radio" aria-checked="{{ pay.kAria }}" style="{{ payOptK }}"><span style="{{ pay.kDot }}"></span><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font:700 16px Figtree">{{ t.payCashShort }}</span><span style="font:500 13px Figtree;color:var(--mut)">{{ t.payCashSub }}</span></span></button>
+</div>
+<!-- Detalle de activos digitales: moneda aceptada por la agencia, monto en cripto y estado de MetaMask. -->
+<sc-if value="{{ pay.isCrypto }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:14px;animation:ptRise .3s both">
+<div style="display:flex;align-items:center;justify-content:space-between"><div style="font:700 14px Figtree">{{ t.coinTitle }}</div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ coins }}" as="c" hint-placeholder-count="3"><button onClick="{{ c.pick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:14px;font-variant-numeric:tabular-nums"><span style="font:500 14px Figtree;color:var(--mut)">{{ t.amount }}</span><span style="font:800 22px Figtree">{{ pay.amount }}</span></div>
+<div style="font:500 12px Figtree;color:var(--mut);margin-top:-8px;text-align:right">{{ pay.rate }}</div>
+<sc-if value="{{ pay.needMM }}" hint-placeholder-val="{{ false }}"><button onClick="{{ h.connect }}" style="{{ btnSec }};min-height:48px">{{ pay.mmLabel }}</button></sc-if>
+<sc-if value="{{ pay.mmOk }}" hint-placeholder-val="{{ false }}"><div style="font:600 13px Figtree;color:var(--ok)">✓ {{ t.mmReady }}</div></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ pay.isCash }}" hint-placeholder-val="{{ false }}">
+<div style="font:500 15px/1.5 Figtree;color:var(--ink);animation:ptRise .3s both">{{ t.cashMsg }}</div>
+</sc-if>
+</div>
+<!-- Nota de pago y botón de confirmar (guarda la cotización y pasa a Confirmación). -->
+<div style="padding:10px 20px 20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px"><div style="text-align:center;font:600 13px Figtree;color:var(--mut)">{{ t.payNote }}</div><button onClick="{{ pay.act }}" style="{{ btnPri }}">{{ pay.label }}</button></div>
+</div>
+</sc-if>
+
+<!-- T9 confirm -->
+<sc-if value="{{ s.confirm }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="confirm" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<!-- SEC:T9-CONFIRMACION · Confirmación de la solicitud, con confeti. -->
+<div style="position:absolute;left:50%;top:150px;width:0;height:0;pointer-events:none"><sc-for list="{{ confetti }}" as="p" hint-placeholder-count="16"><span style="{{ p.style }}"></span></sc-for></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:12px 20px;display:flex;flex-direction:column;gap:14px">
+<!-- Check verde grande. -->
+<div style="{{ tile }};height:120px;border-radius:22px;display:flex;align-items:center;justify-content:center;flex:none"><div style="width:64px;height:64px;border-radius:50%;background:var(--ok);color:#fff;font:800 32px/56px Figtree;text-align:center;border:4px solid #fff;box-sizing:border-box;animation:ptRise .5s both">✓</div></div>
+<div style="font:700 28px/1.15 Fraunces,serif">{{ t.confTitle }}</div>
+<div style="font:600 15px Figtree;color:var(--mut)">⏱ {{ t.confEta }}</div>
+<div style="{{ cardBox }}">
+<div style="font:700 15px Figtree">{{ t.sumTitle }}</div>
+<!-- Resumen: ciudad, personas, fechas, actividades, presupuesto, agencias y forma de pago. -->
+<sc-for list="{{ summary }}" as="x" hint-placeholder-count="5"><div style="display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:10px;font:500 14px/1.4 Figtree"><span style="color:var(--mut)">{{ x.k }}</span><span style="font-weight:700;text-align:right;font-variant-numeric:tabular-nums">{{ x.v }}</span></div></sc-for>
+</div>
+</div>
+<!-- Comunicarme ahora (muestra el teléfono de la agencia) y Nueva cotización. -->
+<div style="padding:10px 16px 20px;display:flex;flex-direction:column;gap:8px"><button onClick="{{ h.toastTalk }}" style="{{ btnPri }}">{{ t.talk }}</button><button onClick="{{ h.restart }}" style="min-height:44px;border:0;background:transparent;color:var(--pri);font:700 14px Figtree;cursor:pointer">{{ t.newQuote }}</button></div>
+</div>
+</sc-if>
+
+<!-- T10 quotes -->
+<!-- SEC:T10-MIS-COTIZACIONES · Historial de cotizaciones enviadas, guardado en el dispositivo (localStorage "pt360-quotes"). -->
+<sc-if value="{{ s.quotes }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="quotes" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px 4px 64px;min-height:52px"><div style="font:700 20px Fraunces,serif">{{ qs.title }}</div></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:8px 16px 16px;display:flex;flex-direction:column;gap:12px">
+<!-- Mensaje cuando no hay cotizaciones. -->
+<sc-if value="{{ qs.empty }}" hint-placeholder-val="{{ false }}"><div style="{{ cardBox }};align-items:center;text-align:center;padding:32px 20px"><div style="font:700 17px Figtree">{{ qs.emptyTitle }}</div><div style="font:500 14px/1.45 Figtree;color:var(--mut)">{{ qs.emptySub }}</div></div></sc-if>
+<!-- Tarjeta por cotización guardada con sus datos. -->
+<sc-for list="{{ qs.list }}" as="c" hint-placeholder-count="2">
+<div style="{{ cardBox }}">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><div style="font:700 17px Figtree">{{ c.city }}</div><div style="font:600 12px Figtree;color:var(--mut)">{{ c.at }}</div></div>
+<div style="display:flex;flex-direction:column;gap:6px;font:500 14px/1.4 Figtree">
+<sc-for list="{{ c.rows }}" as="x" hint-placeholder-count="5"><div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--mut)">{{ x.k }}</span><span style="font-weight:700;text-align:right">{{ x.v }}</span></div></sc-for>
+</div>
+<!-- Botón rojo para eliminar la cotización. -->
+<button onClick="{{ c.del }}" style="min-height:44px;border:1.5px solid var(--err);border-radius:12px;background:transparent;color:var(--err);font:700 14px Figtree;cursor:pointer">{{ qs.del }}</button>
+</div>
+</sc-for>
+</div>
+<div style="padding:10px 16px 20px"><button onClick="{{ h.restart }}" style="{{ btnPri }}">{{ t.newQuote }}</button></div>
+</div>
+</sc-if>
+
+<!-- E1 company signup -->
+<!-- SEC:E1-CREAR-CUENTA-EMPRESA · Registro de empresa: nombre y contraseña con reglas de seguridad. -->
+<sc-if value="{{ s.c_sign }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="c_sign" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button><div style="font:700 17px Figtree">{{ t.cSignTitle }}</div></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:8px 20px;display:flex;flex-direction:column;gap:14px">
+<div style="font:500 15px/1.45 Figtree;color:var(--mut)">{{ t.cSignSub }}</div>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ t.cName }}</span><input value="{{ cf.name }}" onChange="{{ h.setCName }}" placeholder="Ruta Cholula Tours" style="{{ inp }}"></label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ t.cPass }}</span><input type="password" value="{{ cf.pass }}" onChange="{{ h.setCPass }}" style="{{ inp }}"></label>
+<div style="display:flex;flex-direction:column;gap:6px">
+<!-- Lista de reglas de contraseña (8 caracteres, mayúscula, número, símbolo). -->
+<sc-for list="{{ pwRules }}" as="p" hint-placeholder-count="4"><div style="{{ p.style }}"><span style="width:16px">{{ p.mark }}</span>{{ p.label }}</div></sc-for>
+</div>
+<div style="font:500 13px/1.4 Figtree;color:var(--mut)">{{ t.cSeparate }}</div>
+</div>
+<div style="padding:10px 16px 20px"><button onClick="{{ h.signup }}" style="{{ signBtn }}">{{ t.cSignBtn }}</button></div>
+</div>
+</sc-if>
+
+<!-- E1b save id -->
+<!-- SEC:E2-ID-ASIGNADO · Muestra el ID asignado a la empresa para guardarlo y copiarlo. -->
+<sc-if value="{{ s.c_id }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="c_id" style="flex:1;display:flex;flex-direction:column;min-height:0;padding:12px 20px 20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center">
+<div style="{{ tile }};height:110px;border-radius:22px;flex:none"></div>
+<div style="font:700 30px/1.1 Fraunces,serif">{{ t.saveIdTitle }}</div>
+<div style="font:500 15px/1.45 Figtree;color:var(--mut)">{{ t.saveIdSub }}</div>
+<div style="border:2px dashed var(--pri);background:var(--soft);border-radius:18px;padding:22px;text-align:center"><div style="{{ lbl }}">ID</div><div style="font:800 30px ui-monospace,Menlo,monospace;letter-spacing:.04em;margin-top:6px;font-variant-numeric:tabular-nums">{{ cf.id }}</div></div>
+<button onClick="{{ h.copyId }}" style="{{ btnSec }}">{{ copyLabel }}</button>
+<div style="font:500 13px/1.4 Figtree;color:var(--mut)">{{ t.saveIdWarn }}</div>
+</div>
+<button onClick="{{ h.toCLogin }}" style="{{ btnPri }}">{{ t.savedIt }}</button>
+</div>
+</sc-if>
+
+<!-- E2 login -->
+<!-- SEC:E3-LOGIN-EMPRESA · Inicio de sesión con ID y contraseña (vienen prellenados). -->
+<sc-if value="{{ s.c_login }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="c_login" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button><div style="font:700 17px Figtree">{{ t.cLoginTitle }}</div></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:8px 20px;display:flex;flex-direction:column;gap:14px">
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">ID</span><input value="{{ cf.loginId }}" onChange="{{ h.setLoginId }}" placeholder="PT360-00000" style="{{ inp }};font-family:ui-monospace,Menlo,monospace"></label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ t.cPass }}</span><input type="password" value="{{ cf.loginPass }}" onChange="{{ h.setLoginPass }}" style="{{ inp }}"></label>
+<sc-if value="{{ cf.loginErr }}" hint-placeholder-val="{{ false }}"><div style="border:1.5px solid var(--err);border-radius:12px;padding:12px 14px;font:600 14px/1.4 Figtree">✕ {{ t.cLoginErr }}</div></sc-if>
+<button onClick="{{ h.toCSign }}" style="min-height:44px;border:0;background:transparent;color:var(--pri);font:700 14px Figtree;cursor:pointer;text-align:left;padding:0">{{ t.cNoAcc }}</button>
+</div>
+<div style="padding:10px 16px 20px"><button onClick="{{ h.cLogin }}" style="{{ btnPri }}">{{ t.cLoginBtn }}</button></div>
+</div>
+</sc-if>
+
+<!-- E3 wallets -->
+<!-- SEC:E4-COBROS · Registro de cobros: activar monedas y dirección de wallet con validación por red. -->
+<sc-if value="{{ s.c_wallets }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="c_wallets" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button><div style="font:700 17px Figtree">{{ t.walletsTitle }}</div></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:4px 16px 12px;display:flex;flex-direction:column;gap:10px">
+<div style="font:500 14px/1.45 Figtree;color:var(--mut)">{{ t.walletsSub }}</div>
+<button onClick="{{ h.autofill }}" style="min-height:44px;border:0;background:transparent;color:var(--pri);font:700 14px Figtree;cursor:pointer;text-align:left;padding:0">{{ t.autofill }}</button>
+<!-- Una fila por moneda: interruptor, red, dirección y mensaje de validación. -->
+<sc-for list="{{ walletRows }}" as="w" hint-placeholder-count="5">
+<div style="{{ cardBox }}">
+<div style="display:flex;justify-content:space-between;align-items:center"><div><span style="font:800 16px Figtree">{{ w.code }}</span> <span style="font:500 13px Figtree;color:var(--mut)">{{ w.net }}</span></div>
+<button onClick="{{ w.toggle }}" role="switch" aria-checked="{{ w.aria }}" aria-label="{{ w.code }}" style="min-width:64px;min-height:44px;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;gap:6px;color:var(--ink);font:700 12px Figtree"><span style="{{ w.track }}"><span style="{{ w.knob }}"></span></span>{{ w.state }}</button></div>
+<sc-if value="{{ w.on }}" hint-placeholder-val="{{ false }}">
+<input value="{{ w.addr }}" onChange="{{ w.set }}" placeholder="{{ w.ph }}" style="{{ inp }};font:500 14px ui-monospace,Menlo,monospace">
+<div style="{{ w.msgStyle }}">{{ w.msg }}</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="padding:10px 16px 20px"><button onClick="{{ h.walletsNext }}" style="{{ walletsBtn }}">{{ t.cont }}</button></div>
+</div>
+</sc-if>
+
+<!-- E4 datatur -->
+<!-- SEC:E5-DATATUR · Consulta DataTur con identificador y consentimiento. -->
+<sc-if value="{{ s.c_dt }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="c_dt" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button><div style="font:700 17px Figtree">DataTur</div></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:8px 20px;display:flex;flex-direction:column;gap:14px">
+<div style="font:500 15px/1.45 Figtree;color:var(--mut)">{{ t.dtSub }}</div>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ t.dtId }}</span><input value="{{ dt.id }}" onChange="{{ h.setDtId }}" placeholder="DT-2026-001234" style="{{ inp }};font-family:ui-monospace,Menlo,monospace"></label>
+<button onClick="{{ h.toggleDtConsent }}" role="checkbox" aria-checked="{{ dt.aria }}" style="display:flex;gap:12px;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--surf);border-radius:14px;padding:14px;width:100%;cursor:pointer;color:var(--ink);font:600 14px/1.45 Figtree"><span style="{{ dt.box }}">{{ dt.mark }}</span><span>{{ t.dtConsent }}</span></button>
+<sc-if value="{{ dt.busy }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:12px;align-items:center;font:700 16px Figtree"><div style="width:26px;height:26px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--pri);animation:ptSpinner .8s linear infinite"></div>{{ t.dtVerifying }}…</div></sc-if>
+<sc-if value="{{ dt.done }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:12px;align-items:center;font:700 16px Figtree"><div style="width:30px;height:30px;border-radius:50%;background:var(--ok);color:#fff;font:800 16px/30px Figtree;text-align:center">✓</div>{{ t.dtOk }}</div></sc-if>
+</div>
+<div style="padding:10px 16px 20px"><button onClick="{{ dt.act }}" style="{{ dt.btn }}">{{ dt.label }}</button></div>
+</div>
+</sc-if>
+
+<!-- E5 editable data -->
+<!-- SEC:E6-DATOS-PERFIL · Revisar y corregir los datos del perfil de la empresa. -->
+<sc-if value="{{ s.c_data }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="c_data" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button><div style="font:700 17px Figtree">{{ t.dataTitle }}</div></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:4px 20px 12px;display:flex;flex-direction:column;gap:12px">
+<div style="font:500 14px/1.45 Figtree;color:var(--mut)">{{ t.dataSub }}</div>
+<!-- Campos editables del perfil. -->
+<sc-for list="{{ profileFields }}" as="p" hint-placeholder-count="6"><label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="{{ lbl }}">{{ p.label }}</span><input value="{{ p.value }}" onChange="{{ p.set }}" style="{{ inp }}"></label></sc-for>
+</div>
+<div style="padding:10px 16px 20px"><button onClick="{{ h.toPriv }}" style="{{ btnPri }}">{{ t.cont }}</button></div>
+</div>
+</sc-if>
+
+<!-- E6 privacy -->
+<!-- SEC:E7-AVISO-PRIVACIDAD · Aviso de privacidad: aceptar o rechazar. -->
+<sc-if value="{{ s.c_priv }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="c_priv" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;gap:4px;padding:4px 12px"><button onClick="{{ h.back }}" aria-label="{{ t.back }}" style="{{ btnBack }}">‹</button><div style="font:700 17px Figtree">{{ t.privTitle }}</div></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:8px 20px;display:flex;flex-direction:column;gap:12px">
+<div style="{{ cardBox }}"><div style="font:500 14px/1.6 Figtree">{{ t.privBody }}</div></div>
+<sc-if value="{{ privRejected }}" hint-placeholder-val="{{ false }}"><div style="border:1.5px solid var(--warn);border-radius:12px;padding:12px 14px;font:600 14px/1.4 Figtree">⚠ {{ t.privRejected }}</div></sc-if>
+</div>
+<div style="padding:10px 16px 20px;display:flex;flex-direction:column;gap:8px"><button onClick="{{ h.privAccept }}" style="{{ btnPri }}">{{ t.accept }}</button><button onClick="{{ h.privReject }}" style="{{ btnSec }}">{{ t.reject }}</button></div>
+</div>
+</sc-if>
+
+<!-- E7 visible -->
+<!-- SEC:E8-EMPRESA-VISIBLE · Confirma que la empresa ya aparece en la app. -->
+<sc-if value="{{ s.c_vis }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="c_vis" style="flex:1;display:flex;flex-direction:column;min-height:0;padding:12px 20px 20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center;animation:ptRise .6s both">
+<div style="{{ tile }};height:180px;border-radius:24px;display:flex;align-items:center;justify-content:center"><div style="width:76px;height:76px;border-radius:50%;background:var(--ok);color:#fff;font:800 38px/76px Figtree;text-align:center;border:4px solid #fff;box-sizing:border-box">✓</div></div>
+<div style="font:700 30px/1.15 Fraunces,serif">{{ t.visTitle }}</div>
+<div style="font:500 15px/1.45 Figtree;color:var(--mut)">{{ t.visSub }}</div>
+</div>
+<button onClick="{{ h.toDash }}" style="{{ btnPri }}">{{ t.toPanel }}</button>
+</div>
+</sc-if>
+
+<!-- E8 dashboard -->
+<!-- SEC:E9-PANEL-EMPRESA · Panel con pestañas Solicitudes y Datos de pago. Estados: cargando, error, vacío y datos. -->
+<sc-if value="{{ s.c_dash }}" hint-placeholder-val="{{ false }}">
+<div data-pt-screen="c_dash" style="flex:1;display:flex;flex-direction:column;min-height:0">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 16px 8px"><div style="font:700 20px Fraunces,serif">{{ cf.nameShow }}</div><button onClick="{{ h.toEditProfile }}" style="min-height:44px;border:1.5px solid var(--line);border-radius:22px;background:var(--surf);color:var(--ink);font:700 13px Figtree;padding:0 14px;cursor:pointer">{{ t.editProfile }}</button></div>
+<div style="display:flex;gap:6px;padding:0 16px 8px">
+<button onClick="{{ h.tabReq }}" style="{{ dashTabR }}">{{ t.reqs }}</button>
+<button onClick="{{ h.tabPay }}" style="{{ dashTabP }}">{{ t.payData }}</button>
+</div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:4px 16px 20px;display:flex;flex-direction:column;gap:12px">
+<sc-if value="{{ d.loading }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ skel }}" as="k" hint-placeholder-count="3"><div style="height:96px;border-radius:16px;background:var(--surf);border:1.5px solid var(--line);animation:ptShimmer 1.2s infinite"></div></sc-for></sc-if>
+<sc-if value="{{ d.error }}" hint-placeholder-val="{{ false }}"><div style="margin:auto;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;padding:20px"><div style="width:52px;height:52px;border-radius:50%;background:var(--err);color:#fff;font:800 26px/52px Figtree">!</div><div style="font:700 18px Figtree">{{ t.errTitle }}</div><button onClick="{{ h.retryDash }}" style="{{ btnSec }};width:auto;padding:0 24px">{{ t.retry }}</button></div></sc-if>
+<sc-if value="{{ d.empty }}" hint-placeholder-val="{{ false }}"><div style="margin:auto;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;padding:20px"><div style="width:52px;height:52px;border-radius:50%;background:var(--soft);color:var(--pri);font:800 24px/52px Figtree">∅</div><div style="font:700 18px Figtree">{{ t.noReqs }}</div><div style="font:500 14px/1.4 Figtree;color:var(--mut)">{{ t.noReqsSub }}</div></div></sc-if>
+<sc-if value="{{ d.reqs }}" hint-placeholder-val="{{ true }}">
+<!-- Tarjetas de solicitudes de turistas; se abren para ver detalle y se pueden marcar como contactadas. -->
+<sc-for list="{{ reqCards }}" as="q" hint-placeholder-count="3">
+<div style="{{ cardBox }};gap:0;padding:0;overflow:hidden">
+<button onClick="{{ q.open }}" aria-expanded="{{ q.aria }}" style="all:unset;box-sizing:border-box;width:100%;cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px"><div><div style="font:700 16px Figtree">{{ q.name }}</div><div style="font:500 13px Figtree;color:var(--mut)">{{ q.country }} · {{ q.lang }} · {{ q.budget }}</div></div><span style="{{ q.chip }}">{{ q.statusLabel }}</span></button>
+<sc-if value="{{ q.isOpen }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid var(--line);padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--bg)">
+<sc-for list="{{ q.rows }}" as="x" hint-placeholder-count="5"><div style="display:flex;justify-content:space-between;gap:12px;font:500 13px/1.4 Figtree"><span style="color:var(--mut)">{{ x.k }}</span><span style="font-weight:700;text-align:right">{{ x.v }}</span></div></sc-for>
+<button onClick="{{ q.contactBtn }}" style="{{ btnPri }};min-height:48px;margin-top:6px">{{ t.contactBtn }}</button>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</sc-if>
+<sc-if value="{{ d.pay }}" hint-placeholder-val="{{ false }}">
+<!-- Monedas activas y su dirección. -->
+<sc-for list="{{ payRows }}" as="w" hint-placeholder-count="2"><div style="{{ cardBox }}"><div style="display:flex;justify-content:space-between"><span style="font:800 16px Figtree">{{ w.code }}</span><span style="font:600 12px Figtree;color:var(--mut)">{{ w.net }}</span></div><div style="font:500 13px ui-monospace,Menlo,monospace;word-break:break-all">{{ w.addr }}</div></div></sc-for>
+<sc-if value="{{ noWallets }}" hint-placeholder-val="{{ false }}"><div style="font:500 14px Figtree;color:var(--mut)">{{ t.noWallets }}</div></sc-if>
+<div style="{{ cardBox }}"><div style="font:800 16px Figtree">{{ t.cashTitle }}</div><div style="font:500 14px/1.45 Figtree;color:var(--mut)">{{ t.cashPay }}</div><div style="font:700 14px Figtree;font-variant-numeric:tabular-nums">{{ t.cashCount }}</div></div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<!-- menu -->
+<!-- SEC:MENU-HAMBURGUESA · Botón de tres rayas (arriba a la izquierda, oculto en el splash). -->
+<sc-if value="{{ menu.fab }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ h.openMenu }}" aria-label="Menú" style="position:absolute;left:10px;top:34px;width:44px;height:44px;border:0;border-radius:50%;background:var(--surf);box-shadow:0 2px 10px rgba(10,20,70,.28);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;z-index:5"><span style="width:20px;height:2.5px;border-radius:2px;background:var(--ink)"></span><span style="width:20px;height:2.5px;border-radius:2px;background:var(--ink)"></span><span style="width:20px;height:2.5px;border-radius:2px;background:var(--ink)"></span></button>
+</sc-if>
+<!-- Menú lateral: Inicio, secciones del perfil actual (turista o empresa), idioma y tema. -->
+<sc-if value="{{ menu.open }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ h.closeMenu }}" style="position:absolute;inset:0;background:rgba(10,16,40,.55);animation:ptFade .2s both;z-index:20"></div>
+<div style="position:absolute;left:0;top:0;bottom:0;width:78%;background:var(--bg);z-index:21;display:flex;flex-direction:column;animation:ptMenu .3s cubic-bezier(.2,.9,.3,1) both;box-shadow:8px 0 30px rgba(10,20,70,.35);border-radius:0 26px 26px 0">
+<div style="display:flex;align-items:center;gap:8px;padding:48px 12px 8px 20px"><div style="flex:1;font:700 22px Fraunces,serif;color:var(--ink)">Puebla Turística 360°</div><button onClick="{{ h.closeMenu }}" aria-label="{{ t.cancel }}" style="width:44px;height:44px;border:0;border-radius:50%;background:var(--soft);color:var(--ink);font:700 18px Figtree;cursor:pointer">✕</button></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:4px 14px 16px;display:flex;flex-direction:column;gap:4px">
+<!-- Inicio: regresa al logo animado. -->
+<button onClick="{{ menu.home.go }}" style="{{ menu.home.style }}">{{ menu.home.label }}</button>
+<div style="font:700 11px Figtree;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);padding:14px 8px 4px">{{ menu.title }}</div>
+<!-- Secciones del perfil actual; saltan directo a la pantalla. -->
+<sc-for list="{{ menu.items }}" as="j" hint-placeholder-count="9"><button onClick="{{ j.go }}" style="{{ j.style }}">{{ j.label }}</button></sc-for>
+<div style="display:flex;gap:6px;flex-wrap:wrap;padding:14px 4px 0"><sc-for list="{{ langPills }}" as="lp" hint-placeholder-count="6"><button onClick="{{ lp.go }}" style="{{ lp.style }};padding:0 10px">{{ lp.label }}</button></sc-for><button onClick="{{ h.toggleDark }}" style="{{ pillDark }}">{{ darkLabel }}</button></div>
+</div>
+</div>
+</sc-if>
+
+<!-- chatbot -->
+<!-- SEC:CHATBOT · Botón flotante "?" que abre el asistente. -->
+<sc-if value="{{ chat.fab }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ h.openChat }}" aria-label="{{ chat.fabLabel }}" style="position:absolute;right:16px;bottom:96px;width:52px;height:52px;border-radius:50%;border:0;background:var(--pri);color:#fff;cursor:pointer;box-shadow:0 6px 16px rgba(10,20,70,.35);font:800 22px Figtree;display:flex;align-items:center;justify-content:center">?</button>
+</sc-if>
+<!-- Panel del asistente: encabezado, mensajes, preguntas sugeridas y campo de texto. -->
+<sc-if value="{{ chat.open }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;bottom:0;top:70px;background:var(--bg);border-radius:26px 26px 0 0;display:flex;flex-direction:column;box-shadow:0 -10px 30px rgba(10,20,70,.35);animation:ptRise .3s both">
+<div style="{{ tile }};border-radius:26px 26px 0 0;display:flex;align-items:center;gap:12px;padding:12px 12px 12px 18px;flex:none">
+<div style="width:40px;height:40px;border-radius:50%;background:#fff;color:#1235a8;font:800 20px/40px Figtree;text-align:center;flex:none">?</div>
+<div style="flex:1;color:#fff"><div style="font:700 16px Figtree">{{ t.chatTitle }}</div><div style="font:500 12px Figtree;opacity:.9">{{ t.chatSub }}</div></div>
+<button onClick="{{ h.closeChat }}" aria-label="{{ t.cancel }}" style="width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;font:700 20px Figtree;cursor:pointer">✕</button>
+</div>
+<!-- Mensajes (el scroll baja solo en componentDidUpdate) e indicador de "escribiendo". -->
+<div id="pt-chat-body" style="flex:1;overflow:auto;overflow-x:hidden;padding:16px;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ chat.msgs }}" as="m" hint-placeholder-count="2"><div style="{{ m.row }}"><div style="{{ m.bubble }}">{{ m.text }}</div></div></sc-for>
+<sc-if value="{{ chat.typing }}" hint-placeholder-val="{{ false }}"><div style="display:flex"><div style="background:var(--surf);border:1.5px solid var(--line);border-radius:16px 16px 16px 4px;padding:14px 16px;display:flex;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:var(--mut);animation:ptDot 1s infinite"></span><span style="width:7px;height:7px;border-radius:50%;background:var(--mut);animation:ptDot 1s .15s infinite"></span><span style="width:7px;height:7px;border-radius:50%;background:var(--mut);animation:ptDot 1s .3s infinite"></span></div></div></sc-if>
+</div>
+<!-- Preguntas frecuentes sugeridas (las ya hechas se ocultan). -->
+<div style="padding:8px 16px 0;display:flex;flex-wrap:wrap;gap:8px;max-height:104px;overflow-y:auto;overflow-x:hidden;flex:none"><sc-for list="{{ chat.chips }}" as="c" hint-placeholder-count="3"><button onClick="{{ c.go }}" style="flex:none;min-height:44px;max-width:100%;border:1.5px solid var(--pri);border-radius:22px;background:transparent;color:var(--pri);font:600 13px Figtree;padding:0 14px;cursor:pointer;text-align:left">{{ c.q }}</button></sc-for></div>
+<!-- Campo de texto y botón enviar (también con Enter). -->
+<div style="padding:10px 16px 18px;display:flex;gap:8px;flex:none"><input value="{{ chat.input }}" onChange="{{ h.chatInput }}" onKeyDown="{{ h.chatKey }}" placeholder="{{ t.chatPh }}" style="{{ inp }};flex:1;border-radius:24px;padding:0 18px"><button onClick="{{ h.chatSend }}" aria-label="{{ t.chatSend }}" style="width:48px;height:48px;border:0;border-radius:50%;background:var(--acc);color:var(--onacc);font:800 20px Figtree;cursor:pointer;flex:none">➤</button></div>
+</div>
+</sc-if>
+
+<!-- SEC:AVISO-PRIVACIDAD-HOJA · Hoja inferior con el aviso de privacidad de datos biométricos. -->
+<sc-if value="{{ privOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ h.closePriv }}" style="position:absolute;inset:0;background:rgba(10,16,40,.6);animation:ptFade .25s both"></div>
+<div role="dialog" aria-label="{{ t.idvPriv }}" style="position:absolute;left:0;right:0;bottom:0;max-height:82%;background:var(--surf);border-radius:26px 26px 0 0;display:flex;flex-direction:column;animation:ptSheet .4s cubic-bezier(.2,.9,.3,1) both">
+<div style="display:flex;justify-content:center;padding-top:10px"><span style="width:40px;height:5px;border-radius:3px;background:var(--line)"></span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 12px 8px 20px"><div style="flex:1;font:700 21px Fraunces,serif">{{ t.pvTitle }}</div><button onClick="{{ h.closePriv }}" aria-label="{{ t.cancel }}" style="width:44px;height:44px;border:0;border-radius:50%;background:var(--soft);color:var(--ink);font:700 18px Figtree;cursor:pointer">✕</button></div>
+<div style="flex:1;overflow:auto;overflow-x:hidden;padding:0 20px 12px;display:flex;flex-direction:column;gap:14px">
+<div style="font:500 14px/1.5 Figtree;color:var(--mut);animation:ptRise .4s .2s both">{{ t.pvIntro }}</div>
+<sc-for list="{{ pvItems }}" as="p" hint-placeholder-count="4"><div style="{{ p.style }}"><div style="{{ p.icon }}">{{ p.n }}</div><div><div style="font:700 15px Figtree">{{ p.title }}</div><div style="font:500 14px/1.5 Figtree;color:var(--mut);margin-top:2px">{{ p.body }}</div></div></div></sc-for>
+<div style="font:600 12px Figtree;color:var(--warn);animation:ptRise .4s .9s both">{{ t.pvNote }}</div>
+</div>
+<div style="padding:10px 20px 20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px"><button onClick="{{ h.acceptPriv }}" style="{{ btnPri }}">{{ t.pvAccept }}</button><button onClick="{{ h.closePriv }}" style="min-height:44px;border:0;background:transparent;color:var(--pri);font:700 14px Figtree;cursor:pointer">{{ t.pvClose }}</button></div>
+</div>
+</sc-if>
+
+<!-- toast -->
+<!-- Mensaje breve inferior de confirmación (toast). -->
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:16px;right:16px;bottom:96px;background:#0d1226;color:#fff;border-radius:14px;padding:14px 16px;font:600 14px/1.4 Figtree;text-align:center;animation:ptRise .25s both;box-shadow:0 8px 24px rgba(0,0,0,.3)">{{ toast }}</div>
+</sc-if>
+</div>
+</div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;es&quot;,&quot;options&quot;:[&quot;es&quot;,&quot;en&quot;],&quot;tsType&quot;:&quot;'es'|'en'&quot;,&quot;section&quot;:&quot;App&quot;},&quot;dark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;App&quot;}}">
+// SEC:DATOS · Constantes del negocio.
+// FX: tipo de cambio MXN por 1 USD usado en todos los montos.
+const FX = 17.5;
+// RATE.ACT: tarifa diaria en USD por actividad. RATE.COIN: valor en USD de cada moneda digital.
+const RATE = { ACT: { swim: 50, mount: 80, food: 55, towns: 65, arch: 45 }, COIN: { USDT: 1, ETH: 3150, BTC: 68000, SOL: 165, XRP: 0.55 } };
+// AG: agencias que aparecen en resultados. id, teléfono, nombre, precio base en USD, monedas aceptadas y foto.
+const AG = [
+  { id: 'cholula', tel: '+52 222 555 0142', name: 'Ruta Cholula Tours', usd: 450, coins: ['USDT', 'ETH'], photo: 'images/cholula.png' },
+  { id: 'volcanes', tel: '+52 222 555 0178', name: 'Volcanes y Pueblos', usd: 650, coins: ['USDT', 'ETH', 'BTC'], photo: 'images/volcanes.png' },
+  { id: 'sabores', tel: '+52 222 555 0193', name: 'Mole de Caderas', usd: 520, coins: ['USDT', 'ETH', 'SOL', 'XRP'], photo: 'images/mole-de-caderas.png' }
+];
+// NETS: red de cada moneda, para mostrar en el registro de cobros.
+const NETS = { USDT: 'EVM', ETH: 'EVM', BTC: 'Bitcoin', SOL: 'Solana', XRP: 'XRP Ledger' };
+// PH: texto de ejemplo (placeholder) del campo de dirección de cada moneda.
+const PH = { USDT: '0x…', ETH: '0x…', BTC: 'bc1…', SOL: 'Base58', XRP: 'r…' };
+// SAMPLE: direcciones de wallet válidas que prellenan el registro de cobros.
+const SAMPLE = { USDT: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F', ETH: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F', BTC: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq', SOL: '7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV', XRP: 'rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDY' };
+// SEC:VALIDACION · walletOk(moneda, dirección): comprueba el formato con una expresión regular según la red.
+function walletOk(c, a) {
+  if (c === 'USDT' || c === 'ETH') return /^0x[a-fA-F0-9]{40}$/.test(a);
+  if (c === 'BTC') return /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,62}$/.test(a);
+  if (c === 'SOL') return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(a);
+  return /^r[1-9A-HJ-NP-Za-km-z]{24,34}$/.test(a);
+}
+// fmt(n, d): da formato con separador de miles y d decimales.
+const fmt = (n, d = 0) => Number(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+// SEC:TEXTOS · T: todos los textos de la interfaz por idioma. Español (es) e inglés (en) completos; fr, de, pt, it se completan más abajo y heredan el inglés lo que falte.
+const T = {
+  es: {
+    skip: 'Saltar', back: 'Atrás', cancel: 'Cancelar', cont: 'Continuar', simulated: 'simulado', pending: 'pendiente', example: 'ejemplo', or: 'o',
+    langTitle: 'Elige tu idioma', langSub: 'Toda la app cambiará al idioma que elijas.', soon: 'Pronto',
+    accessTitle: 'Planea tu viaje por Puebla', accessSub: 'Cotiza con agencias locales y recibe seguimiento directo.', create: 'Crear cuenta', login: 'Iniciar sesión', google: 'Continuar con Google', isCompany: 'Soy una empresa o prestador de servicio',
+    idvTitle: 'Verifica tu identidad', idvSub: 'Capturaremos tu documento y tu rostro para proteger tu cuenta.', idvConsent: 'Acepto el uso de mis datos biométricos para verificar mi identidad.', idvPriv: 'Aviso de privacidad',
+    idvStart: 'Capturar documento y rostro', idvCap: 'Capturando…', idvVer: 'Verificando…', idvOk: 'Identidad verificada', idvNeed: 'Acepta el consentimiento para continuar', idvLab0: 'Coloca tu INE o pasaporte y tu rostro en el marco', idvLab1: 'Capturando documento y rostro', idvLab2: 'Verificando identidad', idvLab3: 'Verificado',
+    welcome: 'Bienvenido,', welcomeSub: 'Ya tienes la sesión iniciada. Cuéntanos qué quieres hacer en Puebla.', enter: 'Empezar',
+    connect: 'Conectar MetaMask', connecting: 'Conectando…', budget: 'Presupuesto', budgetAuto: 'Calculado según actividades y fechas', budgetEdited: 'Editado por ti', edit: 'Editar', done: 'Listo',
+    rateChip: 'Ver en', rateLbl: 'MXN por USD', acts: 'Actividades', actsPh: 'Selecciona actividades', actsN: 'actividades', start: 'Inicio', end: 'Fin', time: 'Hora', city: 'Ciudad', extra: 'Información adicional (opcional)', extraPh: 'Alergias, movilidad, número de personas…',
+    quote: 'Cotizar', validating: 'Validando con IA…', okTitle: 'Datos completos', okSub: 'Ya podemos buscar opciones con agencias de Puebla.', seeOpts: 'Ver opciones', missTitle: 'Falta información', fix: 'Corregir',
+    m_acts: 'Elige al menos una actividad', m_dates: 'Revisa las fechas: el fin no puede ser antes del inicio', m_city: 'Elige una ciudad', m_time: 'Indica la hora de inicio', searching: 'Buscando agencias…', v1: 'Revisando fechas y personas', v2: 'Validando actividades', v3: 'Ajustando el presupuesto', v4: 'Armando tu cotización', sr1: 'Consultando agencias registradas', sr2: 'Buscando con IA', sr3: 'Comparando paquetes y precios', sr4: 'Ordenando tus opciones', m_people: 'Indica el número de personas', people: 'Personas', s_people: 'Personas',
+    a_swim: 'Nadar', a_mount: 'Montañismo', a_food: 'Gastronomía', a_towns: 'Pueblos mágicos', a_arch: 'Arqueología',
+    resTitle: 'Opciones para ti', resSub: 'Al solicitar, la agencia recibe toda la información que capturaste y es ella quien te da seguimiento.', contact: 'Contacto', request: 'Solicitar a', agencies1: 'agencia', agenciesN: 'agencias', pickOne: 'Elige al menos una agencia', retry: 'Reintentar',
+    errTitle: 'No pudimos cargar los datos', errSub: 'Revisa tu conexión e inténtalo otra vez.', emptyTitle: 'Sin agencias disponibles', emptySub: 'Ajusta fechas, ciudad o actividades.',
+    sel: 'Seleccionar', badge: 'Ejemplo', fromAI: 'Sugerida por IA',
+    payTitle: 'Pago', payCrypto: 'Activos digitales', payCash: 'Efectivo (directo con la agencia)', payNote: 'El pago se realiza directamente con la agencia.', payTo: 'Pago a', pkg: 'Paquete', coinTitle: 'Monedas aceptadas por la agencia', amount: 'Monto equivalente', payConfirm: 'Confirmar con MetaMask', pvTitle: 'Aviso de privacidad', pvIntro: 'Antes de capturar tu documento y tu rostro, esto es lo que hacemos con tus datos.', pv1t: 'Qué recopilamos', pv1b: 'Una foto de tu documento, una imagen de tu rostro y tu nombre, para comprobar que eres tú.', pv2t: 'Para qué lo usamos', pv2b: 'Solo para verificar tu identidad y proteger tu cuenta. No se usa con fines publicitarios.', pv3t: 'Con quién lo compartimos', pv3b: 'Con la agencia que elijas, solo los datos de tu solicitud. Tus datos biométricos no se comparten.', pv4t: 'Tus derechos', pv4b: 'Puedes pedir acceso, corrección o eliminación de tus datos y retirar tu consentimiento cuando quieras.', pvAccept: 'Acepto y cerrar', pvClose: 'Cerrar', chatTitle: 'Asistente Puebla 360°', chatSub: 'Preguntas frecuentes', chatPh: 'Escribe tu pregunta…', chatSend: 'Enviar', chatHiN: 'Hola, {name}. Soy el asistente de Puebla Turística 360°. Elige una pregunta frecuente o escribe la tuya.', chatHi: 'Hola, soy el asistente de Puebla Turística 360°. Elige una pregunta frecuente o escribe la tuya.', chatNo: 'No encontré una respuesta exacta. Prueba con una de estas preguntas frecuentes.', chatFab: 'Abrir preguntas frecuentes', payCryptoSub: 'Paga con MetaMask en USDT, ETH y más', payCashShort: 'Efectivo', payCashSub: 'Pagas directo con la agencia', mmReady: 'MetaMask conectada', stQuote: 'Cotizar', stOptions: 'Opciones', stPay: 'Pago', paying: 'Esperando confirmación…', paid: 'Pago enviado', needMM: 'Conecta MetaMask para pagar con activos digitales.', cashMsg: 'No se cobra nada en la app. Enviaremos un mensaje a la agencia con los datos de tu solicitud.', sendCash: 'Enviar solicitud a la agencia', noCustody: 'La app no custodia ni convierte fondos.',
+    confTitle: 'Te va a contactar la agencia de viajes', confEta: 'Respuesta aproximada: 2 horas', talk: 'Comunicarme en este momento', sumTitle: 'Resumen de la solicitud', newQuote: 'Nueva cotización',
+    s_city: 'Ciudad', s_dates: 'Fechas', s_acts: 'Actividades', s_budget: 'Presupuesto', s_ag: 'Agencias', s_pay: 'Pago', s_cash: 'Efectivo con la agencia', s_crypto: 'Activos digitales',
+    cSignTitle: 'Crear cuenta de empresa', cSignSub: 'Para agencias, hoteles y lugares turísticos.', cName: 'Nombre de la empresa', cPass: 'Contraseña', cSeparate: 'Te asignaremos un ID distinto de tu contraseña, para que ninguno haga las veces del otro.', cSignBtn: 'Crear cuenta',
+    r_len: '8 caracteres o más', r_up: 'Una mayúscula', r_num: 'Un número', r_sym: 'Un símbolo (!@#$…)',
+    saveIdTitle: 'Guarda tu ID', saveIdSub: 'Lo necesitarás junto con tu contraseña para iniciar sesión.', copy: 'Copiar ID', copied: 'ID copiado', saveIdWarn: 'No podrás verlo de nuevo en esta pantalla.', savedIt: 'Ya lo guardé',
+    cLoginTitle: 'Inicio de sesión', cLoginBtn: 'Entrar', cLoginErr: 'ID o contraseña incorrectos', demoHint: 'Demo: usa el ID que te asignamos y la contraseña que creaste.', cNoAcc: '¿Sin cuenta? Crear cuenta de empresa',
+    walletsTitle: 'Registro de cobros', walletsSub: 'Activa las monedas que aceptas y escribe la dirección de tu wallet. Validamos el formato según la red.', autofill: 'Autollenar direcciones', on: 'Activa', off: 'Inactiva', addrOk: 'Formato válido', addrBad: 'Formato no válido para esta red', addrEmpty: 'Falta la dirección',
+    dtSub: 'Con tu identificador DataTur obtenemos tus datos sin que los captures a mano.', dtId: 'Identificador DataTur', dtConsent: 'Estoy de acuerdo en que usen mis datos', dtGo: 'Consultar DataTur', dtVerifying: 'Verificando identidad', dtOk: 'Datos obtenidos con éxito',
+    dataTitle: 'Revisa tus datos', dataSub: 'Corrige lo que haga falta antes de publicar tu perfil.', f_name: 'Nombre comercial', f_legal: 'Razón social', f_type: 'Tipo de prestador', f_phone: 'Teléfono', f_mail: 'Correo', f_addr: 'Dirección',
+    privTitle: 'Aviso de privacidad', privBody: 'Usaremos los datos de tu empresa para mostrar tu perfil a turistas y enviarte solicitudes completas. Los datos del turista se comparten contigo solo para dar seguimiento a su solicitud.', accept: 'Aceptar y publicar', reject: 'Rechazar', privRejected: 'Sin aceptar el aviso de privacidad tu perfil no se publica.',
+    visTitle: 'Tu empresa ya es visible en nuestra app', visSub: 'Formas parte del registro de empresas que alimenta los resultados de los turistas.', toPanel: 'Ir a mi panel',
+    reqs: 'Solicitudes', payData: 'Datos de pago', editProfile: 'Editar perfil', contactBtn: 'Contactar', noReqs: 'Aún no hay solicitudes', noReqsSub: 'Cuando un turista te elija, aparecerá aquí.', noWallets: 'No hay wallets registradas.', cashTitle: 'Pagos en efectivo', cashPay: 'Se cobran directamente con el cliente; la app no procesa estos pagos.', cashCount: '2 solicitudes con efectivo (ejemplo)',
+    stNew: 'Nueva', stContacted: 'Contactada', stClosed: 'Cerrada', q_country: 'País', q_lang: 'Idioma', q_budget: 'Presupuesto', q_acts: 'Actividades', q_dates: 'Fechas', q_city: 'Ciudad', q_extra: 'Información adicional', q_contact: 'Contacto',
+    toastContact: 'Solicitud enviada. La agencia te contactará pronto', toastGmail: 'Abriendo Gmail', toastTalk: 'Conectando con la agencia', toastContacted: 'Marcada como contactada', qTitle: 'Mis cotizaciones', qEmpty: 'Aún no tienes cotizaciones', qEmptySub: 'Cuando envíes una solicitud a una agencia, aparecerá aquí.', qDel: 'Eliminar cotización', qDeleted: 'Cotización eliminada'
+  },
+  en: {
+    skip: 'Skip', back: 'Back', cancel: 'Cancel', cont: 'Continue', simulated: 'simulated', pending: 'pending', example: 'sample', or: 'or',
+    langTitle: 'Choose your language', langSub: 'The whole app will switch to the language you pick.', soon: 'Soon',
+    accessTitle: 'Plan your trip to Puebla', accessSub: 'Get quotes from local agencies and direct follow-up.', create: 'Create account', login: 'Log in', google: 'Continue with Google', isCompany: 'I am a business or service provider',
+    idvTitle: 'Verify your identity', idvSub: 'We will capture your document and your face to protect your account.', idvConsent: 'I agree to the use of my biometric data to verify my identity.', idvPriv: 'Privacy notice',
+    idvStart: 'Capture document and face', idvCap: 'Capturing…', idvVer: 'Verifying…', idvOk: 'Identity verified', idvNeed: 'Accept the consent to continue', idvLab0: 'Place your passport or ID and your face in the frame', idvLab1: 'Capturing document and face', idvLab2: 'Verifying identity', idvLab3: 'Verified',
+    welcome: 'Welcome,', welcomeSub: 'You are signed in. Tell us what you want to do in Puebla.', enter: 'Get started',
+    connect: 'Connect MetaMask', connecting: 'Connecting…', budget: 'Budget', budgetAuto: 'Calculated from activities and dates', budgetEdited: 'Edited by you', edit: 'Edit', done: 'Done',
+    rateChip: 'View in', rateLbl: 'MXN per USD', acts: 'Activities', actsPh: 'Select activities', actsN: 'activities', start: 'Start', end: 'End', time: 'Time', city: 'City', extra: 'Additional information (optional)', extraPh: 'Allergies, mobility, number of people…',
+    quote: 'Get quote', validating: 'Validating with AI…', okTitle: 'Complete data', okSub: 'We can now look for options with Puebla agencies.', seeOpts: 'See options', missTitle: 'Information missing', fix: 'Fix it',
+    m_acts: 'Choose at least one activity', m_dates: 'Check the dates: the end cannot be before the start', m_city: 'Choose a city', m_time: 'Enter a start time', searching: 'Searching agencies…', v1: 'Checking dates and people', v2: 'Validating activities', v3: 'Adjusting the budget', v4: 'Building your quote', sr1: 'Checking registered agencies', sr2: 'Searching with AI', sr3: 'Comparing packages and prices', sr4: 'Sorting your options', m_people: 'Enter the number of people', people: 'People', s_people: 'People',
+    a_swim: 'Swimming', a_mount: 'Mountaineering', a_food: 'Gastronomy', a_towns: 'Magical towns', a_arch: 'Archaeology',
+    resTitle: 'Options for you', resSub: 'When you request, the agency receives all the information you entered and follows up with you.', contact: 'Contact', request: 'Request from', agencies1: 'agency', agenciesN: 'agencies', pickOne: 'Select at least one agency', retry: 'Retry',
+    errTitle: 'We could not load the data', errSub: 'Check your connection and try again.', emptyTitle: 'No agencies available', emptySub: 'Adjust dates, city or activities.',
+    sel: 'Select', badge: 'Sample', fromAI: 'AI suggested',
+    payTitle: 'Payment', payCrypto: 'Digital assets', payCash: 'Cash (directly with the agency)', payNote: 'Payment is made directly with the agency.', payTo: 'Payment to', pkg: 'Package', coinTitle: 'Coins accepted by the agency', amount: 'Equivalent amount', payConfirm: 'Confirm with MetaMask', pvTitle: 'Privacy notice', pvIntro: 'Before capturing your document and face, this is what we do with your data.', pv1t: 'What we collect', pv1b: 'A photo of your document, an image of your face and your name, to confirm it is you.', pv2t: 'How we use it', pv2b: 'Only to verify your identity and protect your account. It is never used for advertising.', pv3t: 'Who we share it with', pv3b: 'The agency you choose receives only your request data. Your biometric data is not shared.', pv4t: 'Your rights', pv4b: 'You can request access, correction or deletion of your data and withdraw consent at any time.', pvAccept: 'I agree and close', pvClose: 'Close', chatTitle: 'Puebla 360° Assistant', chatSub: 'Frequently asked questions', chatPh: 'Type your question…', chatSend: 'Send', chatHiN: 'Hi {name}, I am the Puebla Turística 360° assistant. Pick a common question or type your own.', chatHi: 'Hi, I am the Puebla Turística 360° assistant. Pick a common question or type your own.', chatNo: 'I could not find an exact answer. Try one of these common questions.', chatFab: 'Open FAQ', payCryptoSub: 'Pay with MetaMask in USDT, ETH and more', payCashShort: 'Cash', payCashSub: 'You pay the agency directly', mmReady: 'MetaMask connected', stQuote: 'Quote', stOptions: 'Options', stPay: 'Payment', paying: 'Waiting for confirmation…', paid: 'Payment sent', needMM: 'Connect MetaMask to pay with digital assets.', cashMsg: 'Nothing is charged in the app. We will send the agency a message with your request details.', sendCash: 'Send request to the agency', noCustody: 'The app does not hold or convert funds.',
+    confTitle: 'The travel agency will contact you', confEta: 'Estimated response: 2 hours', talk: 'Talk to them now', sumTitle: 'Request summary', newQuote: 'New quote',
+    s_city: 'City', s_dates: 'Dates', s_acts: 'Activities', s_budget: 'Budget', s_ag: 'Agencies', s_pay: 'Payment', s_cash: 'Cash with the agency', s_crypto: 'Digital assets',
+    cSignTitle: 'Create business account', cSignSub: 'For agencies, hotels and tourist sites.', cName: 'Business name', cPass: 'Password', cSeparate: 'We will assign an ID separate from your password, so neither stands in for the other.', cSignBtn: 'Create account',
+    r_len: '8 characters or more', r_up: 'One uppercase letter', r_num: 'One number', r_sym: 'One symbol (!@#$…)',
+    saveIdTitle: 'Save your ID', saveIdSub: 'You will need it with your password to log in.', copy: 'Copy ID', copied: 'ID copied', saveIdWarn: 'You will not be able to see it again on this screen.', savedIt: 'I saved it',
+    cLoginTitle: 'Log in', cLoginBtn: 'Enter', cLoginErr: 'Wrong ID or password', demoHint: 'Demo: use the ID we assigned and the password you created.', cNoAcc: 'No account? Create a business account',
+    walletsTitle: 'Payment setup', walletsSub: 'Turn on the coins you accept and enter your wallet address. We check the format for each network.', autofill: 'Autofill addresses', on: 'On', off: 'Off', addrOk: 'Valid format', addrBad: 'Invalid format for this network', addrEmpty: 'Address missing',
+    dtSub: 'With your DataTur identifier we fetch your data so you do not type it by hand.', dtId: 'DataTur identifier', dtConsent: 'I agree to the use of my data', dtGo: 'Look up DataTur', dtVerifying: 'Verifying identity', dtOk: 'Data retrieved successfully',
+    dataTitle: 'Review your data', dataSub: 'Correct anything needed before publishing your profile.', f_name: 'Trade name', f_legal: 'Legal name', f_type: 'Provider type', f_phone: 'Phone', f_mail: 'Email', f_addr: 'Address',
+    privTitle: 'Privacy notice', privBody: 'We will use your business data to show your profile to tourists and send you complete requests. Tourist data is shared with you only to follow up on their request.', accept: 'Accept and publish', reject: 'Decline', privRejected: 'Without accepting the privacy notice your profile is not published.',
+    visTitle: 'Your business is now visible in our app', visSub: 'You are part of the business registry that feeds tourists’ results.', toPanel: 'Go to my dashboard',
+    reqs: 'Requests', payData: 'Payment details', editProfile: 'Edit profile', contactBtn: 'Contact', noReqs: 'No requests yet', noReqsSub: 'When a tourist picks you, it will show up here.', noWallets: 'No wallets registered.', cashTitle: 'Cash payments', cashPay: 'Collected directly from the customer; the app does not process these payments.', cashCount: '2 cash requests (sample)',
+    stNew: 'New', stContacted: 'Contacted', stClosed: 'Closed', q_country: 'Country', q_lang: 'Language', q_budget: 'Budget', q_acts: 'Activities', q_dates: 'Dates', q_city: 'City', q_extra: 'Additional information', q_contact: 'Contact',
+    toastContact: 'Request sent. The agency will contact you soon', toastGmail: 'Opening Gmail', toastTalk: 'Connecting to the agency', toastContacted: 'Marked as contacted', qTitle: 'My quotes', qEmpty: 'No quotes yet', qEmptySub: 'When you send a request to an agency, it will show up here.', qDel: 'Delete quote', qDeleted: 'Quote deleted'
+  }
+};
+// SEC:TEXTOS-AGENCIAS · AGTXT: descripción de cada agencia por idioma.
+const AGTXT = {
+  es: { cholula: 'Pirámide de Cholula, Atlixco y gastronomía local. 5 noches, guía bilingüe y traslados.', volcanes: 'Pueblos mágicos y senderismo al pie de los volcanes. 5 noches, guía y entradas incluidas.', sabores: 'Ruta de mole, talavera y mercados con cenas de chef. 5 noches y traslados.' },
+  en: { cholula: 'Cholula pyramid, Atlixco and local food. 5 nights, bilingual guide and transfers.', volcanes: 'Magical towns and hiking at the foot of the volcanoes. 5 nights, guide and entry fees included.', sabores: 'Mole, talavera and market route with chef dinners. 5 nights and transfers.' }
+};
+// SEC:CHATBOT-DATOS · FAQS: preguntas frecuentes. k = palabras clave para reconocer la pregunta; es/en = pregunta (q) y respuesta (a).
+const FAQS = [
+  { k: ['cotiz', 'quote', 'how', 'como funciona', 'work', 'empez', 'start'], es: { q: '¿Cómo funciona la cotización?', a: 'Eliges actividades, fechas, ciudad y número de personas, y pulsas Cotizar. Una IA valida los datos y te muestra opciones de agencias. Seleccionas las que quieras y les envías tu solicitud completa.' }, en: { q: 'How does quoting work?', a: 'You choose activities, dates, city and number of people, then tap Get quote. An AI validates the data and shows agency options. Select the ones you want and send your full request.' } },
+  { k: ['presupuesto', 'budget', 'precio', 'price', 'costo', 'cost', 'cuanto'], es: { q: '¿Cómo se calcula el presupuesto?', a: 'Se calcula solo con una tarifa diaria por actividad multiplicada por los días del viaje. Puedes editarlo con el botón Editar. Los precios de las agencias son estimados.' }, en: { q: 'How is the budget calculated?', a: 'It is calculated automatically from a daily rate per activity times the trip days. You can edit it with the Edit button. Agency prices are estimates.' } },
+  { k: ['pago', 'pagar', 'pay', 'cobr', 'charge', 'tarjeta', 'card'], es: { q: '¿Cómo pago mi viaje?', a: 'Puedes pagar con activos digitales usando MetaMask o en efectivo directo con la agencia. El pago siempre es entre tú y la agencia: la app no cobra, no custodia ni convierte fondos.' }, en: { q: 'How do I pay for my trip?', a: 'You can pay with digital assets using MetaMask or in cash directly with the agency. Payment is always between you and the agency: the app does not charge, hold or convert funds.' } },
+  { k: ['metamask', 'wallet', 'cripto', 'crypto', 'usdt', 'eth', 'saldo', 'balance'], es: { q: '¿Qué es MetaMask y para qué la uso?', a: 'Es una billetera digital. Al conectarla ves tu saldo (puedes ocultarlo con el ojito) y puedes pagar en las monedas que acepte la agencia, como USDT o ETH.' }, en: { q: 'What is MetaMask and why use it?', a: 'It is a digital wallet. Once connected you see your balance (you can hide it) and can pay in the coins the agency accepts, like USDT or ETH. In this prototype the connection and payment are simulated.' } },
+  { k: ['efectivo', 'cash'], es: { q: '¿Cómo funciona el pago en efectivo?', a: 'No se cobra nada en la app. Enviamos un mensaje a la agencia con los datos de tu solicitud y pagas directamente con ella.' }, en: { q: 'How does cash payment work?', a: 'Nothing is charged in the app. We send the agency a message with your request details and you pay them directly.' } },
+  { k: ['dato', 'privacidad', 'privacy', 'data', 'biometr', 'rostro', 'face', 'identidad', 'identity', 'verific'], es: { q: '¿Qué pasa con mis datos?', a: 'Verificamos tu identidad con tu documento y rostro solo con tu consentimiento. La agencia que elijas recibe la información de tu solicitud para darte seguimiento. Puedes leer el aviso de privacidad antes de aceptar.' }, en: { q: 'What happens with my data?', a: 'We verify your identity with your document and face only with your consent. The agency you choose receives your request information to follow up. You can read the privacy notice before accepting.' } },
+  { k: ['tarda', 'tiempo', 'respuesta', 'contacta', 'contact', 'response', 'long', 'agencia me'], es: { q: '¿Cuánto tarda la agencia en responder?', a: 'El tiempo aproximado es de 2 horas. En la confirmación puedes pulsar Comunicarme en este momento para contactarla de inmediato.' }, en: { q: 'How long does the agency take to reply?', a: 'The estimated time is 2 hours. On the confirmation screen you can tap Talk to them now to reach them right away.' } },
+  { k: ['idioma', 'language', 'moneda', 'currency', 'dolar', 'dollar', 'mxn', 'usd', 'peso', 'cambio', 'exchange'], es: { q: '¿Puedo cambiar idioma o moneda?', a: 'Sí. El idioma se elige al inicio y toda la app cambia. En el cotizador, el botón de moneda alterna entre USD y MXN y muestra el tipo de cambio.' }, en: { q: 'Can I change language or currency?', a: 'Yes. You pick the language at the start and the whole app changes. In the quote screen, the currency button switches between USD and MXN and shows the exchange rate (17.5 MXN per USD in this sample).' } },
+  { k: ['empresa', 'agencia', 'business', 'registr', 'hotel', 'provider', 'prestador', 'datatur'], es: { q: 'Soy una agencia, ¿cómo me registro?', a: 'Desde Acceso elige Soy una empresa. Creas tu cuenta, guardas tu ID, registras tus wallets, consultas DataTur, revisas tus datos y aceptas el aviso de privacidad. Después tu empresa es visible y recibes solicitudes en tu panel.' }, en: { q: 'I am an agency, how do I register?', a: 'From Access choose I am a business. You create your account, save your ID, register your wallets, look up DataTur, review your data and accept the privacy notice. Then your business is visible and you receive requests in your dashboard.' } }
+];
+
+// SEC:TRADUCCIONES · FR, DE, PT, IT: textos de interfaz en francés, alemán, portugués e italiano.
+const FR={skip:'Passer',back:'Retour',cancel:'Annuler',cont:'Continuer',simulated:'simulé',pending:'à venir',example:'exemple',or:'ou',langTitle:'Choisissez votre langue',langSub:'Toute l’appli passera dans la langue choisie.',soon:'Bientôt',accessTitle:'Planifiez votre voyage à Puebla',accessSub:'Obtenez des devis d’agences locales avec un suivi direct.',create:'Créer un compte',login:'Se connecter',google:'Continuer avec Google',isCompany:'Je suis une entreprise ou un prestataire',idvTitle:'Vérifiez votre identité',idvSub:'Nous saisirons votre document et votre visage pour protéger votre compte.',idvConsent:'J’accepte l’utilisation de mes données biométriques pour vérifier mon identité.',idvPriv:'Politique de confidentialité',idvStart:'Saisir document et visage',idvCap:'Saisie…',idvVer:'Vérification…',idvNeed:'Acceptez le consentement pour continuer',idvLab0:'Placez votre pièce d’identité ou passeport et votre visage dans le cadre',idvLab1:'Saisie du document et du visage',idvLab2:'Vérification de l’identité',idvLab3:'Vérifié',welcome:'Bienvenue,',welcomeSub:'Vous êtes connecté. Dites-nous ce que vous voulez faire à Puebla.',enter:'Commencer',connect:'Connecter MetaMask',connecting:'Connexion…',budget:'Budget',budgetAuto:'Calculé selon les activités et les dates',budgetEdited:'Modifié par vous',edit:'Modifier',done:'OK',acts:'Activités',actsPh:'Choisir des activités',start:'Début',end:'Fin',time:'Heure',city:'Ville',extra:'Informations complémentaires (facultatif)',extraPh:'Allergies, mobilité…',people:'Personnes',quote:'Demander un devis',validating:'Validation par l’IA…',okTitle:'Données complètes',okSub:'Nous pouvons chercher des offres auprès des agences de Puebla.',seeOpts:'Voir les offres',missTitle:'Informations manquantes',fix:'Corriger',m_acts:'Choisissez au moins une activité',m_dates:'Vérifiez les dates : la fin ne peut précéder le début',m_city:'Choisissez une ville',m_time:'Indiquez l’heure de début',m_people:'Indiquez le nombre de personnes',a_swim:'Baignade',a_mount:'Alpinisme',a_food:'Gastronomie',a_towns:'Villages magiques',a_arch:'Archéologie',searching:'Recherche d’agences…',v1:'Vérification des dates et des personnes',v2:'Validation des activités',v3:'Ajustement du budget',v4:'Création de votre devis',sr1:'Consultation des agences inscrites',sr2:'Recherche par IA',sr3:'Comparaison des offres et des prix',sr4:'Classement de vos options',resTitle:'Offres pour vous',resSub:'En envoyant votre demande, l’agence reçoit toutes vos informations et assure le suivi.',contact:'Contact',request:'Demander à',agencies1:'agence',agenciesN:'agences',pickOne:'Choisissez au moins une agence',retry:'Réessayer',errTitle:'Impossible de charger les données',errSub:'Vérifiez votre connexion et réessayez.',emptyTitle:'Aucune agence disponible',emptySub:'Modifiez les dates, la ville ou les activités.',sel:'Choisir',badge:'Exemple',payTitle:'Paiement',payCrypto:'Actifs numériques',payCryptoSub:'Payez avec MetaMask en USDT, ETH et plus',payCashShort:'Espèces',payCashSub:'Vous payez directement l’agence',payNote:'Le paiement se fait directement avec l’agence.',payTo:'Paiement à',coinTitle:'Monnaies acceptées par l’agence',amount:'Montant équivalent',payConfirm:'Confirmer avec MetaMask',paying:'En attente de confirmation…',paid:'Paiement envoyé',needMM:'Connectez MetaMask pour payer en actifs numériques.',cashMsg:'Rien n’est débité dans l’appli. Nous enverrons à l’agence un message avec les détails de votre demande.',sendCash:'Envoyer la demande à l’agence',noCustody:'L’appli ne détient ni ne convertit de fonds.',mmReady:'MetaMask connectée',stQuote:'Devis',stOptions:'Offres',stPay:'Paiement',confTitle:'L’agence de voyage va vous contacter',confEta:'Réponse estimée : 2 heures',talk:'Les contacter maintenant',sumTitle:'Résumé de la demande',newQuote:'Nouveau devis',s_city:'Ville',s_people:'Personnes',s_dates:'Dates',s_acts:'Activités',s_budget:'Budget',s_ag:'Agences',s_pay:'Paiement',s_cash:'Espèces auprès de l’agence',s_crypto:'Actifs numériques',chatTitle:'Assistant Puebla 360°',chatSub:'Questions fréquentes',chatPh:'Écrivez votre question…',chatSend:'Envoyer',chatHi:'Bonjour, je suis l’assistant de Puebla Turística 360°. Choisissez une question fréquente ou écrivez la vôtre.',chatHiN:'Bonjour {name}, je suis l’assistant de Puebla Turística 360°. Choisissez une question fréquente ou écrivez la vôtre.',chatNo:'Je n’ai pas trouvé de réponse exacte. Essayez l’une de ces questions fréquentes.',chatFab:'Ouvrir la FAQ',cSignTitle:'Créer un compte entreprise',cSignSub:'Pour agences, hôtels et sites touristiques.',cName:'Nom de l’entreprise',cPass:'Mot de passe',cSignBtn:'Créer le compte',r_len:'8 caractères ou plus',r_up:'Une majuscule',r_num:'Un chiffre',r_sym:'Un symbole (!@#$…)',saveIdTitle:'Conservez votre ID',saveIdSub:'Il vous faudra l’ID et le mot de passe pour vous connecter.',copy:'Copier l’ID',copied:'ID copié',savedIt:'Je l’ai enregistré',cLoginTitle:'Connexion',cLoginBtn:'Entrer',cLoginErr:'ID ou mot de passe incorrect',cNoAcc:'Pas de compte ? Créer un compte entreprise',walletsTitle:'Configuration des paiements',autofill:'Remplir avec des exemples',on:'Actif',off:'Inactif',addrOk:'Format valide',addrBad:'Format invalide pour ce réseau',addrEmpty:'Adresse manquante',dtId:'Identifiant DataTur',dtConsent:'J’accepte l’utilisation de mes données',dtGo:'Consulter DataTur',dtVerifying:'Vérification de l’identité',dtOk:'Données récupérées avec succès',dataTitle:'Vérifiez vos données',f_name:'Nom commercial',f_legal:'Raison sociale',f_type:'Type de prestataire',f_phone:'Téléphone',f_mail:'E-mail',f_addr:'Adresse',privTitle:'Politique de confidentialité',accept:'Accepter et publier',reject:'Refuser',privRejected:'Sans accepter la politique, votre profil n’est pas publié.',visTitle:'Votre entreprise est maintenant visible dans l’appli',visSub:'Vous faites partie du registre qui alimente les résultats des touristes.',toPanel:'Aller à mon tableau de bord',reqs:'Demandes',payData:'Données de paiement',editProfile:'Modifier le profil',contactBtn:'Contacter',noReqs:'Aucune demande pour l’instant',noReqsSub:'Quand un touriste vous choisit, elle apparaît ici.',noWallets:'Aucun portefeuille enregistré.',cashTitle:'Paiements en espèces',stNew:'Nouvelle',stContacted:'Contactée',stClosed:'Clôturée',q_acts:'Activités',q_dates:'Dates',q_city:'Ville',q_extra:'Informations complémentaires',q_contact:'Contact',toastContact:'Contact de l’agence',toastGmail:'Ouverture de Gmail',toastTalk:'Connexion à l’agence',toastContacted:'Marquée comme contactée'};
+const DE={skip:'Überspringen',back:'Zurück',cancel:'Abbrechen',cont:'Weiter',simulated:'simuliert',pending:'ausstehend',example:'Beispiel',or:'oder',langTitle:'Sprache wählen',langSub:'Die ganze App wechselt in die gewählte Sprache.',soon:'Bald',accessTitle:'Plane deine Reise nach Puebla',accessSub:'Hol dir Angebote lokaler Agenturen mit direkter Betreuung.',create:'Konto erstellen',login:'Anmelden',google:'Weiter mit Google',isCompany:'Ich bin ein Unternehmen oder Anbieter',idvTitle:'Identität bestätigen',idvSub:'Wir erfassen Dokument und Gesicht, um dein Konto zu schützen.',idvConsent:'Ich stimme der Nutzung meiner biometrischen Daten zur Identitätsprüfung zu.',idvPriv:'Datenschutzhinweis',idvStart:'Dokument und Gesicht erfassen',idvCap:'Erfassung…',idvVer:'Prüfung…',idvNeed:'Stimme der Einwilligung zu, um fortzufahren',idvLab0:'Halte Ausweis oder Reisepass und dein Gesicht in den Rahmen',idvLab1:'Dokument und Gesicht werden erfasst',idvLab2:'Identität wird geprüft',idvLab3:'Bestätigt',welcome:'Willkommen,',welcomeSub:'Du bist angemeldet. Sag uns, was du in Puebla vorhast.',enter:'Los geht’s',connect:'MetaMask verbinden',connecting:'Verbinde…',budget:'Budget',budgetAuto:'Berechnet aus Aktivitäten und Daten',budgetEdited:'Von dir geändert',edit:'Ändern',done:'Fertig',acts:'Aktivitäten',actsPh:'Aktivitäten wählen',start:'Beginn',end:'Ende',time:'Uhrzeit',city:'Stadt',extra:'Zusätzliche Angaben (optional)',extraPh:'Allergien, Mobilität…',people:'Personen',quote:'Angebot anfragen',validating:'Prüfung durch KI…',okTitle:'Daten vollständig',okSub:'Wir können jetzt Angebote von Agenturen in Puebla suchen.',seeOpts:'Angebote ansehen',missTitle:'Angaben fehlen',fix:'Korrigieren',m_acts:'Wähle mindestens eine Aktivität',m_dates:'Prüfe die Daten: Das Ende darf nicht vor dem Beginn liegen',m_city:'Wähle eine Stadt',m_time:'Gib eine Startzeit an',m_people:'Gib die Personenzahl an',a_swim:'Schwimmen',a_mount:'Bergsteigen',a_food:'Gastronomie',a_towns:'Pueblos Mágicos',a_arch:'Archäologie',searching:'Agenturen werden gesucht…',v1:'Daten und Personen prüfen',v2:'Aktivitäten prüfen',v3:'Budget anpassen',v4:'Dein Angebot zusammenstellen',sr1:'Registrierte Agenturen abfragen',sr2:'Suche mit KI',sr3:'Pakete und Preise vergleichen',sr4:'Optionen sortieren',resTitle:'Angebote für dich',resSub:'Mit deiner Anfrage erhält die Agentur alle Angaben und betreut dich weiter.',contact:'Kontakt',request:'Anfragen bei',agencies1:'Agentur',agenciesN:'Agenturen',pickOne:'Wähle mindestens eine Agentur',retry:'Erneut versuchen',errTitle:'Daten konnten nicht geladen werden',errSub:'Prüfe deine Verbindung und versuche es erneut.',emptyTitle:'Keine Agenturen verfügbar',emptySub:'Passe Daten, Stadt oder Aktivitäten an.',sel:'Auswählen',badge:'Beispiel',payTitle:'Zahlung',payCrypto:'Digitale Assets',payCryptoSub:'Zahle mit MetaMask in USDT, ETH und mehr',payCashShort:'Bargeld',payCashSub:'Du zahlst direkt bei der Agentur',payNote:'Die Zahlung erfolgt direkt mit der Agentur.',payTo:'Zahlung an',coinTitle:'Von der Agentur akzeptierte Coins',amount:'Gegenwert',payConfirm:'Mit MetaMask bestätigen',paying:'Warte auf Bestätigung…',paid:'Zahlung gesendet',needMM:'Verbinde MetaMask, um mit digitalen Assets zu zahlen.',cashMsg:'In der App wird nichts abgebucht. Wir senden der Agentur eine Nachricht mit deinen Anfragedaten.',sendCash:'Anfrage an die Agentur senden',noCustody:'Die App verwahrt oder wechselt keine Gelder.',mmReady:'MetaMask verbunden',stQuote:'Angebot',stOptions:'Optionen',stPay:'Zahlung',confTitle:'Die Reiseagentur meldet sich bei dir',confEta:'Voraussichtliche Antwort: 2 Stunden',talk:'Jetzt Kontakt aufnehmen',sumTitle:'Zusammenfassung der Anfrage',newQuote:'Neues Angebot',s_city:'Stadt',s_people:'Personen',s_dates:'Daten',s_acts:'Aktivitäten',s_budget:'Budget',s_ag:'Agenturen',s_pay:'Zahlung',s_cash:'Bargeld bei der Agentur',s_crypto:'Digitale Assets',chatTitle:'Puebla 360° Assistent',chatSub:'Häufige Fragen',chatPh:'Frage eingeben…',chatSend:'Senden',chatHi:'Hallo, ich bin der Assistent von Puebla Turística 360°. Wähle eine häufige Frage oder stelle deine eigene.',chatHiN:'Hallo {name}, ich bin der Assistent von Puebla Turística 360°. Wähle eine häufige Frage oder stelle deine eigene.',chatNo:'Ich habe keine genaue Antwort gefunden. Probiere eine dieser häufigen Fragen.',chatFab:'FAQ öffnen',cSignTitle:'Firmenkonto erstellen',cSignSub:'Für Agenturen, Hotels und Sehenswürdigkeiten.',cName:'Firmenname',cPass:'Passwort',cSignBtn:'Konto erstellen',r_len:'8 Zeichen oder mehr',r_up:'Ein Großbuchstabe',r_num:'Eine Zahl',r_sym:'Ein Symbol (!@#$…)',saveIdTitle:'Speichere deine ID',saveIdSub:'Du brauchst sie zusammen mit dem Passwort zum Anmelden.',copy:'ID kopieren',copied:'ID kopiert',savedIt:'Gespeichert',cLoginTitle:'Anmeldung',cLoginBtn:'Anmelden',cLoginErr:'ID oder Passwort falsch',cNoAcc:'Kein Konto? Firmenkonto erstellen',walletsTitle:'Zahlungseinrichtung',autofill:'Beispieladressen einfügen',on:'An',off:'Aus',addrOk:'Gültiges Format',addrBad:'Ungültiges Format für dieses Netzwerk',addrEmpty:'Adresse fehlt',dtId:'DataTur-Kennung',dtConsent:'Ich stimme der Nutzung meiner Daten zu',dtGo:'DataTur abfragen',dtVerifying:'Identität wird geprüft',dtOk:'Daten erfolgreich abgerufen',dataTitle:'Daten prüfen',f_name:'Handelsname',f_legal:'Firmenname',f_type:'Anbietertyp',f_phone:'Telefon',f_mail:'E-Mail',f_addr:'Adresse',privTitle:'Datenschutzhinweis',accept:'Akzeptieren und veröffentlichen',reject:'Ablehnen',privRejected:'Ohne Zustimmung wird dein Profil nicht veröffentlicht.',visTitle:'Dein Unternehmen ist jetzt in der App sichtbar',visSub:'Du bist Teil des Registers, das die Ergebnisse der Touristen speist.',toPanel:'Zum Dashboard',reqs:'Anfragen',payData:'Zahlungsdaten',editProfile:'Profil bearbeiten',contactBtn:'Kontaktieren',noReqs:'Noch keine Anfragen',noReqsSub:'Sobald ein Tourist dich wählt, erscheint sie hier.',noWallets:'Keine Wallets registriert.',cashTitle:'Barzahlungen',stNew:'Neu',stContacted:'Kontaktiert',stClosed:'Abgeschlossen',q_acts:'Aktivitäten',q_dates:'Daten',q_city:'Stadt',q_extra:'Zusätzliche Angaben',q_contact:'Kontakt',toastContact:'Kontakt der Agentur',toastGmail:'Gmail wird geöffnet',toastTalk:'Verbindung zur Agentur',toastContacted:'Als kontaktiert markiert'};
+const PT={skip:'Pular',back:'Voltar',cancel:'Cancelar',cont:'Continuar',simulated:'simulado',pending:'pendente',example:'exemplo',or:'ou',langTitle:'Escolha seu idioma',langSub:'Todo o app mudará para o idioma escolhido.',soon:'Em breve',accessTitle:'Planeje sua viagem a Puebla',accessSub:'Receba cotações de agências locais com acompanhamento direto.',create:'Criar conta',login:'Entrar',google:'Continuar com o Google',isCompany:'Sou uma empresa ou prestador de serviço',idvTitle:'Verifique sua identidade',idvSub:'Vamos capturar seu documento e seu rosto para proteger sua conta.',idvConsent:'Aceito o uso dos meus dados biométricos para verificar minha identidade.',idvPriv:'Aviso de privacidade',idvStart:'Capturar documento e rosto',idvCap:'Capturando…',idvVer:'Verificando…',idvNeed:'Aceite o consentimento para continuar',idvLab0:'Posicione seu documento ou passaporte e seu rosto no quadro',idvLab1:'Capturando documento e rosto',idvLab2:'Verificando identidade',idvLab3:'Verificado',welcome:'Bem-vindo(a),',welcomeSub:'Você já está conectado. Conte o que quer fazer em Puebla.',enter:'Começar',connect:'Conectar MetaMask',connecting:'Conectando…',budget:'Orçamento',budgetAuto:'Calculado conforme atividades e datas',budgetEdited:'Editado por você',edit:'Editar',done:'Pronto',acts:'Atividades',actsPh:'Selecione atividades',start:'Início',end:'Fim',time:'Hora',city:'Cidade',extra:'Informações adicionais (opcional)',extraPh:'Alergias, mobilidade…',people:'Pessoas',quote:'Cotar',validating:'Validando com IA…',okTitle:'Dados completos',okSub:'Já podemos buscar opções com agências de Puebla.',seeOpts:'Ver opções',missTitle:'Faltam informações',fix:'Corrigir',m_acts:'Escolha ao menos uma atividade',m_dates:'Revise as datas: o fim não pode ser antes do início',m_city:'Escolha uma cidade',m_time:'Informe a hora de início',m_people:'Informe o número de pessoas',a_swim:'Natação',a_mount:'Montanhismo',a_food:'Gastronomia',a_towns:'Pueblos Mágicos',a_arch:'Arqueologia',searching:'Buscando agências…',v1:'Revisando datas e pessoas',v2:'Validando atividades',v3:'Ajustando o orçamento',v4:'Montando sua cotação',sr1:'Consultando agências cadastradas',sr2:'Buscando com IA',sr3:'Comparando pacotes e preços',sr4:'Ordenando suas opções',resTitle:'Opções para você',resSub:'Ao solicitar, a agência recebe todas as informações e faz o acompanhamento.',contact:'Contato',request:'Solicitar a',agencies1:'agência',agenciesN:'agências',pickOne:'Escolha ao menos uma agência',retry:'Tentar de novo',errTitle:'Não foi possível carregar os dados',errSub:'Verifique sua conexão e tente novamente.',emptyTitle:'Nenhuma agência disponível',emptySub:'Ajuste datas, cidade ou atividades.',sel:'Selecionar',badge:'Exemplo',payTitle:'Pagamento',payCrypto:'Ativos digitais',payCryptoSub:'Pague com MetaMask em USDT, ETH e mais',payCashShort:'Dinheiro',payCashSub:'Você paga direto à agência',payNote:'O pagamento é feito diretamente com a agência.',payTo:'Pagamento a',coinTitle:'Moedas aceitas pela agência',amount:'Valor equivalente',payConfirm:'Confirmar com MetaMask',paying:'Aguardando confirmação…',paid:'Pagamento enviado',needMM:'Conecte a MetaMask para pagar com ativos digitais.',cashMsg:'Nada é cobrado no app. Enviaremos à agência uma mensagem com os dados da sua solicitação.',sendCash:'Enviar solicitação à agência',noCustody:'O app não guarda nem converte fundos.',mmReady:'MetaMask conectada',stQuote:'Cotação',stOptions:'Opções',stPay:'Pagamento',confTitle:'A agência de viagens vai entrar em contato',confEta:'Resposta estimada: 2 horas',talk:'Falar com eles agora',sumTitle:'Resumo da solicitação',newQuote:'Nova cotação',s_city:'Cidade',s_people:'Pessoas',s_dates:'Datas',s_acts:'Atividades',s_budget:'Orçamento',s_ag:'Agências',s_pay:'Pagamento',s_cash:'Dinheiro com a agência',s_crypto:'Ativos digitais',chatTitle:'Assistente Puebla 360°',chatSub:'Perguntas frequentes',chatPh:'Escreva sua pergunta…',chatSend:'Enviar',chatHi:'Olá, sou o assistente do Puebla Turística 360°. Escolha uma pergunta frequente ou escreva a sua.',chatHiN:'Olá, {name}! Sou o assistente do Puebla Turística 360°. Escolha uma pergunta frequente ou escreva a sua.',chatNo:'Não encontrei uma resposta exata. Tente uma destas perguntas frequentes.',chatFab:'Abrir perguntas frequentes',cSignTitle:'Criar conta de empresa',cSignSub:'Para agências, hotéis e locais turísticos.',cName:'Nome da empresa',cPass:'Senha',cSignBtn:'Criar conta',r_len:'8 caracteres ou mais',r_up:'Uma letra maiúscula',r_num:'Um número',r_sym:'Um símbolo (!@#$…)',saveIdTitle:'Guarde seu ID',saveIdSub:'Você vai precisar dele com a senha para entrar.',copy:'Copiar ID',copied:'ID copiado',savedIt:'Já guardei',cLoginTitle:'Entrar',cLoginBtn:'Entrar',cLoginErr:'ID ou senha incorretos',cNoAcc:'Sem conta? Criar conta de empresa',walletsTitle:'Configuração de pagamentos',autofill:'Preencher com exemplos',on:'Ativa',off:'Inativa',addrOk:'Formato válido',addrBad:'Formato inválido para esta rede',addrEmpty:'Falta o endereço',dtId:'Identificador DataTur',dtConsent:'Concordo com o uso dos meus dados',dtGo:'Consultar DataTur',dtVerifying:'Verificando identidade',dtOk:'Dados obtidos com sucesso',dataTitle:'Revise seus dados',f_name:'Nome fantasia',f_legal:'Razão social',f_type:'Tipo de prestador',f_phone:'Telefone',f_mail:'E-mail',f_addr:'Endereço',privTitle:'Aviso de privacidade',accept:'Aceitar e publicar',reject:'Recusar',privRejected:'Sem aceitar o aviso, seu perfil não é publicado.',visTitle:'Sua empresa já está visível no app',visSub:'Você faz parte do registro que alimenta os resultados dos turistas.',toPanel:'Ir ao meu painel',reqs:'Solicitações',payData:'Dados de pagamento',editProfile:'Editar perfil',contactBtn:'Contatar',noReqs:'Ainda não há solicitações',noReqsSub:'Quando um turista escolher você, aparecerá aqui.',noWallets:'Nenhuma carteira cadastrada.',cashTitle:'Pagamentos em dinheiro',stNew:'Nova',stContacted:'Contatada',stClosed:'Encerrada',q_acts:'Atividades',q_dates:'Datas',q_city:'Cidade',q_extra:'Informações adicionais',q_contact:'Contato',toastContact:'Contato da agência',toastGmail:'Abrindo o Gmail',toastTalk:'Conectando com a agência',toastContacted:'Marcada como contatada'};
+const IT={skip:'Salta',back:'Indietro',cancel:'Annulla',cont:'Continua',simulated:'simulato',pending:'in sospeso',example:'esempio',or:'o',langTitle:'Scegli la lingua',langSub:'Tutta l’app passerà alla lingua scelta.',soon:'Presto',accessTitle:'Pianifica il tuo viaggio a Puebla',accessSub:'Ricevi preventivi da agenzie locali con assistenza diretta.',create:'Crea account',login:'Accedi',google:'Continua con Google',isCompany:'Sono un’azienda o un fornitore di servizi',idvTitle:'Verifica la tua identità',idvSub:'Acquisiremo documento e volto per proteggere il tuo account.',idvConsent:'Acconsento all’uso dei miei dati biometrici per verificare l’identità.',idvPriv:'Informativa sulla privacy',idvStart:'Acquisisci documento e volto',idvCap:'Acquisizione…',idvVer:'Verifica…',idvNeed:'Accetta il consenso per continuare',idvLab0:'Inquadra documento o passaporto e il tuo volto',idvLab1:'Acquisizione di documento e volto',idvLab2:'Verifica dell’identità',idvLab3:'Verificato',welcome:'Benvenuto/a,',welcomeSub:'Hai effettuato l’accesso. Dicci cosa vuoi fare a Puebla.',enter:'Inizia',connect:'Collega MetaMask',connecting:'Collegamento…',budget:'Budget',budgetAuto:'Calcolato in base ad attività e date',budgetEdited:'Modificato da te',edit:'Modifica',done:'Fatto',acts:'Attività',actsPh:'Seleziona attività',start:'Inizio',end:'Fine',time:'Ora',city:'Città',extra:'Informazioni aggiuntive (facoltativo)',extraPh:'Allergie, mobilità…',people:'Persone',quote:'Richiedi preventivo',validating:'Convalida con IA…',okTitle:'Dati completi',okSub:'Ora possiamo cercare opzioni con le agenzie di Puebla.',seeOpts:'Vedi opzioni',missTitle:'Informazioni mancanti',fix:'Correggi',m_acts:'Scegli almeno un’attività',m_dates:'Controlla le date: la fine non può precedere l’inizio',m_city:'Scegli una città',m_time:'Indica l’ora di inizio',m_people:'Indica il numero di persone',a_swim:'Nuoto',a_mount:'Alpinismo',a_food:'Gastronomia',a_towns:'Pueblos Mágicos',a_arch:'Archeologia',searching:'Ricerca di agenzie…',v1:'Controllo di date e persone',v2:'Convalida delle attività',v3:'Adeguamento del budget',v4:'Creazione del preventivo',sr1:'Consultazione delle agenzie registrate',sr2:'Ricerca con IA',sr3:'Confronto di pacchetti e prezzi',sr4:'Ordinamento delle opzioni',resTitle:'Opzioni per te',resSub:'Con la richiesta, l’agenzia riceve tutte le informazioni e ti segue direttamente.',contact:'Contatto',request:'Richiedi a',agencies1:'agenzia',agenciesN:'agenzie',pickOne:'Scegli almeno un’agenzia',retry:'Riprova',errTitle:'Impossibile caricare i dati',errSub:'Controlla la connessione e riprova.',emptyTitle:'Nessuna agenzia disponibile',emptySub:'Modifica date, città o attività.',sel:'Seleziona',badge:'Esempio',payTitle:'Pagamento',payCrypto:'Asset digitali',payCryptoSub:'Paga con MetaMask in USDT, ETH e altro',payCashShort:'Contanti',payCashSub:'Paghi direttamente l’agenzia',payNote:'Il pagamento avviene direttamente con l’agenzia.',payTo:'Pagamento a',coinTitle:'Valute accettate dall’agenzia',amount:'Importo equivalente',payConfirm:'Conferma con MetaMask',paying:'In attesa di conferma…',paid:'Pagamento inviato',needMM:'Collega MetaMask per pagare con asset digitali.',cashMsg:'Nell’app non viene addebitato nulla. Invieremo all’agenzia un messaggio con i dati della richiesta.',sendCash:'Invia la richiesta all’agenzia',noCustody:'L’app non custodisce né converte fondi.',mmReady:'MetaMask collegata',stQuote:'Preventivo',stOptions:'Opzioni',stPay:'Pagamento',confTitle:'L’agenzia di viaggi ti contatterà',confEta:'Risposta stimata: 2 ore',talk:'Contattali ora',sumTitle:'Riepilogo della richiesta',newQuote:'Nuovo preventivo',s_city:'Città',s_people:'Persone',s_dates:'Date',s_acts:'Attività',s_budget:'Budget',s_ag:'Agenzie',s_pay:'Pagamento',s_cash:'Contanti con l’agenzia',s_crypto:'Asset digitali',chatTitle:'Assistente Puebla 360°',chatSub:'Domande frequenti',chatPh:'Scrivi la tua domanda…',chatSend:'Invia',chatHi:'Ciao, sono l’assistente di Puebla Turística 360°. Scegli una domanda frequente o scrivi la tua.',chatHiN:'Ciao {name}, sono l’assistente di Puebla Turística 360°. Scegli una domanda frequente o scrivi la tua.',chatNo:'Non ho trovato una risposta esatta. Prova una di queste domande frequenti.',chatFab:'Apri le FAQ',cSignTitle:'Crea account aziendale',cSignSub:'Per agenzie, hotel e luoghi turistici.',cName:'Nome dell’azienda',cPass:'Password',cSignBtn:'Crea account',r_len:'8 caratteri o più',r_up:'Una maiuscola',r_num:'Un numero',r_sym:'Un simbolo (!@#$…)',saveIdTitle:'Salva il tuo ID',saveIdSub:'Ti servirà insieme alla password per accedere.',copy:'Copia ID',copied:'ID copiato',savedIt:'L’ho salvato',cLoginTitle:'Accesso',cLoginBtn:'Entra',cLoginErr:'ID o password errati',cNoAcc:'Nessun account? Crea un account aziendale',walletsTitle:'Configurazione pagamenti',autofill:'Compila con esempi',on:'Attiva',off:'Disattiva',addrOk:'Formato valido',addrBad:'Formato non valido per questa rete',addrEmpty:'Indirizzo mancante',dtId:'Identificativo DataTur',dtConsent:'Acconsento all’uso dei miei dati',dtGo:'Consulta DataTur',dtVerifying:'Verifica dell’identità',dtOk:'Dati ottenuti con successo',dataTitle:'Controlla i tuoi dati',f_name:'Nome commerciale',f_legal:'Ragione sociale',f_type:'Tipo di fornitore',f_phone:'Telefono',f_mail:'E-mail',f_addr:'Indirizzo',privTitle:'Informativa sulla privacy',accept:'Accetta e pubblica',reject:'Rifiuta',privRejected:'Senza accettare l’informativa il profilo non viene pubblicato.',visTitle:'La tua azienda ora è visibile nell’app',visSub:'Fai parte del registro che alimenta i risultati dei turisti.',toPanel:'Vai al pannello',reqs:'Richieste',payData:'Dati di pagamento',editProfile:'Modifica profilo',contactBtn:'Contatta',noReqs:'Ancora nessuna richiesta',noReqsSub:'Quando un turista ti sceglie, comparirà qui.',noWallets:'Nessun wallet registrato.',cashTitle:'Pagamenti in contanti',stNew:'Nuova',stContacted:'Contattata',stClosed:'Chiusa',q_acts:'Attività',q_dates:'Date',q_city:'Città',q_extra:'Informazioni aggiuntive',q_contact:'Contatto',toastContact:'Contatto dell’agenzia',toastGmail:'Apertura di Gmail',toastTalk:'Collegamento all’agenzia',toastContacted:'Segnata come contattata'};
+// Mezcla cada idioma con el inglés para que nada quede vacío.
+T.fr={...T.en,...FR};T.de={...T.en,...DE};T.pt={...T.en,...PT};T.it={...T.en,...IT};
+AGTXT.fr={cholula:'Pyramide de Cholula, Atlixco et gastronomie locale. 5 nuits, guide bilingue et transferts.',volcanes:'Villages magiques et randonnée au pied des volcans. 5 nuits, guide et entrées inclus.',sabores:'Route du mole, de la talavera et des marchés avec dîners de chef. 5 nuits et transferts.'};
+AGTXT.de={cholula:'Cholula-Pyramide, Atlixco und lokale Küche. 5 Nächte, zweisprachiger Guide und Transfers.',volcanes:'Pueblos Mágicos und Wandern am Fuß der Vulkane. 5 Nächte, Guide und Eintritte inklusive.',sabores:'Route durch Mole, Talavera und Märkte mit Chef-Dinners. 5 Nächte und Transfers.'};
+AGTXT.pt={cholula:'Pirâmide de Cholula, Atlixco e gastronomia local. 5 noites, guia bilíngue e traslados.',volcanes:'Pueblos Mágicos e trilhas aos pés dos vulcões. 5 noites, guia e ingressos incluídos.',sabores:'Rota de mole, talavera e mercados com jantares de chef. 5 noites e traslados.'};
+AGTXT.it={cholula:'Piramide di Cholula, Atlixco e cucina locale. 5 notti, guida bilingue e trasferimenti.',volcanes:'Pueblos Mágicos e trekking ai piedi dei vulcani. 5 notti, guida e ingressi inclusi.',sabores:'Percorso tra mole, talavera e mercati con cene dello chef. 5 notti e trasferimenti.'};
+// FAQX: preguntas y respuestas del chat en fr, de, pt, it; se asignan a FAQS por posición.
+const FAQX={fr:[['Comment fonctionne le devis ?','Vous choisissez activités, dates, ville et nombre de personnes, puis touchez Demander un devis. Une IA valide les données et affiche des offres d’agences. Sélectionnez celles que vous voulez et envoyez votre demande complète.'],['Comment le budget est-il calculé ?','Il est calculé automatiquement : un tarif journalier par activité multiplié par le nombre de jours. Vous pouvez le modifier avec Modifier. Les prix des agences sont des estimations.'],['Comment payer mon voyage ?','Avec des actifs numériques via MetaMask ou en espèces directement auprès de l’agence. Le paiement se fait toujours entre vous et l’agence : l’appli ne débite, ne détient ni ne convertit de fonds.'],['Qu’est-ce que MetaMask et pourquoi l’utiliser ?','C’est un portefeuille numérique. Une fois connecté, vous voyez votre solde (masquable) et pouvez payer dans les monnaies acceptées par l’agence, comme USDT ou ETH.'],['Comment fonctionne le paiement en espèces ?','Rien n’est débité dans l’appli. Nous envoyons à l’agence un message avec les détails de votre demande et vous payez directement l’agence.'],['Que deviennent mes données ?','Nous vérifions votre identité avec votre document et votre visage uniquement avec votre consentement. L’agence choisie reçoit votre demande pour en assurer le suivi. Vous pouvez lire la politique de confidentialité avant d’accepter.'],['Combien de temps l’agence met-elle à répondre ?','Environ 2 heures. Sur l’écran de confirmation, touchez Les contacter maintenant pour les joindre tout de suite.'],['Puis-je changer de langue ou de devise ?','Oui. La langue se choisit au début et toute l’appli change. Dans le devis, le bouton de devise alterne entre USD et MXN et affiche le taux (17,5 MXN pour 1 USD dans cet exemple).'],['Je suis une agence, comment m’inscrire ?','Depuis l’accès, choisissez Je suis une entreprise. Créez le compte, conservez l’ID, enregistrez vos portefeuilles, consultez DataTur, vérifiez vos données et acceptez la politique de confidentialité. Votre entreprise devient visible et vous recevez les demandes.']],
+de:[['Wie funktioniert das Angebot?','Du wählst Aktivitäten, Daten, Stadt und Personenzahl und tippst auf Angebot anfragen. Eine KI prüft die Angaben und zeigt Agenturangebote. Wähle aus und sende deine vollständige Anfrage.'],['Wie wird das Budget berechnet?','Automatisch aus einem Tagessatz pro Aktivität mal Reisetage. Du kannst es mit Ändern anpassen. Agenturpreise sind Schätzungen.'],['Wie bezahle ich meine Reise?','Mit digitalen Assets über MetaMask oder bar direkt bei der Agentur. Die Zahlung läuft immer zwischen dir und der Agentur: Die App bucht nichts ab, verwahrt und wechselt keine Gelder.'],['Was ist MetaMask und wozu brauche ich es?','Eine digitale Wallet. Nach der Verbindung siehst du dein Guthaben (ausblendbar) und kannst in den von der Agentur akzeptierten Coins zahlen, z. B. USDT oder ETH.'],['Wie funktioniert die Barzahlung?','In der App wird nichts abgebucht. Wir senden der Agentur eine Nachricht mit deinen Anfragedaten und du zahlst direkt bei ihr.'],['Was passiert mit meinen Daten?','Wir prüfen deine Identität mit Dokument und Gesicht nur mit deiner Einwilligung. Die gewählte Agentur erhält deine Anfrage zur Betreuung. Den Datenschutzhinweis kannst du vorher lesen.'],['Wie lange braucht die Agentur für eine Antwort?','Etwa 2 Stunden. Auf dem Bestätigungsbildschirm kannst du Jetzt Kontakt aufnehmen tippen.'],['Kann ich Sprache oder Währung ändern?','Ja. Die Sprache wählst du am Anfang, die ganze App wechselt. Beim Angebot schaltet die Währungstaste zwischen USD und MXN um und zeigt den Kurs (17,5 MXN pro USD im Beispiel).'],['Ich bin eine Agentur, wie registriere ich mich?','Wähle unter Zugang Ich bin ein Unternehmen. Konto erstellen, ID speichern, Wallets eintragen, DataTur abfragen, Daten prüfen und Datenschutzhinweis akzeptieren. Danach bist du sichtbar und erhältst Anfragen im Dashboard.']],
+pt:[['Como funciona a cotação?','Você escolhe atividades, datas, cidade e número de pessoas e toca em Cotar. Uma IA valida os dados e mostra opções de agências. Selecione as que quiser e envie sua solicitação completa.'],['Como o orçamento é calculado?','Automaticamente: uma diária por atividade multiplicada pelos dias da viagem. Você pode editar em Editar. Os preços das agências são estimativas.'],['Como pago minha viagem?','Com ativos digitais pela MetaMask ou em dinheiro direto com a agência. O pagamento é sempre entre você e a agência: o app não cobra, não guarda nem converte fundos.'],['O que é a MetaMask e para que serve?','É uma carteira digital. Conectada, você vê seu saldo (dá para ocultar) e paga nas moedas aceitas pela agência, como USDT ou ETH.'],['Como funciona o pagamento em dinheiro?','Nada é cobrado no app. Enviamos à agência uma mensagem com os dados da solicitação e você paga direto a ela.'],['O que acontece com meus dados?','Verificamos sua identidade com documento e rosto somente com seu consentimento. A agência escolhida recebe sua solicitação para acompanhamento. Você pode ler o aviso de privacidade antes de aceitar.'],['Quanto tempo a agência demora para responder?','Cerca de 2 horas. Na confirmação, toque em Falar com eles agora para contato imediato.'],['Posso mudar idioma ou moeda?','Sim. O idioma é escolhido no início e todo o app muda. Na cotação, o botão de moeda alterna entre USD e MXN e mostra o câmbio (17,5 MXN por USD neste exemplo).'],['Sou uma agência, como me cadastro?','No acesso, escolha Sou uma empresa. Crie a conta, guarde o ID, cadastre suas carteiras, consulte o DataTur, revise os dados e aceite o aviso de privacidade. Depois sua empresa fica visível e você recebe solicitações no painel.']],
+it:[['Come funziona il preventivo?','Scegli attività, date, città e numero di persone e tocca Richiedi preventivo. Un’IA convalida i dati e mostra le opzioni delle agenzie. Selezionale e invia la richiesta completa.'],['Come viene calcolato il budget?','Automaticamente: una tariffa giornaliera per attività moltiplicata per i giorni. Puoi modificarlo con Modifica. I prezzi delle agenzie sono stime.'],['Come pago il viaggio?','Con asset digitali tramite MetaMask o in contanti direttamente all’agenzia. Il pagamento è sempre tra te e l’agenzia: l’app non addebita, non custodisce né converte fondi.'],['Cos’è MetaMask e a cosa serve?','È un portafoglio digitale. Collegato, vedi il saldo (nascondibile) e paghi nelle valute accettate dall’agenzia, come USDT o ETH.'],['Come funziona il pagamento in contanti?','Nell’app non viene addebitato nulla. Inviamo all’agenzia un messaggio con i dati della richiesta e paghi direttamente a lei.'],['Che fine fanno i miei dati?','Verifichiamo l’identità con documento e volto solo con il tuo consenso. L’agenzia scelta riceve la richiesta per seguirti. Puoi leggere l’informativa prima di accettare.'],['Quanto tempo impiega l’agenzia a rispondere?','Circa 2 ore. Nella conferma puoi toccare Contattali ora per un contatto immediato.'],['Posso cambiare lingua o valuta?','Sì. La lingua si sceglie all’inizio e tutta l’app cambia. Nel preventivo, il pulsante valuta alterna USD e MXN e mostra il cambio (17,5 MXN per USD in questo esempio).'],['Sono un’agenzia, come mi registro?','Dall’accesso scegli Sono un’azienda. Crea l’account, salva l’ID, registra i wallet, consulta DataTur, controlla i dati e accetta l’informativa. Poi la tua azienda è visibile e ricevi richieste nel pannello.']]};
+// Copia cada traducción de FAQX dentro de FAQS[i][idioma].
+Object.entries(FAQX).forEach(([l,arr])=>arr.forEach(([q,a],i)=>{FAQS[i][l]={q,a};}));
+// KX: palabras clave extra por idioma para que el chat reconozca preguntas escritas en fr, de, pt, it.
+const KX=[['prix','preis','preco','preço','prezzo','devis','angebot','cotacao','cotação','preventivo'],['budget','orcamento','orçamento'],['paiement','zahlung','bezahl','pagamento','pagare'],['portefeuille','geldbeutel','carteira','portafoglio'],['especes','espèces','bargeld','dinheiro','contanti'],['donnees','données','daten','dados','dati','confidential'],['delai','délai','antwort','demora','rispondere','tempo'],['langue','sprache','idioma','lingua','devise','wahrung','währung','moeda','valuta'],['entreprise','agentur','empresa','azienda','inscri','registr']];
+// Agrega esas palabras clave a FAQS.
+KX.forEach((ks,i)=>FAQS[i].k.push(...ks));
+// SEC:MIS-COTIZACIONES-LECTURA · loadQ(): lee las cotizaciones guardadas en localStorage; si no hay o falla, devuelve lista vacía.
+const loadQ = () => { try { return JSON.parse(localStorage.getItem('pt360-quotes')) || []; } catch (e) { return []; } };
+// SEC:NAVEGACION · SCREENS_T: orden de pantallas del turista. SCREENS_C: pantallas de empresa (prefijo c_).
+const SCREENS_T = ['splash', 'lang', 'access', 'idv', 'welcome', 'home', 'results', 'pay', 'confirm', 'quotes'];
+const SCREENS_C = ['c_sign', 'c_id', 'c_login', 'c_wallets', 'c_dt', 'c_data', 'c_priv', 'c_vis', 'c_dash'];
+// NAV: nombre de cada pantalla en el menú, por idioma (fr, de, pt, it usan el inglés).
+const NAV = {
+  es: { splash: 'Logo animado', lang: 'Idioma', access: 'Acceso', idv: 'Verificación', welcome: 'Bienvenida', home: 'Cotizador', results: 'Resultados', pay: 'Pago', confirm: 'Confirmación', quotes: 'Mis cotizaciones', c_sign: 'Crear cuenta', c_id: 'Guarda tu ID', c_login: 'Inicio de sesión', c_wallets: 'Cobros', c_dt: 'DataTur', c_data: 'Datos editables', c_priv: 'Aviso de privacidad', c_vis: 'Perfil visible', c_dash: 'Panel' },
+  en: { splash: 'Animated logo', lang: 'Language', access: 'Access', idv: 'Verification', welcome: 'Welcome', home: 'Quote', results: 'Results', pay: 'Payment', confirm: 'Confirmation', quotes: 'My quotes', c_sign: 'Create account', c_id: 'Save your ID', c_login: 'Log in', c_wallets: 'Payments', c_dt: 'DataTur', c_data: 'Editable data', c_priv: 'Privacy notice', c_vis: 'Visible profile', c_dash: 'Dashboard' }
+};
+
+// SEC:LOGICA · Clase principal. Guarda el estado, controla la navegación y calcula todos los valores que usa la plantilla (renderVals).
+class Component extends DCLogic {
+  // SEC:ESTADO · Datos que cambian durante el uso.
+  // flow: t (turista) o c (empresa) · screen: pantalla actual · hist: pantallas anteriores para el botón atrás · qHist: cotizaciones guardadas
+  // menuOpen/privOpen/chatOpen: paneles abiertos · lang/dark: idioma y tema · toast: mensaje temporal
+  // consent, idStep: verificación de identidad · mm: estado de MetaMask (0 no, 1 conectando, 2 conectado) · hide: ocultar saldo · cur: moneda USD o MXN
+  // acts, start, end, time, city, extra, people, budgetEdit: datos del cotizador · quoteStep/quoteMissing: resultado de la validación
+  // resLoading, sel: carga y agencias seleccionadas · payM, payAgency, coin, paying: pago
+  // cName, cPass, cId, loginId, loginPass, loginErr, copied: cuenta de empresa (vienen prellenados) · wallets: cobros por moneda
+  // dtId, dtConsent, dtStep: DataTur · profile: perfil de empresa · reqStatus: estado de cada solicitud · dashTab, openReq: panel de empresa
+  state = {
+    flow: 't', screen: 'splash', hist: [], pulse: 0, qHist: loadQ(), menuOpen: false, scale: 1, privOpen: false, chatOpen: false, chatMsgs: [], chatTyping: false, chatInput: '', people: 2, lang: this.props.lang || 'es', dark: !!this.props.dark, forced: 'normal', toast: '',
+    consent: true, idStep: 0, mm: 0, hide: true, cur: 'USD',
+    acts: ['food', 'towns', 'mount'], actsOpen: false, start: '2026-11-20', end: '2026-11-25', time: '09:00', city: 'Puebla', extra: '', budgetEdit: null, editingBudget: false,
+    quoteStep: 0, quoteMissing: [], resLoading: false, sel: [], payM: 'crypto', payAgency: null, coin: 'USDT', paying: 0,
+    cName: 'Ruta Cholula Tours', cPass: 'Puebla#2026', cId: 'PT360-48213', loginId: 'PT360-48213', loginPass: 'Puebla#2026', loginErr: false, copied: false,
+    wallets: { USDT: { on: true, addr: SAMPLE.USDT }, BTC: { on: false, addr: SAMPLE.BTC }, ETH: { on: true, addr: SAMPLE.ETH }, SOL: { on: false, addr: SAMPLE.SOL }, XRP: { on: false, addr: SAMPLE.XRP } },
+    dtId: 'DT-PUE-004821', dtConsent: true, dtStep: 0, privRejected: false, dashTab: 'req', openReq: 0, dashLoading: false,
+    profile: { name: '', legal: 'Operadora Turística del Valle S.A. de C.V.', type: 'Agencia de viajes', phone: '+52 222 555 0142', mail: 'contacto@rutacholula.mx', addr: 'Calle 5 de Mayo 12, Centro, Puebla' },
+    reqStatus: ['new', 'new', 'closed']
+  };
+  // Lista de temporizadores activos, para cancelarlos al cerrar.
+  timers = [];
+  // Al montar: entra al splash y ajusta la escala del teléfono al tamaño de la ventana (evento resize).
+  componentDidMount() { this.enter('splash'); this.fit = () => this.setState({ scale: Math.max(0.55, Math.min(1, (window.innerHeight - 24) / 840)) }); this.fit(); window.addEventListener('resize', this.fit); }
+  // Al desmontar: quita el evento y cancela temporizadores.
+  componentWillUnmount() { window.removeEventListener('resize', this.fit); this.timers.forEach(clearTimeout); }
+  // later: setTimeout que queda registrado para poder cancelarse.
+  later(fn, ms) { this.timers.push(setTimeout(fn, ms)); }
+  // flash: muestra un mensaje temporal (toast), por defecto 1.8 s.
+  flash(msg, ms) { this.setState({ toast: msg }); this.later(() => this.setState({ toast: '' }), ms || 1800); }
+  // SEC:NAVEGACION-ENTRAR · enter(id): acciones automáticas al llegar a una pantalla.
+  enter(id) {
+    // Splash: pasa a Idioma a los 3.5 s.
+    if (id === 'splash') this.later(() => this.state.screen === 'splash' && this.go('lang', true), 3500);
+    // Bienvenida: pasa al Cotizador a los 6 s.
+    if (id === 'welcome') this.later(() => this.state.screen === 'welcome' && this.go('home', true), 6000);
+    // Resultados: muestra carga 3 s.
+    if (id === 'results') { this.setState({ resLoading: true }); this.later(() => this.setState({ resLoading: false }), 3000); }
+    // Panel de empresa: carga breve de 0.7 s.
+    if (id === 'c_dash') { this.setState({ dashLoading: true }); this.later(() => this.setState({ dashLoading: false }), 700); }
+    // Pago: elige agencia por defecto entre las seleccionadas.
+    if (id === 'pay') { const s = this.state; if (!s.payAgency || !s.sel.includes(s.payAgency)) this.setState({ payAgency: s.sel[0] || 'cholula' }); }
+  }
+  // SEC:MIS-COTIZACIONES-GUARDAR · saveQuote(): arma la cotización con los datos actuales, la agrega al inicio de la lista y la guarda en localStorage.
+  saveQuote() {
+    const s = this.state, ag = (s.sel.length ? AG.filter(a => s.sel.includes(a.id)) : [AG[0]]).map(a => a.name);
+    const q = { id: Date.now(), at: new Date().toISOString(), city: s.city, people: s.people, start: s.start, end: s.end, acts: [...s.acts], ag, usd: this.budgetUsd(), cur: s.cur, payM: s.payM };
+    const qHist = [q, ...s.qHist]; this.setState({ qHist }); try { localStorage.setItem('pt360-quotes', JSON.stringify(qHist)); } catch (e) {}
+  }
+  // delQuote(id): quita una cotización de la lista y del almacenamiento, y avisa con un mensaje.
+  delQuote(id) { const qHist = this.state.qHist.filter(x => x.id !== id); this.setState({ qHist }); try { localStorage.setItem('pt360-quotes', JSON.stringify(qHist)); } catch (e) {} this.flash(T[this.state.lang].qDeleted || T.en.qDeleted); }
+  // SEC:NAVEGACION-IR · go(id): cambia de pantalla guardando la actual en el historial (replace=true no la guarda). Cierra desplegables y avisos.
+  go(id, replace) {
+    const s = this.state;
+    const hist = replace ? s.hist : s.screen ? [...s.hist, s.screen] : s.hist;
+    this.setState({ screen: id, hist, flow: id.startsWith('c_') ? 'c' : 't', toast: '', actsOpen: false, quoteStep: 0, paying: 0 });
+    this.enter(id);
+  }
+  // SEC:CHATBOT-LOGICA · sendChat: agrega el mensaje del usuario y responde tras una pausa. Si viene de una pregunta sugerida usa su respuesta; si es texto libre busca la pregunta con más palabras clave coincidentes (sin acentos ni mayúsculas); si no hay coincidencia responde que no entendió.
+  sendChat(text, faqIdx) {
+    text = (text || '').trim(); if (!text || this.state.chatTyping) return;
+    const L = this.state.lang;
+    let hit = faqIdx;
+    if (hit == null) {
+      const n = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      let best = 0; hit = -1;
+      FAQS.forEach((q, i) => { const sc = q.k.filter(k => n.includes(k)).length; if (sc > best) { best = sc; hit = i; } });
+    }
+    this.setState(x => ({ chatMsgs: [...x.chatMsgs, { from: 'me', text }], chatInput: '', chatTyping: true }));
+    this.later(() => this.setState(x => ({ chatTyping: false, chatMsgs: [...x.chatMsgs, { from: 'bot', faq: hit, no: hit < 0 }] })), 900);
+  }
+  // Baja el scroll del chat al final cada vez que hay mensajes nuevos.
+  componentDidUpdate() { const el = document.getElementById('pt-chat-body'); if (el) el.scrollTop = el.scrollHeight; }
+  // jump(id): salto directo a una pantalla desde el menú. Reinicia historial, cierra menú y chat.
+  jump(id) { this.setState({ menuOpen: false, chatOpen: false, hist: [], screen: id, flow: id.startsWith('c_') ? 'c' : 't', quoteStep: 0, paying: 0, toast: '' }); this.enter(id); }
+  // back(): regresa a la pantalla anterior del historial.
+  back() { const h = [...this.state.hist]; const p = h.pop(); if (p) { this.setState({ screen: p, hist: h, flow: p.startsWith('c_') ? 'c' : 't', quoteStep: 0 }); this.enter(p); } }
+  // SEC:CALCULOS · days(): días del viaje, mínimo 1.
+  days() { const a = new Date(this.state.start), b = new Date(this.state.end); const d = Math.round((b - a) / 864e5) + 1; return isNaN(d) || d < 1 ? 1 : d; }
+  // autoBudget(): suma las tarifas diarias de las actividades elegidas por el número de días y personas.
+  autoBudget() { const r = this.state.acts.reduce((t, a) => t + RATE.ACT[a], 0); return r * this.days(); }
+  // budgetUsd(): presupuesto en USD; usa el editado a mano si existe.
+  budgetUsd() { return this.state.budgetEdit != null ? this.state.budgetEdit : this.autoBudget(); }
+  // money(usd, cur): da formato al monto en USD o en MXN con FX.
+  money(usd, cur) { return cur === 'USD' ? 'USD ' + fmt(usd, 0) : 'MXN ' + fmt(usd * FX, 0); }
+  // SEC:RENDER · renderVals(): prepara todo lo que lee la plantilla. Se ejecuta en cada cambio de estado.
+  renderVals() {
+    // s: estado · t: textos del idioma actual · L: código del idioma.
+    const s = this.state, t = T[s.lang], L = s.lang;
+    // set(k): crea un manejador que guarda en el estado el valor escrito en un campo.
+    const set = (k) => (e) => this.setState({ [k]: e.target.value });
+    // SEC:RENDER-TEMA · Paleta de colores. C cambia entre oscuro y claro; se aplica como variables CSS.
+    const dark = s.dark;
+    const C = dark
+      ? { page: '#0A0F24', bg: '#0F1630', surf: '#182044', ink: '#EEF2FF', mut: '#A6B1D6', line: '#2B3768', pri: '#7CA0FF', soft: '#1B2756', acc: '#F2A93B', onacc: '#1B1200', ok: '#2FBF71', err: '#FF6B6B', warn: '#F2A93B' }
+      : { page: '#E9EDF7', bg: '#F6F8FD', surf: '#FFFFFF', ink: '#0D1636', mut: '#555F7C', line: '#D5DBEC', pri: '#1E4FD8', soft: '#E6EDFF', acc: '#F2A93B', onacc: '#1B1200', ok: '#1E8E52', err: '#C9302C', warn: '#B26A00' };
+    // tile, tileLight, tileSoft: fondo azul con patrón de rombos (versión clara y suave).
+    const tile = "background-color:#1235a8;background-image:radial-gradient(circle at 50% 50%,#F2A93B 0 5px,transparent 6px),conic-gradient(from 45deg at 50% 50%,rgba(255,255,255,.2) 0 25%,transparent 0 50%,rgba(255,255,255,.2) 0 75%,transparent 0),radial-gradient(circle at 0 0,rgba(255,255,255,.25) 0 10px,transparent 11px),radial-gradient(circle at 100% 100%,rgba(255,255,255,.25) 0 10px,transparent 11px);background-size:44px 44px";
+    const tileLight = tile.replace('#1235a8','transparent').replace('background-color:transparent;','');
+    const tileSoft = tile.replace('background-size:44px 44px','background-size:32px 32px');
+    // themeVars: convierte la paleta en variables CSS (--pri, --bg...).
+    const themeVars = Object.entries(C).map(([k, v]) => `--${k}:${v}`).join(';');
+    // SEC:RENDER-ESTILOS · Estilos reutilizables.
+    // btnPri botón principal · btnSec secundario · btnSm pequeño · btnBack atrás · cardBox tarjeta · lbl etiqueta · inp campo · chipSim chip pequeño
+    // box casilla · tab pestaña · side opción lateral/píldora
+    const btnPri = 'animation:ptBtnGlow 2.6s 1.2s infinite;min-height:52px;width:100%;border:0;border-radius:14px;background:var(--acc);color:var(--onacc);font:700 16px Figtree,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0 16px;box-sizing:border-box';
+    const btnSec = 'min-height:52px;width:100%;border:1.5px solid var(--pri);border-radius:14px;background:transparent;color:var(--pri);font:700 16px Figtree,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0 16px;box-sizing:border-box';
+    const btnSm = 'flex:1;min-height:44px;border:1.5px solid var(--line);border-radius:12px;background:var(--surf);color:var(--ink);font:700 14px Figtree,sans-serif;cursor:pointer';
+    const btnBack = 'width:44px;height:44px;border:0;background:transparent;color:var(--ink);font:400 30px/1 Figtree;cursor:pointer';
+    const cardBox = 'background:var(--surf);border:1.5px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px';
+    const lbl = 'font:700 12px Figtree,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)';
+    const inp = 'width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);padding:0 12px;font:500 16px Figtree,sans-serif;box-sizing:border-box;min-width:0;max-width:100%';
+    const chipSim = 'display:inline-block;font:700 11px Figtree,sans-serif;letter-spacing:.04em;text-transform:uppercase;border:1.5px dashed var(--warn);color:var(--warn);border-radius:999px;padding:3px 9px';
+    const box = (on) => `${on ? 'animation:ptPop .35s both;' : ''}display:block;width:24px;height:24px;border-radius:7px;border:2px solid ${on ? 'var(--pri)' : 'var(--mut)'};background:${on ? 'var(--pri)' : 'transparent'};color:#fff;font:800 15px/20px Figtree;text-align:center;flex:none;box-sizing:border-box`;
+    const tab = (on) => `flex:1;min-height:44px;border:0;border-radius:11px;background:${on ? 'var(--surf)' : 'transparent'};color:${on ? 'var(--pri)' : 'var(--mut)'};font:700 13px Figtree,sans-serif;cursor:pointer;box-shadow:${on ? '0 1px 3px rgba(0,0,0,.15)' : 'none'}`;
+    const side = (on) => `min-height:40px;border-radius:12px;border:1.5px solid ${on ? 'var(--pri)' : 'var(--line)'};background:${on ? 'var(--pri)' : 'var(--surf)'};color:${on ? '#fff' : 'var(--ink)'};font:700 14px Figtree,sans-serif;cursor:pointer;padding:0 14px`;
+    // SEC:RENDER-ACCIONES · h: acciones que los botones de la plantilla llaman. act(nombre, función) las registra.
+    const h = {};
+    const act = (name, fn) => { h[name] = fn; };
+    // Cambiar de perfil: turista (splash) o empresa (E1).
+    act('flowT', () => this.jump('splash')); act('flowC', () => this.jump('c_sign'));
+    // Cambiar idioma y alternar tema oscuro.
+    act('langEs', () => this.setState({ lang: 'es' })); act('langEn', () => this.setState({ lang: 'en' }));
+    act('toggleDark', () => this.setState(x => ({ dark: !x.dark })));
+    // Atrás.
+    // Cada clic dentro de la página suma una pulsación: reinicia la onda del fondo y sube el nivel
+    act('bump', () => this.setState(x => ({ pulse: x.pulse + 1 })));
+    act('back', () => this.back());
+    // Navegación del turista: Idioma, Acceso, Verificación, Bienvenida, Empresa.
+    act('toLang', () => this.go('lang')); act('toAccess', () => this.go('access'));
+    act('toCreate', () => this.go('idv')); act('toLoginT', () => this.go('welcome')); act('toCompany', () => this.go('c_sign'));
+    // Alternar consentimiento biométrico.
+    act('toggleConsent', () => this.setState(x => ({ consent: !x.consent })));
+    // Ir al Cotizador.
+    act('toHome', () => this.go('home'));
+    // MetaMask: pasa a conectando (1) y luego a conectado (2).
+    act('connect', () => { this.setState({ mm: 1 }); this.later(() => this.setState({ mm: 2 }), 1200); });
+    // Mostrar u ocultar saldo; cambiar moneda USD/MXN.
+    act('toggleHide', () => this.setState(x => ({ hide: !x.hide })));
+    act('toggleCur', () => this.setState(x => ({ cur: x.cur === 'USD' ? 'MXN' : 'USD' })));
+    // Presupuesto: editar, guardar y confirmar.
+    act('editBudget', () => this.setState({ editingBudget: true }));
+    act('setBudget', (e) => this.setState({ budgetEdit: Math.max(0, Number(e.target.value) / (s.cur === 'USD' ? 1 : FX)) }));
+    act('saveBudget', () => this.setState({ editingBudget: false }));
+    // Abrir o cerrar la lista de actividades.
+    act('toggleActs', () => this.setState(x => ({ actsOpen: !x.actsOpen })));
+    // Guardar fecha de inicio, fin, hora, ciudad y notas.
+    act('setStart', set('start')); act('setEnd', set('end')); act('setTime', set('time')); act('setCity', set('city')); act('setExtra', set('extra'));
+    // SEC:VALIDACION-COTIZAR · Cotizar: revisa actividades, fechas, ciudad, hora y personas. Si falta algo, muestra la lista; si no, "Datos completos".
+    act('quote', () => {
+      const miss = [];
+      if (!s.acts.length) miss.push(t.m_acts);
+      if (!s.start || !s.end || s.end < s.start) miss.push(t.m_dates);
+      if (!s.city) miss.push(t.m_city);
+      if (!s.time) miss.push(t.m_time);
+      if (!(s.people >= 1)) miss.push(t.m_people);
+      this.setState({ quoteStep: miss.length ? 3 : 2, quoteMissing: miss });
+    });
+    // Personas: escribir, restar y sumar (mínimo 1).
+    act('setPeople', (e) => this.setState({ people: e.target.value === '' ? 0 : Math.max(0, Math.floor(Number(e.target.value))) })); act('peopleMinus', () => this.setState(x => ({ people: Math.max(0, x.people - 1) }))); act('peoplePlus', () => this.setState(x => ({ people: x.people + 1 })));
+    // Abrir chat (con saludo la primera vez), menú, cerrar, escribir, enviar con Enter y botón.
+    act('openChat', () => this.setState(x => ({ chatOpen: true, chatMsgs: x.chatMsgs.length ? x.chatMsgs : [{ from: 'bot', hi: true }] })));
+    act('openMenu', () => this.setState({ menuOpen: true })); act('closeMenu', () => this.setState({ menuOpen: false }));
+    act('closeChat', () => this.setState({ chatOpen: false }));
+    act('chatInput', (e) => this.setState({ chatInput: e.target.value }));
+    act('chatKey', (e) => { if (e.key === 'Enter') this.sendChat(e.target.value); });
+    act('chatSend', () => this.sendChat(this.state.chatInput));
+    // Aviso de privacidad: abrir, cerrar y aceptar.
+    act('openPriv', (e) => { e && e.stopPropagation && e.stopPropagation(); this.setState({ privOpen: true }); });
+    act('closePriv', () => this.setState({ privOpen: false }));
+    act('acceptPriv', () => this.setState({ privOpen: false, consent: true }));
+    // Cerrar hoja de validación.
+    act('closeQ', () => this.setState({ quoteStep: 0 }));
+    // Ir a resultados (limpia la selección).
+    act('toResults', () => { this.setState({ sel: [] }); this.go('results'); });
+    // Reintentar carga en resultados y en el panel de empresa.
+    act('retry', () => this.setState({ forced: 'normal', resLoading: true }) || this.later(() => this.setState({ resLoading: false }), 1000));
+    act('retryDash', () => this.setState({ forced: 'normal', dashLoading: true }) || this.later(() => this.setState({ dashLoading: false }), 700));
+    // Mensajes de confirmación de Contacto, Gmail y Comunicarme ahora. Este último muestra nombre y teléfono de la agencia 6 s.
+    act('toastContact', () => this.flash(t.toastContact)); act('toastGmail', () => this.flash(t.toastGmail)); act('toastTalk', () => { const a = AG.find(x => x.id === s.payAgency) || AG.find(x => s.sel.includes(x.id)) || AG[0]; this.flash(t.toastTalk + ': ' + a.name + ' · ' + a.tel, 6000); });
+    // Ir a Pago, exige al menos una agencia.
+    act('toPay', () => { if (!s.sel.length) return this.flash(t.pickOne); this.go('pay'); });
+    // Elegir forma de pago.
+    act('payCrypto', () => this.setState({ payM: 'crypto' })); act('payCash', () => this.setState({ payM: 'cash' }));
+    // Nueva cotización: vuelve al Cotizador.
+    act('restart', () => this.jump('home'));
+    // SEC:RENDER-ACCIONES-EMPRESA · Acciones del flujo de empresa.
+    // company
+    // Guardar nombre y contraseña de empresa.
+    act('setCName', set('cName')); act('setCPass', set('cPass'));
+    // Crear cuenta: exige contraseña válida y nombre.
+    act('signup', () => { if (!pwAllOk || !s.cName.trim()) return this.flash(t.cSignSub); this.go('c_id'); });
+    // Copiar el ID al portapapeles.
+    act('copyId', () => { try { navigator.clipboard && navigator.clipboard.writeText(s.cId); } catch (e) {} this.setState({ copied: true }); });
+    // Ir a Login o a Crear cuenta.
+    act('toCLogin', () => this.go('c_login')); act('toCSign', () => this.go('c_sign'));
+    // Guardar ID y contraseña del login.
+    act('setLoginId', set('loginId')); act('setLoginPass', set('loginPass'));
+    // Login: el ID debe coincidir con el asignado y la contraseña tener 4 o más caracteres.
+    act('cLogin', () => { if (s.loginId.trim().toUpperCase() === s.cId && s.loginPass.length >= 4) { this.setState({ loginErr: false }); this.go('c_wallets'); } else this.setState({ loginErr: true }); });
+    // Autollenar direcciones de wallet con SAMPLE.
+    act('autofill', () => this.setState(x => ({ wallets: Object.fromEntries(Object.entries(x.wallets).map(([k, v]) => [k, { ...v, addr: SAMPLE[k] }])) })));
+    // Continuar solo si las monedas activas tienen dirección válida.
+    act('walletsNext', () => { if (walletsOp < 1) return this.flash(t.addrBad); this.go('c_dt'); });
+    // DataTur: guardar identificador y alternar consentimiento.
+    act('setDtId', set('dtId')); act('toggleDtConsent', () => this.setState(x => ({ dtConsent: !x.dtConsent })));
+    // Ir al aviso de privacidad.
+    act('toPriv', () => this.go('c_priv'));
+    // Aceptar el aviso (pasa a empresa visible) o rechazar.
+    act('privAccept', () => { this.setState({ privRejected: false }); this.go('c_vis'); });
+    act('privReject', () => this.setState({ privRejected: true }));
+    // Ir al panel y al editor de perfil.
+    act('toDash', () => this.go('c_dash')); act('toEditProfile', () => this.go('c_data'));
+    // Cambiar pestaña del panel.
+    act('tabReq', () => this.setState({ dashTab: 'req' })); act('tabPay', () => this.setState({ dashTab: 'pay' }));
+
+    // SEC:RENDER-DERIVADOS · Valores calculados a partir del estado.
+    // derived
+    // Contraseña: reglas y si cada una se cumple; pwAllOk indica si todas.
+    const pwChecks = [[t.r_len, s.cPass.length >= 8], [t.r_up, /[A-Z]/.test(s.cPass)], [t.r_num, /\d/.test(s.cPass)], [t.r_sym, /[^A-Za-z0-9]/.test(s.cPass)]];
+    const pwAllOk = pwChecks.every(x => x[1]);
+    const pwRules = pwChecks.map(([label, ok]) => ({ label, mark: ok ? '✓' : '○', style: 'font:600 14px Figtree;display:flex;gap:8px;color:' + (ok ? 'var(--ok)' : 'var(--mut)') }));
+    // Filas del registro de cobros: validación, estilo del interruptor, mensajes y acciones.
+    const walletRows = Object.keys(s.wallets).map(code => {
+      const w = s.wallets[code];
+      const valid = w.addr && walletOk(code, w.addr);
+      const msg = !w.addr ? t.addrEmpty : valid ? '✓ ' + t.addrOk : '✕ ' + t.addrBad;
+      return {
+        code, net: NETS[code], on: w.on, addr: w.addr, ph: PH[code], aria: w.on ? 'true' : 'false', state: w.on ? t.on : t.off,
+        track: `width:46px;height:28px;border-radius:14px;background:${w.on ? 'var(--pri)' : 'var(--line)'};position:relative;display:block;flex:none`,
+        knob: `position:absolute;top:3px;left:${w.on ? 21 : 3}px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3)`,
+        msg, msgStyle: 'font:600 13px Figtree;color:' + (valid ? 'var(--ok)' : w.addr ? 'var(--err)' : 'var(--mut)'),
+        toggle: () => this.setState(x => ({ wallets: { ...x.wallets, [code]: { ...x.wallets[code], on: !x.wallets[code].on } } })),
+        set: (e) => { const v = e.target.value.trim(); this.setState(x => ({ wallets: { ...x.wallets, [code]: { ...x.wallets[code], addr: v } } })); }
+      };
+    });
+    // Monedas activas y si todas tienen dirección válida (walletsOp es la opacidad del botón).
+    const onW = Object.entries(s.wallets).filter(([, w]) => w.on);
+    const walletsOp = onW.length && onW.every(([c, w]) => walletOk(c, w.addr)) ? 1 : 0.45;
+    // Ciudades disponibles.
+    const cities = ['Puebla', 'Cholula', 'Atlixco', 'Cuetzalan'];
+    // Lista de actividades con su casilla.
+    const actList = Object.keys(RATE.ACT).map(id => { const on = s.acts.includes(id); return { label: t['a_' + id], aria: on ? 'true' : 'false', box: box(on), mark: on ? '✓' : '', toggle: () => this.setState(x => ({ acts: on ? x.acts.filter(a => a !== id) : [...x.acts, id] })) }; });
+    // Texto del desplegable de actividades.
+    const actsText = s.acts.length ? s.acts.map(a => t['a_' + a]).join(', ') : t.actsPh;
+    // Presupuesto actual en USD.
+    const usd = this.budgetUsd();
+    // SEC:RENDER-RESULTADOS · Tarjetas de agencias: precio en la moneda elegida, selección, estilo y brillo.
+    const cards = AG.map((a, i) => {
+      const on = s.sel.includes(a.id);
+      return {
+        slotId: 'agency-' + a.id, name: a.name, isC: a.id === 'cholula', isV: a.id === 'volcanes', isM: a.id === 'sabores', summary: (AGTXT[L] || AGTXT.en)[a.id], img: a.img, badge: t.badge, main: this.money(a.usd, s.cur), sub: this.money(a.usd, s.cur === 'USD' ? 'MXN' : 'USD'),
+        aria: on ? 'true' : 'false', selLabel: t.sel + ' ' + a.name, check: box(on) + ';background:' + (on ? 'var(--pri)' : 'var(--surf)') + ';width:28px;height:28px;font-size:18px;line-height:24px;border-radius:9px',
+        mark: on ? '✓' : '', box: `background:var(--surf);border:${on ? '2.5px solid var(--pri)' : '1.5px solid var(--line)'};border-radius:18px;overflow:hidden;flex:none;animation:ptCardIn .85s ${0.45 + i * 0.22}s cubic-bezier(.2,.9,.3,1) both`, shine: `position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);pointer-events:none;animation:ptShine 1s ${1 + i * 0.22}s ease-out both`,
+        toggle: () => this.setState(x => ({ sel: on ? x.sel.filter(k => k !== a.id) : [...x.sel, a.id] }))
+      };
+    });
+    // Estados forzados de datos (normal, carga, vacío, error) para pruebas.
+    const f = s.forced;
+    const resLoading = s.resLoading || f === 'loading';
+    // Estado de resultados: loading, error, empty o list.
+    const r = { loading: resLoading, error: !resLoading && f === 'error', empty: !resLoading && f === 'empty', list: !resLoading && f !== 'error' && f !== 'empty' };
+    // N: agencias seleccionadas. foundText, confetti y reqLabel arman el contador, el confeti y el texto del botón.
+    const N = s.sel.length;
+    const foundText = AG.length + (L === 'es' ? ' opciones encontradas' : ' options found');
+    const cols = ['#1E4FD8', '#F2A93B', '#4F7BFF', '#fff', '#1E8E52'];
+    const confetti = Array.from({ length: 22 }, (_, i) => { const a = (i / 22) * Math.PI * 2, d = 70 + (i % 4) * 28; return { style: `position:absolute;left:-4px;top:-4px;width:8px;height:${i % 2 ? 8 : 14}px;border-radius:${i % 3 ? 2 : 4}px;background:${cols[i % 5]};border:1px solid rgba(0,0,0,.08);--dx:${Math.round(Math.cos(a) * d * 1.6)}px;--dy:${Math.round(Math.sin(a) * d * 0.7 - 10)}px;--r:${(i * 97) % 360}deg;opacity:0;animation:ptConf 1.1s ${0.15 + (i % 5) * 0.04}s cubic-bezier(.1,.8,.3,1) both` }; });
+    const reqLabel = N ? `${t.request} ${N} ${N === 1 ? t.agencies1 : t.agenciesN}` : t.pickOne;
+    // SEC:RENDER-PAGO · Agencia, moneda y monto a pagar. accepted: monedas que acepta; coinAmt: precio convertido.
+    const agSel = AG.find(a => a.id === s.payAgency) || AG[0];
+    const accepted = agSel.coins;
+    const coin = accepted.includes(s.coin) ? s.coin : 'USDT';
+    const coinAmt = agSel.usd / RATE.COIN[coin];
+    const isCrypto = s.payM === 'crypto';
+    const payAgencies0 = s.sel.length ? AG.filter(a => s.sel.includes(a.id)) : AG;
+    const radio = (on) => `width:22px;height:22px;border-radius:50%;flex:none;box-sizing:border-box;border:2px solid ${on ? 'var(--pri)' : 'var(--mut)'};background:${on ? 'radial-gradient(circle,var(--pri) 0 5px,transparent 6px)' : 'transparent'}`;
+    // Estilos de las opciones de pago y del indicador de pasos.
+    const payOpt = (on) => `display:flex;align-items:center;gap:14px;text-align:left;width:100%;min-height:68px;padding:12px 16px;border-radius:16px;border:${on ? '2px solid var(--pri)' : '1.5px solid var(--line)'};background:${on ? 'var(--soft)' : 'var(--surf)'};color:var(--ink);cursor:pointer;box-sizing:border-box`;
+    const stepper = [['stQuote', 'done'], ['stOptions', 'done'], ['stPay', 'now']].map(([k, st], i) => ({ label: t[k], mark: st === 'done' ? '✓' : String(i + 1), style: `display:flex;align-items:center;gap:6px;font:700 12px Figtree;color:${st === 'now' ? 'var(--ink)' : 'var(--mut)'};${i < 2 ? 'flex:none' : ''}`, dot: `width:22px;height:22px;border-radius:50%;font:800 12px/22px Figtree;text-align:center;background:${st === 'now' ? 'var(--pri)' : 'var(--ok)'};color:#fff` }));
+    // pay: datos y acción del botón de pago. En efectivo guarda la cotización y confirma; en cripto exige MetaMask conectada, simula el cobro y confirma.
+    const payBusy = s.paying === 1, payDone = s.paying === 2;
+    const pay = {
+      isCrypto, isCash: !isCrypto, agency: agSel.name, main: this.money(agSel.usd, s.cur), sub: this.money(agSel.usd, s.cur === 'USD' ? 'MXN' : 'USD'), multi: payAgencies0.length > 1, cAria: isCrypto ? 'true' : 'false', kAria: isCrypto ? 'false' : 'true', cDot: radio(isCrypto), kDot: radio(!isCrypto), mmOk: isCrypto && s.mm === 2, mmLabel: s.mm === 1 ? t.connecting : t.connect,
+      amount: fmt(coinAmt, coin === 'BTC' ? 5 : coin === 'ETH' ? 4 : 2) + ' ' + coin,
+      rate: `1 ${coin} ≈ USD ${fmt(RATE.COIN[coin], RATE.COIN[coin] < 1 ? 2 : 0)} (${t.example})`,
+      needMM: isCrypto && s.mm !== 2,
+      label: payDone ? '✓ ' + t.paid : payBusy ? t.paying : isCrypto ? t.payConfirm : t.sendCash,
+      act: () => {
+        if (payBusy || payDone) return;
+        if (!isCrypto) { this.saveQuote(); return this.go('confirm'); }
+        if (s.mm !== 2) return this.flash(t.needMM);
+        this.setState({ paying: 1 }); this.later(() => { this.setState({ paying: 2 }); this.later(() => { this.saveQuote(); this.go('confirm'); }, 900); }, 1800);
+      }
+    };
+    // Selector de agencias y monedas en pago.
+    const payAgencies = s.sel.length ? AG.filter(a => s.sel.includes(a.id)) : AG;
+    const payAg = payAgencies.map(a => ({ name: a.name, style: side(a.id === agSel.id), pick: () => this.setState({ payAgency: a.id }) }));
+    const coinsL = accepted.map(c => ({ label: c, style: side(c === coin), pick: () => this.setState({ coin: c }) }));
+    const sd = (d) => { const [y, m, dd] = d.split('-'); return `${dd}/${m}/${y}`; };
+    // Resumen de la confirmación.
+    const summary = [
+      { k: t.s_city, v: s.city }, { k: t.s_people, v: String(s.people) }, { k: t.s_dates, v: `${sd(s.start)} → ${sd(s.end)}` }, { k: t.s_acts, v: s.acts.map(a => t['a_' + a]).join(', ') },
+      { k: t.s_budget, v: this.money(usd, s.cur) }, { k: t.s_ag, v: (s.sel.length ? AG.filter(a => s.sel.includes(a.id)) : [AG[0]]).map(a => a.name).join(', ') },
+      { k: t.s_pay, v: isCrypto ? t.s_crypto : t.s_cash }
+    ];
+    // SEC:RENDER-PANEL-EMPRESA · Estados y colores de solicitudes.
+    // company dashboard
+    const stLabel = { new: t.stNew, contacted: t.stContacted, closed: t.stClosed };
+    const stIcon = { new: '●', contacted: '◐', closed: '✓' };
+    const stColor = { new: 'var(--pri)', contacted: 'var(--warn)', closed: 'var(--ok)' };
+    // REQS: solicitudes de turistas que ve la empresa (nombre, país, idioma, presupuesto, actividades, fechas, contacto).
+    const REQS = [
+      { name: 'Emma Carter', country: L === 'es' ? 'Estados Unidos' : 'United States', lang: L === 'es' ? 'Inglés' : 'English', usd: usd, acts: s.acts.map(a => t['a_' + a]).join(', '), dates: `${sd(s.start)} → ${sd(s.end)}`, city: s.city, people: s.people, extra: s.extra || '—', contact: 'emma.carter@ejemplo.com' },
+      { name: 'Lukas Weber', country: L === 'es' ? 'Alemania' : 'Germany', lang: L === 'es' ? 'Alemán' : 'German', usd: 900, acts: `${t.a_swim}, ${t.a_arch}`, dates: '02/12/2026 → 06/12/2026', city: 'Cholula', people: 2, extra: L === 'es' ? '2 adultos' : '2 adults', contact: 'lukas.weber@ejemplo.de' },
+      { name: 'Aiko Tanaka', country: L === 'es' ? 'Japón' : 'Japan', lang: L === 'es' ? 'Japonés' : 'Japanese', usd: 700, acts: t.a_food, dates: '10/11/2026 → 12/11/2026', city: 'Atlixco', people: 1, extra: '—', contact: 'aiko.tanaka@ejemplo.jp' }
+    ];
+    // Tarjetas de solicitud: estado, abrir/cerrar detalle y botón Contactar (marca como contactada).
+    const reqCards = REQS.map((q, i) => {
+      const st = s.reqStatus[i], open = s.openReq === i;
+      return {
+        name: q.name, country: q.country, lang: q.lang, budget: this.money(q.usd, s.cur), statusLabel: stIcon[st] + ' ' + stLabel[st],
+        chip: `font:700 12px Figtree;border:1.5px solid ${stColor[st]};color:${stColor[st]};border-radius:999px;padding:4px 10px;white-space:nowrap`,
+        isOpen: open, aria: open ? 'true' : 'false', open: () => this.setState({ openReq: open ? -1 : i }),
+        rows: [{ k: t.s_people, v: String(q.people) }, { k: t.q_acts, v: q.acts }, { k: t.q_dates, v: q.dates }, { k: t.q_city, v: q.city }, { k: t.q_extra, v: q.extra }, { k: t.q_contact, v: q.contact }],
+        contactBtn: () => { this.setState(x => { const rs = [...x.reqStatus]; if (rs[i] === 'new') rs[i] = 'contacted'; return { reqStatus: rs }; }); this.flash(t.toastContacted + ' · ' + q.contact); }
+      };
+    });
+    // d: estado del panel (cargando, error, vacío, solicitudes o pagos).
+    const d = { loading: s.dashLoading || f === 'loading', error: !s.dashLoading && f === 'error', empty: !s.dashLoading && f === 'empty' };
+    const showD = !d.loading && !d.error && !d.empty;
+    d.reqs = showD && s.dashTab === 'req'; d.pay = showD && s.dashTab === 'pay';
+    // Filas de datos de pago.
+    const payRows = onW.map(([c, w]) => ({ code: c, net: NETS[c], addr: w.addr || '—' }));
+    // Campos del perfil de empresa y su edición.
+    const profileFields = [['name', 'f_name'], ['legal', 'f_legal'], ['type', 'f_type'], ['phone', 'f_phone'], ['mail', 'f_mail'], ['addr', 'f_addr']].map(([k, lk]) => ({
+      label: t[lk], value: k === 'name' ? (s.profile.name || s.cName || 'Ruta Cholula Tours') : s.profile[k], set: (e) => { const v = e.target.value; this.setState(x => ({ profile: { ...x.profile, [k]: v } })); }
+    }));
+    const dtBusy = s.dtStep === 1, dtDone = s.dtStep === 2;
+    // DataTur: botón y proceso (consulta de 2 s).
+    const dt = {
+      id: s.dtId, aria: s.dtConsent ? 'true' : 'false', box: box(s.dtConsent), mark: s.dtConsent ? '✓' : '', busy: dtBusy, done: dtDone,
+      btn: btnPri + ';opacity:' + (dtDone || (s.dtConsent && s.dtId.trim()) ? 1 : 0.45), label: dtDone ? t.cont : dtBusy ? t.dtVerifying + '…' : t.dtGo,
+      act: () => {
+        if (dtDone) return this.go('c_data');
+        if (dtBusy) return;
+        if (!s.dtConsent || !s.dtId.trim()) return this.flash(t.dtConsent);
+        this.setState({ dtStep: 1 }); this.later(() => this.setState({ dtStep: 2 }), 2000);
+      }
+    };
+    // SEC:RENDER-VERIFICACION · Animación de verificación de identidad.
+    // idv
+    // Texto del visor según el paso.
+    const idvLab = [t.idvLab0, t.idvLab1, t.idvLab1, t.idvLab2, t.idvLab3][s.idStep];
+    const st = s.idStep;
+    const dots = []; [[0, 0, 1], [0.42, 6, 1], [0.72, 10, 1], [1, 14, 1]].forEach(([r, n], ri) => { for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2 + ri; const x = Math.round(Math.cos(a) * 62 * r), y = Math.round(Math.sin(a) * 80 * r); const k = dots.length; dots.push({ style: `position:absolute;left:calc(50% + ${x - 3}px);top:calc(50% + ${y - 3}px);width:6px;height:6px;border-radius:50%;background:${st >= 3 ? '#2FBF71' : '#F2A93B'};opacity:0;transition:background .5s ${k * 0.04}s;animation:ptMesh .5s ${0.15 + k * 0.05}s both${st === 3 ? ',ptMeshPulse 1s ' + (k * 0.06) + 's infinite' : ''}` }); } });
+    const cor = (pos) => `position:absolute;${pos};width:26px;height:26px;border-color:${st === 4 ? '#2FBF71' : '#F2A93B'};border-style:solid;border-width:0;animation:ptBracket 1.4s infinite`;
+    // fv: estilos y banderas de cada capa del visor.
+    const fv = {
+      frame: 'position:relative;width:100%;max-width:300px;height:310px;margin:14px auto;border-radius:28px;background:#0b1230;overflow:hidden;contain:paint;flex:none;box-shadow:0 10px 24px -10px rgba(10,20,70,.5)',
+      idle: st === 0, doc: st === 1, face: st === 2 || st === 3, scanning: st === 2, done: st === 4, thumbs: st >= 2 && st <= 3, match: st === 3, dots,
+      phase: ['', '1/3', '2/3', '3/3', 'OK'][st], ringColor: st === 3 ? '#2FBF71' : '#F2A93B', ringAnim: st === 2 ? 'animation:ptRingFill 1.7s linear both' : 'stroke-dashoffset:0',
+      sparks: Array.from({ length: 14 }, (_, i) => { const a = (i / 14) * Math.PI * 2, d = 70 + (i % 3) * 22; return `position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:${i % 2 ? 2 : 4}px;background:${['#F2A93B', '#2FBF71', '#fff', '#4F7BFF'][i % 4]};--dx:${Math.round(Math.cos(a) * d)}px;--dy:${Math.round(Math.sin(a) * d)}px;--r:${i * 51}deg;opacity:0;animation:ptConf 1.1s ${0.1 + (i % 4) * 0.05}s cubic-bezier(.1,.8,.3,1) both`; }),
+      oval: `position:absolute;left:50%;top:50%;width:150px;height:190px;margin:-100px 0 0 -75px;border:2.5px solid ${st === 3 ? '#2FBF71' : '#F2A93B'};border-radius:50%;transition:border-color .4s;animation:ptPop .4s both`,
+      c1: cor('left:14px;top:14px') + ';border-left-width:4px;border-top-width:4px;border-radius:10px 0 0 0', c2: cor('right:14px;top:14px') + ';border-right-width:4px;border-top-width:4px;border-radius:0 10px 0 0',
+      c3: cor('left:14px;bottom:60px') + ';border-left-width:4px;border-bottom-width:4px;border-radius:0 0 0 10px', c4: cor('right:14px;bottom:62px') + ';border-right-width:4px;border-bottom-width:4px;border-radius:0 0 10px 0',
+      steps: [1, 2, 3, 4].map(i => `height:6px;border-radius:3px;transition:all .4s;width:${st >= i ? 34 : 14}px;background:${st >= i ? (i === 4 ? 'var(--ok)' : 'var(--pri)') : 'var(--line)'}`)
+    };
+    // idv: botón principal; avanza solo por los pasos 1 a 4 con temporizadores.
+    const idv = {
+      busy: s.idStep >= 1 && s.idStep <= 3, done: s.idStep === 4,
+      label: s.idStep === 4 ? t.cont : s.idStep === 3 ? t.idvVer : s.idStep >= 1 ? t.idvCap : t.idvStart,
+      btn: btnPri + ';opacity:' + (s.consent ? 1 : 0.45),
+      act: () => {
+        if (s.idStep === 4) return this.go('welcome');
+        if (s.idStep) return;
+        if (!s.consent) return this.flash(t.idvNeed);
+        this.setState({ idStep: 1 }); this.later(() => this.setState({ idStep: 2 }), 1800); this.later(() => this.setState({ idStep: 3 }), 3600); this.later(() => this.setState({ idStep: 4 }), 5100);
+      }
+    };
+    // MetaMask: estado, saldo y etiqueta del ojo.
+    const mmc = s.mm === 2;
+    const mm = {
+      connected: mmc, notConnected: !mmc, label: s.mm === 1 ? t.connecting : t.connect,
+      balance: s.hide ? '••••' : '1,240.50 USDT', eye: s.hide ? (L === 'es' ? 'Ver' : 'Show') : (L === 'es' ? 'Ocultar' : 'Hide'), eyeLabel: s.hide ? 'Mostrar saldo' : 'Ocultar saldo'
+    };
+    // SEC:RENDER-MIS-COTIZACIONES · qs: datos de la pantalla Mis cotizaciones.
+    const sdq = (d) => { const [y, m, dd] = d.split('-'); return dd + '/' + m + '/' + y; };
+    const qs = { title: t.qTitle, empty: !s.qHist.length, emptyTitle: t.qEmpty, emptySub: t.qEmptySub, del: t.qDel,
+      list: s.qHist.map(q => ({ city: q.city, at: new Date(q.at).toLocaleString(L === 'es' ? 'es-MX' : L, { dateStyle: 'medium', timeStyle: 'short' }), del: () => this.delQuote(q.id),
+        rows: [{ k: t.s_people, v: String(q.people) }, { k: t.s_dates, v: sdq(q.start) + ' → ' + sdq(q.end) }, { k: t.s_acts, v: q.acts.map(a => t['a_' + a]).join(', ') }, { k: t.s_ag, v: q.ag.join(', ') }, { k: t.s_budget, v: this.money(q.usd, q.cur) }, { k: t.s_pay, v: q.payM === 'cash' ? t.s_cash : t.s_crypto }] })) };
+    // q: estado de la hoja de validación del cotizador.
+    const q = { show: s.quoteStep > 0, loading: s.quoteStep === 1, ok: s.quoteStep === 2, missing: s.quoteStep === 3, items: s.quoteMissing };
+    // budget: texto y estado del presupuesto.
+    const budget = {
+      editing: s.editingBudget, view: !s.editingBudget, input: Math.round(s.cur === 'USD' ? usd : usd * FX), text: this.money(usd, s.cur),
+      note: (s.budgetEdit != null ? t.budgetEdited : t.budgetAuto) + ' · ' + this.days() + (L === 'es' ? ' días' : ' days')
+    };
+    // Botones de idioma.
+    const langs = [['es', 'Español'], ['en', 'English'], ['fr', 'Français'], ['de', 'Deutsch'], ['pt', 'Português'], ['it', 'Italiano']].map(([code, name]) => {
+      const on = s.lang === code, live = true;
+      return { name, note: live ? (on ? '✓' : '') : t.soon, style: `min-height:60px;border-radius:16px;border:2px solid ${on ? 'var(--pri)' : 'var(--line)'};background:${on ? 'var(--soft)' : 'var(--surf)'};color:var(--ink);padding:0 18px;display:flex;justify-content:space-between;align-items:center;cursor:${live ? 'pointer' : 'default'};opacity:${live ? 1 : 0.55}`, pick: () => live && this.setState({ lang: code }) };
+    });
+    // Listas de navegación.
+    const ids = s.flow === 't' ? SCREENS_T : SCREENS_C;
+    const jump = ids.map((id, i) => ({ n: (s.flow === 't' ? 'T' : 'E') + (i + 1), label: (NAV[L] || NAV.en)[id], go: () => this.jump(id), style: `min-height:40px;border:0;border-radius:10px;background:${s.screen === id ? 'var(--pri)' : 'transparent'};color:${s.screen === id ? '#fff' : 'var(--ink)'};font:600 14px Figtree,sans-serif;text-align:left;padding:0 10px;cursor:pointer;display:flex;align-items:center;gap:6px` }));
+    // mkItems: arma botones de menú; la pantalla actual queda resaltada.
+    const mkItems = (arr) => arr.map((id) => ({ label: (NAV[L] || NAV.en)[id], go: () => this.jump(id), style: `min-height:44px;border:0;border-radius:12px;background:${s.screen === id ? 'var(--pri)' : 'transparent'};color:${s.screen === id ? '#fff' : 'var(--ink)'};font:600 15px Figtree,sans-serif;text-align:left;padding:0 12px;cursor:pointer` }));
+    // Botón Inicio del menú.
+    const home = { label: L === 'es' ? 'Inicio' : 'Home', go: () => this.jump('splash'), style: `min-height:44px;border:0;border-radius:12px;background:${s.screen === 'splash' ? 'var(--pri)' : 'var(--soft)'};color:${s.screen === 'splash' ? '#fff' : 'var(--ink)'};font:700 15px Figtree,sans-serif;text-align:left;padding:0 12px;cursor:pointer` };
+    const isT = s.flow === 't';
+    // menu: lo que muestra el menú; solo secciones del perfil actual.
+    const menu = { fab: s.screen !== 'splash' && !s.menuOpen && !s.chatOpen, open: s.menuOpen, home, title: isT ? (L === 'es' ? 'Turista' : 'Tourist') : (L === 'es' ? 'Empresa' : 'Business'), items: mkItems(isT ? SCREENS_T.filter(x => x !== 'splash') : SCREENS_C) };
+    // Bloques de la animación de grúa.
+    const rows = [4, 3, 2, 1], blocks = [];
+    rows.forEach((n, r) => { for (let i = 0; i < n; i++) { const k = blocks.length; blocks.push({ style: `position:absolute;width:40px;height:22px;left:${12 + r * 22 + i * 44}px;bottom:${4 + r * 24}px;border-radius:4px;box-sizing:border-box;background:${(i + r) % 3 === 2 ? 'var(--acc)' : (i + r) % 2 ? 'var(--pri)' : '#4F7BFF'};border:2px solid rgba(255,255,255,.35);opacity:0;animation:ptBuild 3s ${k * 0.22}s infinite` }); } });
+    // Pasos animados de validación y búsqueda.
+    const mk = (keys) => keys.map((k, i) => ({ label: t[k], style: 'display:flex;gap:8px;font:600 14px Figtree;color:var(--ink)', mark: `position:absolute;left:0;opacity:0;color:var(--ok);font-weight:800;animation:ptShow .3s ${0.5 + i * 0.6}s forwards` }));
+    const valSteps = mk(['v1', 'v2', 'v3', 'v4']), searchSteps = mk(['sr1', 'sr2', 'sr3', 'sr4']);
+    // SEC:RENDER-CHAT · Preguntas ya hechas, nombre del usuario y estructura del chat (mensajes y preguntas sugeridas).
+    const asked = s.chatMsgs.filter(m => m.from === 'bot' && m.faq >= 0).map(m => m.faq);
+    const tIdx = SCREENS_T.indexOf(s.screen), cIdx = SCREENS_C.indexOf(s.screen);
+    const userName = s.flow === 't' ? (tIdx >= 4 ? 'Emma Carter' : '') : (cIdx >= 3 ? (s.cName || 'Ruta Cholula Tours') : '');
+    const chat = {
+      fab: !s.chatOpen && !['splash', 'welcome'].includes(s.screen), fabLabel: t.chatFab, open: s.chatOpen, typing: s.chatTyping, input: s.chatInput,
+      msgs: s.chatMsgs.map(m => ({ text: m.hi ? (userName && t.chatHiN ? t.chatHiN.replace('{name}', userName) : t.chatHi) : m.no ? t.chatNo : m.faq != null ? (FAQS[m.faq][L] || FAQS[m.faq].en).a : m.text, row: 'display:flex;justify-content:' + (m.from === 'me' ? 'flex-end' : 'flex-start'), bubble: m.from === 'me' ? 'max-width:82%;background:var(--pri);color:#fff;border-radius:16px 16px 4px 16px;padding:11px 14px;font:500 14px/1.45 Figtree' : 'max-width:86%;background:var(--surf);color:var(--ink);border:1.5px solid var(--line);border-radius:16px 16px 16px 4px;padding:11px 14px;font:500 14px/1.45 Figtree' })),
+      chips: FAQS.map((q, i) => ({ q: (q[L] || q.en).q, i })).filter(c => !asked.includes(c.i)).slice(0, 5).map(c => ({ q: c.q, go: () => this.sendChat(c.q, c.i) }))
+    };
+    // Puntos del aviso de privacidad.
+    const pvItems = [1, 2, 3, 4].map(i => ({ n: String(i), title: t['pv' + i + 't'], body: t['pv' + i + 'b'], style: `display:flex;gap:12px;align-items:flex-start;animation:ptRise .45s ${0.3 + i * 0.15}s both`, icon: 'width:32px;height:32px;border-radius:10px;background:var(--soft);color:var(--pri);font:800 15px/32px Figtree;text-align:center;flex:none' }));
+    // Partículas y letras animadas de la bienvenida.
+    const floaters = Array.from({ length: 16 }, (_, i) => ({ k: i })).map(({ k: i }) => `position:absolute;left:${(i * 37 + 8) % 94}%;bottom:-14px;width:${8 + (i % 3) * 4}px;height:${8 + (i % 3) * 4}px;background:${['#F2A93B', '#fff', '#9DB6FF', '#F2A93B'][i % 4]};border-radius:${i % 3 === 0 ? '50%' : '2px'};opacity:0;animation:ptFloat ${5 + (i % 4)}s ${(i * 0.45) % 4}s linear infinite`);
+    const nameChars = 'Emma Carter'.split('').map((ch, i) => ({ ch, style: `display:inline-block;white-space:pre;animation:ptLetter .6s ${0.55 + i * 0.06}s cubic-bezier(.2,.9,.3,1) both` }));
+    // scr: bandera por pantalla; la plantilla la lee como s.<nombre>.
+    const scr = {}; [...SCREENS_T, ...SCREENS_C].forEach(i => scr[i] = s.screen === i);
+    // Opciones de estado forzado.
+    const forcedOpts = [['normal', 'Normal'], ['loading', 'Carga'], ['empty', 'Vacío'], ['error', 'Error']].map(([k, label]) => ({ label, style: side(s.forced === k), go: () => this.setState({ forced: k }) }));
+    // Muestras de color de la paleta.
+    const swatches = [['pri', C.pri], ['acc', C.acc], ['bg', C.bg], ['surf', C.surf], ['ink', C.ink], ['ok', C.ok], ['err', C.err], ['warn', C.warn]].map(([n, c]) => ({ n, c, style: 'height:36px;border-radius:10px;border:1px solid var(--line);background:' + c }));
+    // SEC:RENDER-FONDO · bg: estilos del fondo animado. lvl (0 a 1) es el avance del usuario: posición de la pantalla actual dentro de su flujo. Sube al avanzar y baja al regresar. El nombre de la animación de la onda alterna entre ptBurstA y ptBurstB para que se reinicie en cada clic.
+    const flowIds = s.flow === 't' ? SCREENS_T : SCREENS_C, lvl = Math.max(0, flowIds.indexOf(s.screen)) / (flowIds.length - 1), bn = s.pulse % 2 ? 'ptBurstA' : 'ptBurstB';
+    const bg = {
+      glow: `position:absolute;left:50%;top:50%;width:1000px;height:1000px;margin:-500px 0 0 -500px;border-radius:50%;background:radial-gradient(closest-side,rgba(242,169,59,${(0.28 + lvl * 0.5).toFixed(2)}),transparent);animation:ptGlow 4s ease-in-out infinite;transition:background .6s`,
+      burst1: s.pulse ? `position:absolute;left:50%;top:50%;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;border:4px solid #F2A93B;animation:${bn} 1.1s ease-out both` : 'display:none',
+      burst2: s.pulse ? `position:absolute;left:50%;top:50%;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;border:3px solid #fff;animation:${bn} 1.1s .15s ease-out both` : 'display:none',
+      bar: `position:absolute;left:0;bottom:0;height:6px;width:${Math.round(lvl * 100)}%;background:linear-gradient(90deg,#F2A93B,#fff);box-shadow:0 0 16px 2px rgba(242,169,59,.7);transition:width .6s cubic-bezier(.2,.9,.3,1)`,
+      parts: Array.from({ length: 30 }, (_, i) => { const z = 6 + (i % 4) * 4; return `position:absolute;left:${(i * 53 + 7) % 98}%;bottom:-24px;width:${z}px;height:${z}px;background:${i % 3 ? 'rgba(255,255,255,.7)' : '#F2A93B'};opacity:0;animation:ptDrift ${14 + (i % 7) * 3}s ${(i * 1.3) % 14}s linear infinite`; })
+    };
+    // SEC:RENDER-SALIDA · Objeto con todo lo que la plantilla puede leer: s (pantalla activa), h (acciones), t (textos) y los valores anteriores.
+    return {
+      bg, qs, menu, floaters, nameChars, pvItems, privOpen: s.privOpen, chat, confetti, foundText, blocks, valSteps, searchSteps, themeVars, tile, tileLight, tileSoft, phoneStyle: 'position:relative;z-index:2;zoom:' + s.scale + ';width:390px;height:820px;flex:none;border-radius:48px;background:#0d1226;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px -20px rgba(15,25,70,.45)', h, t, s: scr, jump, forcedOpts, swatches, langs, btnPri, btnSec, btnSm, btnBack, cardBox, lbl, inp, chipSim,
+      tabT: tab(s.flow === 't') + ';background:' + (s.flow === 't' ? 'var(--pri)' : 'var(--surf)') + ';color:' + (s.flow === 't' ? '#fff' : 'var(--ink)'),
+      tabC: tab(s.flow === 'c') + ';background:' + (s.flow === 'c' ? 'var(--pri)' : 'var(--surf)') + ';color:' + (s.flow === 'c' ? '#fff' : 'var(--ink)'),
+      langPills: ['es', 'en', 'fr', 'de', 'pt', 'it'].map(c => ({ label: c.toUpperCase(), style: side(s.lang === c), go: () => this.setState({ lang: c }) })), pillDark: side(s.dark), darkLabel: s.dark ? 'Oscuro' : 'Claro',
+      fv, idv, idvRing: `margin:18px auto;width:230px;height:230px;border-radius:50%;background:var(--soft);border:3px ${s.idStep === 3 ? 'solid var(--ok)' : 'dashed var(--pri)'};display:flex;align-items:center;justify-content:center;position:relative;flex-direction:column;gap:6px;transition:border-color .3s;${s.idStep === 1 || s.idStep === 2 ? 'animation:ptRing 1.1s infinite' : ''}`, idvLabel: idvLab, consentAria: s.consent ? 'true' : 'false', consentBox: box(s.consent), consentMark: s.consent ? '✓' : '',
+      mm, budget, curChip: s.cur === 'USD' ? `USD · 1 USD = ${FX} MXN` : `MXN · 1 USD = ${FX} MXN`, actsOpen: s.actsOpen, actsAria: s.actsOpen ? 'true' : 'false', actsText, actsCaret: s.actsOpen ? '▴' : '▾', actList, cities,
+      stepBtn: 'width:48px;height:48px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:700 22px Figtree;cursor:pointer', f: { people: s.people, start: s.start, end: s.end, time: s.time, city: s.city, extra: s.extra },
+      quoteLabel: s.quoteStep === 1 ? t.validating : t.quote, quoteBtn: btnPri + (s.quoteStep === 1 ? ';animation:ptPulse .8s infinite' : ''), reqBtn: btnPri + ';opacity:' + (N ? 1 : 0.5), signBtn: btnPri + ';opacity:' + (pwAllOk && s.cName.trim() ? 1 : 0.45), walletsBtn: btnPri + ';opacity:' + walletsOp, q,
+      r, cards, skel: [1, 2, 3], reqLabel, reqOp: N ? 1 : 0.5,
+      payOptC: payOpt(isCrypto), payOptK: payOpt(!isCrypto), stepper, pay, payAgencies: payAg, coins: coinsL, summary,
+      cf: { name: s.cName, pass: s.cPass, id: s.cId, loginId: s.loginId, loginPass: s.loginPass, loginErr: s.loginErr, nameShow: s.cName || 'Ruta Cholula Tours' },
+      pwRules, signOp: pwAllOk && s.cName.trim() ? 1 : 0.45, copyLabel: s.copied ? '✓ ' + t.copied : t.copy,
+      walletRows, walletsOp, dt, profileFields, privRejected: s.privRejected,
+      dashTabR: tab(s.dashTab === 'req'), dashTabP: tab(s.dashTab === 'pay'), d, reqCards, payRows, noWallets: !payRows.length,
+      hasToast: !!s.toast, toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
